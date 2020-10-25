@@ -24,5 +24,10 @@ namespace DorsetOOP
         {
             InitializeComponent();
         }
+
+        private void button_1_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Hello, World! :)", "First Window", MessageBoxButton.OK,MessageBoxImage.Information);   
+        }
     }
 }
