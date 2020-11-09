@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Faculty.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="Users\Administrator.cs" />
     <Compile Include="Users\User.cs" />
