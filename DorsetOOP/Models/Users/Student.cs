@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DorsetOOP
 {
-    class Student
+    public class Student
     {
         public string StudentId { get; set; }
         public string FirstName { get; set; }

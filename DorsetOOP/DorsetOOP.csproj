@@ -56,7 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\Lesson.cs" />
     <Compile Include="Models\Timetable.cs" />
+    <Compile Include="Models\Users\Faculty.cs" />
     <Compile Include="Models\Users\Student.cs" />
     <Compile Include="Models\Users\Administrator.cs" />
     <Compile Include="Models\Users\User.cs" />
