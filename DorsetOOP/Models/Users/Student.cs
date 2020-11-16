@@ -8,13 +8,8 @@ namespace DorsetOOP
 {
     class Student
     {
-        private string name;
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
+        public string StudentId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

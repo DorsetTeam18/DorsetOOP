@@ -10,7 +10,5 @@ namespace DorsetOOP.Users
     {
         public string adminName { get; set; }
 
-
-
     }
 }
