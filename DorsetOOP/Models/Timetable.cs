@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DorsetOOP.Models
 {
-    class Timetable
+    public class Timetable
     {
     }
 }
