@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DorsetOOP.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DorsetOOP
 {
-    public class Student
+    public class Student : User
     {
         public Student()
         {
@@ -22,7 +23,7 @@ namespace DorsetOOP
 
         public string ShowContact()
         {
-            string showContact = $"ID : {ID}\nFirst Name : {FirstName}\nLast Name : {LastName}";
+            string showContact = $"ID : {StudentId}\nFirst Name : {FirstName}\nLast Name : {LastName}";
             return showContact;
         }
 
