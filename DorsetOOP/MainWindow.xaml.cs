@@ -27,68 +27,223 @@ namespace DorsetOOP
         public MainWindow()
         {
             InitializeComponent();
+            displayGrades.Text = "";
+
             using (var myDB = new VirtualCollegeContext())
             {
-                var users = new List<User>();
+                var addresses = myDB.Addresses.ToList();
 
-                var firstAddress = new Address()
+                var studs = myDB.Users.OfType<Student>().ToList();
+                var teachers = myDB.Users.OfType<Teacher>().ToList();
+                var courses = myDB.Courses.ToList();
+                var lessons = myDB.Lessons.ToList();
+
+                #region Students
+                //var premierEleve = new Student()
+                //{
+                //    FirstName = "Maxime",
+                //    LastName = "Dennery",
+                //    Gender = "Male",
+                //    BirthDate = new DateTime(2000, 3, 6),
+                //    Address = addresses.Find(a => a.AddressId == 1),
+                //    EmailAddress = "maxime.dennery@edu.devinci.fr",
+                //    Fees = 10800,
+                //    Password = "LOLMDRXD"
+                //};
+                //studs.Add(premierEleve);
+
+
+                //var secondEleve = new Student()
+                //{
+                //    FirstName = "Christophe",
+                //    LastName = "Nguyen",
+                //    Gender = "Male",
+                //    BirthDate = new DateTime(2000, 12, 10),
+                //    Address = addresses.Find(a => a.AddressId == 6),
+                //    EmailAddress = "chri.ngu@edu.devinci.fr",
+                //    Fees = 10800,
+                //    Password = "ELABORE"
+                //};
+                //studs.Add(secondEleve);
+                //var troisisemeEleve = new Student()
+                //{
+                //    FirstName = "Gwen",
+                //    LastName = "Marek",
+                //    Gender = "Female",
+                //    BirthDate = new DateTime(2005, 1, 5),
+                //    Address = addresses.Find(a => a.AddressId == 3),
+                //    EmailAddress = "gwen.marek@edu.devinci.fr",
+                //    Fees = 10800,
+                //    Password = "maquillage"
+                //};
+                //studs.Add(troisisemeEleve);
+                //var quatriemeEleve = new Student()
+                //{
+                //    FirstName = "Rémi",
+                //    LastName = "Lombard",
+                //    Gender = "Male",
+                //    BirthDate = new DateTime(2000, 4, 17),
+                //    Address = addresses.Find(a => a.AddressId == 1),
+                //    EmailAddress = "remi.lombard@edu.devinci.fr",
+                //    Fees = 10800,
+                //    Password = "@@"
+                //};
+                //studs.Add(quatriemeEleve);
+
+                //myDB.Users.AddRange(studs);
+
+                #endregion
+
+                #region Teachers
+                //var firstProf = new Teacher()
+                //{
+                //    FirstName = "Walter",
+                //    LastName = "perreti",
+                //    Gender = "Male",
+                //    BirthDate = new DateTime(1972, 01, 10),
+                //    Address = addresses.Find(a => a.AddressId == 2),
+                //    EmailAddress = "w.p@edu.devinci.fr",
+                //    Password = "MECATRONIQUE"
+                //};
+                //teachers.Add(firstProf);
+                //var secondPorf = new Teacher()
+                //{
+                //    FirstName = "Olivier",
+                //    LastName = "Zanette",
+                //    Gender = "Male",
+                //    BirthDate = new DateTime(1977, 01, 10),
+                //    Address = addresses.Find(a => a.AddressId == 3),
+                //    EmailAddress = "o.z@edu.devinci.fr",
+                //    Password = "ELEC"
+                //};
+                //teachers.Add(secondPorf);
+                //var terreur = new Teacher()
+                //{
+                //    FirstName = "Noémie",
+                //    LastName = "Thaï",
+                //    Gender = "Female",
+                //    BirthDate = new DateTime(1988, 7, 14),
+                //    Address = addresses.Find(a => a.AddressId == 5),
+                //    EmailAddress = "n.t@edu.devinci.fr",
+                //    Password = "THERMO"
+                //};
+                //teachers.Add(terreur);
+
+                //myDB.Users.AddRange(teachers);
+                #endregion
+
+                #region Admins
+                //var superAdmin = new Administrator()
+                //{
+                //    FirstName = "Pascal",
+                //    LastName = "Brouaye",
+                //    Gender = "Male",
+                //    BirthDate = new DateTime(1972, 01, 10),
+                //    Address = addresses.Find(a => a.AddressId == 6),
+                //    EmailAddress = "p.b@edu.devinci.fr",
+                //    Password = "JE SUIS LE CHEF"
+                //};
+                //myDB.Users.Add(superAdmin);
+                #endregion
+
+                #region Courses
+                //var maths = new Course()
+                //{
+                //    Title = "Mathematics",
+                //    Credits = 30,
+                //    ReferentTeacher = teachers.FirstOrDefault(t => t.LastName == "Thaï")
+                //};
+                //courses.Add(maths);
+                //var meca = new Course()
+                //{
+                //    Title = "Mecatronnics",
+                //    Credits = 15,
+                //    ReferentTeacher = teachers.FirstOrDefault(t => t.LastName.Contains("reti"))
+                //};
+                //courses.Add(meca);
+                //var elec = new Course()
+                //{
+                //    Title = "Electricity",
+                //    Credits = 30,
+                //    ReferentTeacher = teachers.FirstOrDefault(t => t.LastName == "Zanette")
+                //};
+                //courses.Add(elec);
+
+                //courses.Find(c => c.Title == "Mecatronnics").Teachers = new List<Teacher>() { teachers.Find(t => t.LastName == "Zanette" || t.LastName.Contains("rreti")) };
+                //courses.Find(c => c.Title == "Electricity").Teachers = new List<Teacher>() { teachers.Find(t => t.LastName == "Zanette" || t.LastName.Contains("rreti")) };
+                //courses.Find(c => c.Title == "Mathematics").Teachers = new List<Teacher>() { teachers.Find(t => t.LastName == "Thaï") };
+
+                //myDB.Courses.AddRange(courses);
+                #endregion
+
+                #region Lessons
+                //var firstLesson = new Lesson()
+                //{
+                //    Course = courses.FirstOrDefault(c => c.Title == "Electricity"),
+                //    Day = "Tuesday",
+                //    Hour = "08:15",
+                //    Duration = "03:00",
+                //    RoomName = "L309",
+                //    Teacher = courses.FirstOrDefault(c => c.Title == "Electricity").Teachers.FirstOrDefault(t => t.LastName == "Zanette")
+                //};
+
+                //firstLesson.Students.Add(studs.FirstOrDefault(s => s.FirstName == "Gwen"));
+
+                //firstLesson.EnrollStudent(studs.FirstOrDefault(s=>s.FirstName=="Christophe")); // Enrolls l'élève qui s'appelle Christophe
+
+                //foreach (var s in studs.FindAll(s => s.Address == addresses.Find(a => a.Country == "Colombia"))) myDB.Lessons.FirstOrDefault(l => l.Day == "Tuesday").Students.Add(s);
+                //myDB.Lessons.Add(firstLesson);
+
+                #endregion
+
+                #region Grades
+
+                var grades = new List<Grade>();
+
+                var firstGrade = new Grade()
                 {
-                    AddressLine1 = "31 bvd Troussel",
-                    AddressLine2 = "Bâtiment A, M08",
-                    City = "Conflans",
-                    Country = "France",
-                    Postcode = "78700"
+                    Course = courses.Find(c => c.Title == "Mathematics"),
+                    Coefficient = 1,
+                    ExamName = "CC1",
+                    Mark = 60,
+                    Student = myDB.Users.OfType<Student>().FirstOrDefault(s => s.FirstName == "Rémi")
                 };
-                var secondAddress = new Address()
+                grades.Add(firstGrade);
+
+                var secondGrade = new Grade()
                 {
-                    AddressLine1 = "360 N Kenter",
-                    City = "Los Angeles",
-                    Country = "USA",
-                    Postcode = "44400"
+                    Course = courses.Find(c => c.Title == "Mecatronnics"),
+                    Coefficient = 2,
+                    ExamName = "Online quizz #1",
+                    Mark = 92.75m,
+                    Student = myDB.Users.OfType<Student>().FirstOrDefault(s => s.FirstName == "Christophe")
                 };
+                grades.Add(secondGrade);
 
-                var s = new Student()
+                var thirdGrade = new Grade()
                 {
-                    FirstName = "Rémi",
-                    LastName = "Lombard",
-                    BirthDate = new DateTime(2000, 04, 17),
-                    EmailAddress = "remi17.lombard@gmail.com",
-                    Address = firstAddress,
-                    Fees=10800
+                    Course = courses.Find(c => c.Title == "Mecatronnics"),
+                    Coefficient = 2,
+                    ExamName = "Online quizz #1",
+                    Mark = 12.25m,
+                    Student = myDB.Users.OfType<Student>().FirstOrDefault(s => s.FirstName == "Maxime")
                 };
-                users.Add(s);
+                grades.Add(thirdGrade);
 
-                var t = new Teacher() 
-                {
-                    FirstName = "Walter",
-                    LastName = "Perreti",
-                    BirthDate = new DateTime(1972, 01, 10),
-                    EmailAddress = "w.p@edu.devinci.fr",
-                    Address = secondAddress
-                };
-                users.Add(t);
+                myDB.Grades.AddRange(grades);
 
-                var a = new Administrator() 
-                {
-                    FirstName = "Bastien",
-                    LastName = "Lombard",
-                    BirthDate = new DateTime(2002, 04, 10),
-                    EmailAddress = "bastien10.lombard@gmail.com",
-                    Address = firstAddress
-                };
+                #endregion
 
-                s.Tutor = t;
-
-                users.Add(a);
-
-                myDB.Users.AddRange(users);
                 myDB.SaveChanges();
-            }
-        }
 
-        private void button_1_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Hello, World! :)", "First Window", MessageBoxButton.OK,MessageBoxImage.Information);   
+                var u = myDB.Users.OfType<Student>().ToList().FindAll(s=>s.Grades.Count!=0);
+                foreach (var p in u)
+                {
+                    displayGrades.Text += p.GradesInfo + "\n\n";
+                }
+
+                //foreach (var s in myDB.Users.OfType<Student>().ToList().FindAll(s => s.Grades != null)) displayGrades.Text += s.GradesInfo;                
+            }
         }
     }
 }

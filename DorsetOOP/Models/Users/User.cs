@@ -14,17 +14,17 @@ namespace DorsetOOP.Models.Users
     //This class regroups all the information for a person to log in
     {
         #region Properties
-
         public int UserId { get; set; }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Gender { get; set; }
         public string EmailAddress { get; set; }
         public string Password { get; set; }
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
-        // Many to one (each Student has one address but each Address can have many students)
+        // Many to one (each User has one address and each Address can have many users)
         public int? AddressId { get; set; }
         [ForeignKey("AddressId")]
         public Address Address { get; set; }
@@ -35,8 +35,7 @@ namespace DorsetOOP.Models.Users
         {
             get { return $"{ FirstName } { LastName }"; }
         }
-
-
+           
         /*public override string ToString()
         {
             if (loginStatus == "online")

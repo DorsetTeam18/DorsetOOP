@@ -12,20 +12,19 @@ namespace DorsetOOP.Models
     {
         public int AddressId { get; set; }
 
-        [Required]
         public string AddressLine1 { get; set; }
 
         public string AddressLine2 { get; set; }
 
-        [Required]
         public string Postcode { get; set; }
 
-        [Required]
         public string City { get; set; }
 
-        [Required]
+        public string State { get; set; }
+
         public string Country { get; set; }
 
+        // One to many (each adress can have multiple students
         public ICollection<User> Users { get; set; }
     }
 }

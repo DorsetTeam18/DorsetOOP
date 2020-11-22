@@ -16,11 +16,11 @@ namespace DorsetOOP.Models.Users
 
         public int TeacherId { get; set; }
 
-        // One to many (one teacher has multiple) and each Lesson et Student has only one Teacher
+        // One to many (one teacher has multiple lessons and each Lesson has only one Teacher)
         public ICollection<Lesson> Lessons { get; set; }
         public ICollection<Student> Tutoring { get; set; }
 
-        // Many to many
+        // Many to many (one teacher has multiple courses and each course has multiple teachers)
         public ICollection<Course> Courses { get; set; }
     }
 }

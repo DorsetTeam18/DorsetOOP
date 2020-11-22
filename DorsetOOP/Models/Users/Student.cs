@@ -12,12 +12,14 @@ namespace DorsetOOP.Models.Users
         public Student()
         {
             this.Lessons = new HashSet<Lesson>();
+            this.Grades = new HashSet<Grade>();
         }
+
         #region Properties
         public int StudentId { get; set; }
         public double Fees { get; set; }
 
-        // Many to one (many students have one tutor and one tutor has many students)
+        // Many to one (one students has one tutor and one tutor has many students)
         public int? TutorId { get; set; }
         [ForeignKey("TutorId")]
         public Teacher Tutor { get; set; }
@@ -25,19 +27,29 @@ namespace DorsetOOP.Models.Users
         // One to many (each student has many grades)
         public ICollection<Grade> Grades { get; set; }
 
-        // Many to many (multiple students have multiple lessons and many lessons have multiple students)
+        // Many to many (each student has multiple lessons and each lessons have multiple students)
         public ICollection<Lesson> Lessons { get; set; }
         #endregion
 
-        public void AddGrade(Course _course, string _examName, decimal _coefficient)
+        public void AddGrade(Course _course, decimal _mark, string _examName, decimal _coefficient)
         {
             Grades.Add(new Grade()
             {
                 Course = _course,
+                Mark = _mark,
                 ExamName = _examName,
-                Coefficient = _coefficient,
-                Student = this
+                Coefficient = _coefficient
             });
+        }
+
+        public string GradesInfo
+        {
+            get
+            {
+                string r = $" { FullName }'s grades:\n";
+                foreach (var g in Grades) r += $"{ g.Course.Title } : { g.ExamName } - { g.Mark }% (Coeff. { g.Coefficient })\n";
+                return r;
+            }
         }
     }
 }

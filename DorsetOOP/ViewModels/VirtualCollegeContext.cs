@@ -16,15 +16,12 @@ namespace DorsetOOP.ViewModels
         protected override void OnModelCreating(DbModelBuilder modelBuilder) 
         {
             modelBuilder.Entity<Lesson>().ToTable("Lessons");
-            modelBuilder.Entity<Student>().ToTable("Students");
-            modelBuilder.Entity<Teacher>().ToTable("Teachers");
-            modelBuilder.Entity<Administrator>().ToTable("Administrators");
         }
 
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Student> Students { get; set; }
-        public virtual DbSet<Teacher> Teachers { get; set; }
-        public virtual DbSet<Administrator> Administrators { get; set; }
+        //public virtual DbSet<Student> Students { get; set; }
+        //public virtual DbSet<Teacher> Teachers { get; set; }
+        //public virtual DbSet<Administrator> Administrators { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }

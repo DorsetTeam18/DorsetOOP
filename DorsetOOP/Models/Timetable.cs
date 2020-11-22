@@ -9,8 +9,8 @@ namespace DorsetOOP.Models
 {
     public class Timetable
     {
-        public static SortedList[] timeTable = new SortedList[5];
-        
+        //public static SortedList[] timeTable = new SortedList[7];
+
         //public SortedList[] TimeTable
         //{
         //    get => timeTable;
@@ -26,6 +26,5 @@ namespace DorsetOOP.Models
         //{
         //    timeTable[lessontoRemove.Day - 1].Remove(lessontoRemove);
         //}
-
     }
 }
