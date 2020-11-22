@@ -27,7 +27,7 @@ namespace DorsetOOP
         public MainWindow()
         {
             InitializeComponent();
-            using (var myDB = new VirtualCollegeDBContext())
+            using (var myDB = new VirtualCollegeContext())
             {
                 var users = new List<User>();
 

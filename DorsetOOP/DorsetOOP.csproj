@@ -75,7 +75,7 @@
     <Compile Include="Models\Users\Student.cs" />
     <Compile Include="Models\Users\Administrator.cs" />
     <Compile Include="Models\Users\User.cs" />
-    <Compile Include="ViewModels\VirtualCollegeDBContext.cs" />
+    <Compile Include="ViewModels\VirtualCollegeContext.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
