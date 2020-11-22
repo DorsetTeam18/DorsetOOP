@@ -1,35 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DorsetOOP
+namespace DorsetOOP.Models.Users
 {
-    public class Student
+    public class Student : User
     {
         public Student()
         {
-
+            this.Lessons = new HashSet<Lesson>();
         }
-
+        #region Properties
         public int StudentId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public double StudentFees { get; set; }
-        //public DataBaseSQL StudentGradeBook { get; set; }
-        //public FacultyMembers StudentTutor { get; set; }
+        public double Fees { get; set; }
 
-        public string ShowContact()
-        {
-            string showContact = $"ID : {ID}\nFirst Name : {FirstName}\nLast Name : {LastName}";
-            return showContact;
-        }
+        // Many to one (many students have one tutor and one tutor has many students)
+        public int? TutorId { get; set; }
+        [ForeignKey("TutorId")]
+        public Teacher Tutor { get; set; }
 
-        public string ShowFees()
+        // One to many (each student has many grades)
+        public ICollection<Grade> Grades { get; set; }
+
+        // Many to many (multiple students have multiple lessons and many lessons have multiple students)
+        public ICollection<Lesson> Lessons { get; set; }
+        #endregion
+
+        public void AddGrade(Course _course, string _examName, decimal _coefficient)
         {
-            string ShowFees = $"Fees : {StudentFees}\n";
-            return ShowFees;
+            Grades.Add(new Grade()
+            {
+                Course = _course,
+                ExamName = _examName,
+                Coefficient = _coefficient,
+                Student = this
+            });
         }
     }
 }

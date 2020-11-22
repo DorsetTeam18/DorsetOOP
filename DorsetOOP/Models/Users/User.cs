@@ -1,20 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DorsetOOP.Users
+namespace DorsetOOP.Models.Users
 {
-    public class User
+    public abstract class User
     //This class regroups all the information for a person to log in
     {
-        // Properties
+        #region Properties
+
         public int UserId { get; set; }
-        public string Login { get; set; }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string EmailAddress { get; set; }
         public string Password { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime BirthDate { get; set; }
+
+        // Many to one (each Student has one address but each Address can have many students)
+        public int? AddressId { get; set; }
+        [ForeignKey("AddressId")]
+        public Address Address { get; set; }
+
+        #endregion
+
+        public string FullName
+        {
+            get { return $"{ FirstName } { LastName }"; }
+        }
+
 
         /*public override string ToString()
         {

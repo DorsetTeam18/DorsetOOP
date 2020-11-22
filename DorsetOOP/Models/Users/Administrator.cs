@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DorsetOOP.Users
+namespace DorsetOOP.Models.Users
 {
     public class Administrator : User
     {
-        public string adminName { get; set; }
-
+        public int AministratorId { get; set; }
     }
 }

@@ -11,21 +11,21 @@ namespace DorsetOOP.Models
     {
         public static SortedList[] timeTable = new SortedList[5];
         
-        public SortedList[] TimeTable
-        {
-            get => timeTable;
-            set => timeTable = value;
-        }
+        //public SortedList[] TimeTable
+        //{
+        //    get => timeTable;
+        //    set => timeTable = value;
+        //}
 
-        static void AddLesson(Lesson lessontoAdd)
-        {
-            timeTable[lessontoAdd.Day - 1].Add(lessontoAdd.Hour, lessontoAdd);
-        }
+        //static void AddLesson(Lesson lessontoAdd)
+        //{
+        //    timeTable[lessontoAdd.Day - 1].Add(lessontoAdd.Hour, lessontoAdd);
+        //}
 
-        static void RemoveLesson(Lesson lessontoRemove)
-        {
-            timeTable[lessontoRemove.Day - 1].Remove(lessontoRemove);
-        }
+        //static void RemoveLesson(Lesson lessontoRemove)
+        //{
+        //    timeTable[lessontoRemove.Day - 1].Remove(lessontoRemove);
+        //}
 
     }
 }
