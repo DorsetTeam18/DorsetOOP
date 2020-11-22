@@ -239,7 +239,7 @@ namespace DorsetOOP
                 var u = myDB.Users.OfType<Student>().ToList().FindAll(s=>s.Grades.Count!=0);
                 foreach (var p in u)
                 {
-                    displayGrades.Text += p.GradesInfo + "\n\n";
+                    displayGrades.Text += p.GradesInfo + "\n\n"; 
                 }
 
                 //foreach (var s in myDB.Users.OfType<Student>().ToList().FindAll(s => s.Grades != null)) displayGrades.Text += s.GradesInfo;                
