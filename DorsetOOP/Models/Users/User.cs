@@ -21,7 +21,7 @@ namespace DorsetOOP.Models.Users
         public string Gender { get; set; }
         public string EmailAddress { get; set; }
         public string Password { get; set; }
-        [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
         public DateTime BirthDate { get; set; }
 
         // Many to one (each User has one address and each Address can have many users)

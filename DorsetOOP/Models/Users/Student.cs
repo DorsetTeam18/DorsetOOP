@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DorsetOOP.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,7 +17,6 @@ namespace DorsetOOP.Models.Users
         }
 
         #region Properties
-        public int StudentId { get; set; }
         public double Fees { get; set; }
 
         // Many to one (one students has one tutor and one tutor has many students)
@@ -31,17 +31,6 @@ namespace DorsetOOP.Models.Users
         public ICollection<Lesson> Lessons { get; set; }
         #endregion
 
-        public void AddGrade(Course _course, decimal _mark, string _examName, decimal _coefficient)
-        {
-            Grades.Add(new Grade()
-            {
-                Course = _course,
-                Mark = _mark,
-                ExamName = _examName,
-                Coefficient = _coefficient
-            });
-        }
-
         public string GradesInfo
         {
             get
@@ -51,5 +40,21 @@ namespace DorsetOOP.Models.Users
                 return r;
             }
         }
+
+        public void AddGrade(Course _course, decimal _mark, string _examName, decimal _coefficient)
+        {
+            using (var AppDB = new VirtualCollegeContext())
+            {
+                AppDB.Grades.Add(new Grade
+                {
+                    Course = _course,
+                    Mark = _mark,
+                    ExamName = _examName,
+                    Coefficient = _coefficient,
+                    Student = this
+                });
+            }
+        }
+
     }
 }

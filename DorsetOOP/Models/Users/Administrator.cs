@@ -8,6 +8,5 @@ namespace DorsetOOP.Models.Users
 {
     public class Administrator : User
     {
-        public int AministratorId { get; set; }
     }
 }

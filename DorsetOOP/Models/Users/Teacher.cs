@@ -14,8 +14,6 @@ namespace DorsetOOP.Models.Users
             this.Courses = new HashSet<Course>();
         }
 
-        public int TeacherId { get; set; }
-
         // One to many (one teacher has multiple lessons and each Lesson has only one Teacher)
         public ICollection<Lesson> Lessons { get; set; }
         public ICollection<Student> Tutoring { get; set; }

@@ -13,10 +13,7 @@ namespace DorsetOOP.ViewModels
     {
         public VirtualCollegeContext() : base("name=VirtualCollege") { }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder) 
-        {
-            modelBuilder.Entity<Lesson>().ToTable("Lessons");
-        }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) { }
 
         public virtual DbSet<User> Users { get; set; }
         //public virtual DbSet<Student> Students { get; set; }

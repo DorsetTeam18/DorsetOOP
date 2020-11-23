@@ -35,24 +35,14 @@ namespace DorsetOOP.Models
         // Many to many (each lesson has multiple students and each student has multiple lessons)
         public ICollection<Student> Students { get; set; }
 
-        //public void EnrollStudent(Student studentToEnroll)
-        //{
-        //    using(var myDb = new VirtualCollegeContext())
-        //    {
-        //        //myDb.Lessons.Find(this).Students.Add(studentToEnroll);
-        //        myDb.Lessons.Find(this).Students.Add(studentToEnroll);
-        //    }
-        //}
+        public void EnrollStudent(Student studentToEnroll)
+        {
+            using (var myDb = new VirtualCollegeContext()) myDb.Lessons.Find(this).Students.Add(studentToEnroll);
+        }
 
-        //public void EnrollStudent(List<Student> studentsToEnroll)
-        //{
-        //    using (var myDb = new VirtualCollegeContext())
-        //    {
-        //        foreach (var stud in Students)
-        //        {
-        //            myDb.Lessons.Find(this).Students.Add(stud);
-        //        }
-        //    }
-        //}
+        public void EnrollStudent(List<Student> studentsToEnroll)
+        {
+            using (var myDb = new VirtualCollegeContext()) foreach (var stud in Students) EnrollStudent(stud);
+        }
     }
 }
