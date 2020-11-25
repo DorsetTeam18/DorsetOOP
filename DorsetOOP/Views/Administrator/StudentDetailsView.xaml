@@ -1,0 +1,62 @@
+﻿<Window x:Class="DorsetOOP.StudentDetailsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DorsetOOP.Converters"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="Student Details" Height="450" Width="800" Background="#F2F2F2" Icon="/img/LoginIcon.ico" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/img/ProfilePicture.png" Height="70"/>
+
+                <StackPanel Orientation="Vertical" Margin="10,0">
+
+                    <Label Margin="0,3" Content="{Binding Test.FullName, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="22" FontWeight="Bold"/>
+
+                    <Label Margin="0,-12" Content="{Binding Test.UserId, UpdateSourceTrigger=PropertyChanged}"
+                                   ContentStringFormat="#0000{0}"
+                                   FontSize="16" FontWeight="Bold" Foreground="Gray"/>
+
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                <Label>Birthday</Label>
+                <Label Content="{Binding Test.BirthDate}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Email</Label>
+                <Label Content="{Binding Test.EmailAddress}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Password</Label>
+                <Label Content="{Binding Test.Password}"/>
+            </StackPanel>
+        </StackPanel>
+        
+        <DataGrid x:Name="viewPaymentsDataGrid" Grid.Column="0" Grid.Row="1" Margin="5" 
+                  AutoGenerateColumns="False" IsReadOnly="True"
+                  ItemsSource="{Binding Test.Grades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  GridLinesVisibility="All" Width="auto">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Mark" Binding="{Binding ExamName }"/>
+                <DataGridTextColumn Width="*" Header="Exan Name" Binding="{Binding Mark }"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>
+
+

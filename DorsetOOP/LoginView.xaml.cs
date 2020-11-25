@@ -23,6 +23,8 @@ namespace DorsetOOP
     /// </summary>
     public partial class LoginView : Window
     {
+        public User LoggedUser { get; set; }
+
         public LoginView()
         {
             InitializeComponent();
@@ -37,10 +39,31 @@ namespace DorsetOOP
                 var courses = myDB.Courses.ToList();
                 var lessons = myDB.Lessons.ToList();
                 var grades = myDB.Grades.ToList();
+                var users = myDB.Users.ToList();
 
                 #region Initial inputs
 
                 #region Students
+                //myDB.Addresses.Add(new Address()
+                //{
+                //    AddressLine1 = "31 BVD Troussel",
+                //    AddressLine2 = "Building A, M08",
+                //    City = "Conflans",
+                //    State = "Yvellines",
+                //    Postcode = "78700",
+                //    Country = "France"
+                //});
+
+                //myDB.Addresses.Add(new Address()
+                //{
+                //    AddressLine1 = "TestAddress",
+                //    AddressLine2 = "TestAddress",
+                //    City = "TestAddress",
+                //    State = "TestAddress",
+                //    Postcode = "TestAddress",
+                //    Country = "TestAddress"
+                //});
+
                 //var studs = new List<Student>();
                 //var premierEleve = new Student()
                 //{
@@ -81,18 +104,18 @@ namespace DorsetOOP
                 //};
                 //studs.Add(troisisemeEleve);
 
-                ////var quatriemeEleve = new Student()
-                ////{
-                ////    FirstName = "Rémi",
-                ////    LastName = "Lombard",
-                ////    Gender = "Male",
-                ////    BirthDate = new DateTime(2000, 4, 17),
-                ////    Address = addresses.Find(a => a.AddressId == 1),
-                ////    EmailAddress = "remi.lombard@edu.devinci.fr",
-                ////    Fees = 10800,
-                ////    Password = "@@"
-                ////};
-                ////studs.Add(quatriemeEleve);
+                //var quatriemeEleve = new Student()
+                //{
+                //    FirstName = "Rémi",
+                //    LastName = "Lombard",
+                //    Gender = "Male",
+                //    BirthDate = new DateTime(2000, 4, 17),
+                //    Address = addresses.Find(a => a.AddressId == 1),
+                //    EmailAddress = "remi.lombard@edu.devinci.fr",
+                //    Fees = 10800,
+                //    Password = "@@"
+                //};
+                //studs.Add(quatriemeEleve);
 
                 //myDB.Users.AddRange(studs);
 
@@ -214,8 +237,6 @@ namespace DorsetOOP
 
                 //myDB.SaveChanges();
 
-                // foreach (var s in studs.FindAll(s => s.Address == addresses.Find(a => a.Country == "Colombia"))) myDB.Lessons.FirstOrDefault(l => l.Day == "Tuesday").Students.Add(s);
-
                 //var studentsForFirstLesson = studs.FindAll(s => s.UserId == 2 || s.UserId == 3);
 
                 //lessons.Find(l => l.LessonId == 1).Teacher = teachers.Find(c => c.LastName == "Zanette");
@@ -283,46 +304,50 @@ namespace DorsetOOP
                 #endregion
                 #endregion
 
-                myDB.SaveChanges();            
+                myDB.SaveChanges();
             }
         }
 
         private void userLoginButton_Click(object sender, RoutedEventArgs e)
         {
-            using(var appDB = new VirtualCollegeContext())
+            User a = new Administrator();
+            using(var myDb = new VirtualCollegeContext())
             {
-                var a = appDB.Users.ToList().Find(u => u.EmailAddress == userLoginInput.Text && u.Password == userPasswordinput.Password.ToString());
-                if(a != null)
-                {
-                    var t = a.GetType().Name;
-                    MessageBox.Show($"Succesfully logged in to { t } account { a.FullName }!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    switch (t)
-                    {
-                        case "Student":
-                            StudentView studentViewWindow = new StudentView();
-                            studentViewWindow.Closing += new CancelEventHandler(AnyViewWindow_Closing);
-                            studentViewWindow.Show();
-                            this.Visibility = Visibility.Hidden;
-                            break;
-
-                        case "Teacher":
-                            TeacherView teacherViewWindow = new TeacherView();
-                            teacherViewWindow.Closing += new CancelEventHandler(AnyViewWindow_Closing);
-                            teacherViewWindow.Show();
-                            this.Visibility = Visibility.Hidden;
-                            break;
-                        case "Administrator":
-                            AdministratorView adminViewWindow = new AdministratorView();
-                            adminViewWindow.Closing += new CancelEventHandler(AnyViewWindow_Closing);
-                            adminViewWindow.Show();
-                            this.Visibility = Visibility.Hidden;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else MessageBox.Show($"Wrong login and/or password!", "Wrong login", MessageBoxButton.OK, MessageBoxImage.Error);
+                var addresses = myDb.Addresses.ToList();
+                a = myDb.Users.ToList().Find(u => u.EmailAddress == userLoginInput.Text && u.Password == userPasswordinput.Password.ToString());
             }
+
+            if (a != null)
+            {
+                var t = a.GetType().Name.Split('_')[0];
+                MessageBox.Show($"Succesfully logged in to { t } account { a.FullName }!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                switch (t)
+                {
+                    case "Student":
+                        StudentView studentViewWindow = new StudentView();
+                        studentViewWindow.Closing += new CancelEventHandler(AnyViewWindow_Closing);
+                        studentViewWindow.Show();
+                        this.Visibility = Visibility.Hidden;
+                        break;
+
+                    case "Teacher":
+                        TeacherView teacherViewWindow = new TeacherView();
+                        teacherViewWindow.Closing += new CancelEventHandler(AnyViewWindow_Closing);
+                        teacherViewWindow.Show();
+                        this.Visibility = Visibility.Hidden;
+                        break;
+
+                    case "Administrator":
+                        AdministratorView adminViewWindow = new AdministratorView(a);
+                        adminViewWindow.Closing += new CancelEventHandler(AnyViewWindow_Closing);
+                        adminViewWindow.Show();
+                        this.Visibility = Visibility.Hidden;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else MessageBox.Show($"Wrong login and/or password!", "Wrong login", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void AnyViewWindow_Closing(object sender, CancelEventArgs e) { this.Visibility = Visibility.Visible; }

@@ -66,9 +66,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AdministratorView.xaml.cs">
+    <Compile Include="Views\Administrator\StudentDetailsView.xaml.cs">
+      <DependentUpon>StudentDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\AddStudentView.xaml.cs">
+      <DependentUpon>AddStudentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\AdministratorView.xaml.cs">
       <DependentUpon>AdministratorView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\PercentageConverter.cs" />
     <Compile Include="LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -92,7 +99,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="AdministratorView.xaml">
+    <Page Include="Views\Administrator\StudentDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Administrator\AddStudentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Administrator\AdministratorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,14 +151,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="img\LoginLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="img\loginIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\ProfilePicture.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

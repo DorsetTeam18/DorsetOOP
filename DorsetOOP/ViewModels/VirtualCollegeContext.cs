@@ -23,5 +23,50 @@ namespace DorsetOOP.ViewModels
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }
+
+
+        public static List<Student> GetStudents()
+        {
+            var t = new List<Student>();
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var addresses = myDB.Addresses.ToList();
+                var teachers = myDB.Users.OfType<Teacher>().ToList();
+                var courses = myDB.Courses.ToList();
+                var lessons = myDB.Lessons.ToList();
+                var grades = myDB.Grades.ToList();
+
+                t = myDB.Users.OfType<Student>().ToList();
+            }
+            return t;
+        }
+
+        public static bool CreateUser(User _userToAdd, Address _addressToAdd)
+        {
+            using(var myDB = new VirtualCollegeContext())
+            {
+                bool done = false;
+                var users = myDB.Users.ToList();
+                var addresses = myDB.Addresses.ToList();
+                var students = myDB.Users.OfType<Student>().ToList();
+                var teachers = myDB.Users.OfType<Teacher>().ToList();
+                var courses = myDB.Courses.ToList();
+                var lessons = myDB.Lessons.ToList();
+                var grades = myDB.Grades.ToList();
+
+                string _description = _addressToAdd.ToString();
+                Address match = addresses.Find(a => a.ToString() == _description);
+
+                if (users.FindAll(s=>s.EmailAddress == _userToAdd.EmailAddress).Count() == 0)
+                {
+                    if (match == null) _userToAdd.Address = _addressToAdd;
+                    else _userToAdd.Address = match;
+                    myDB.Users.Add(_userToAdd);
+                    done = true;
+                }
+                myDB.SaveChanges();
+                return done;
+            }
+        }
     }
 }

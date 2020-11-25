@@ -21,8 +21,6 @@ namespace DorsetOOP.Models
         public Course Course { get; set; }
 
         // One to many (each student has many grades, each grade has one student)
-
-       // 1 eleve a plusieurs notes et une note à un élève 
         public int? StudentId { get; set; }
         [ForeignKey("StudentId")]
         public Student Student { get; set; }

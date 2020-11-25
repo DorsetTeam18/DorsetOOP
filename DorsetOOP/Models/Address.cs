@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,5 +27,10 @@ namespace DorsetOOP.Models
 
         // One to many (each adress can have multiple students
         public ICollection<User> Users { get; set; }
+
+        public override string ToString()
+        {
+            return $"{ AddressLine1 }\n{ AddressLine2 }\n{ Postcode },{ City }\n{ State }, { Country }";
+        }
     }
 }
