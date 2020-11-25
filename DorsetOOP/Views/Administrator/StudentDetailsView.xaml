@@ -22,9 +22,11 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
+        <!--#region Student Info-->
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
 
 
@@ -44,26 +46,29 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-            <Label>Date of Birth</Label>
+                <Label>Date of Birth</Label>
                 <Label Content="{Binding SelectedStudent.BirthDate}" FontWeight="Bold"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label>E-mail Address</Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>E-mail Address</Label>
                 <Label Content="{Binding SelectedStudent.EmailAddress}" FontWeight="Bold"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label>Phone Number</Label>
-            <Label Content="A FAIRE" Background="Gray" FontWeight="Bold"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label>Address</Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Phone Number</Label>
+                <Label Content="A FAIRE" Background="Gray" FontWeight="Bold"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Address</Label>
                 <Label Content="{Binding SelectedStudent.Address}" FontWeight="Bold"/>
+            </StackPanel>
         </StackPanel>
-        </StackPanel>
-        <Label Content="Fees" FontSize="18" FontWeight="Bold"
-                   HorizontalAlignment="Left"
+        <!--#endregion-->
+
+        <!--#region Student Fees-->
+        <Label Content="Payments" FontSize="18" FontWeight="Bold"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"
                     Grid.Row="1"/>
-        <DataGrid x:Name="viewPaymentsDataGrid" Grid.Column="0" Grid.Row="2" Margin="5,35,5,5" 
+        <DataGrid x:Name="viewPaymentsDataGrid" Grid.Column="0" Grid.Row="2" 
                   AutoGenerateColumns="False" IsReadOnly="True"
                   ItemsSource="{Binding SelectedStudent.Payments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   GridLinesVisibility="All" Width="auto">
@@ -72,15 +77,19 @@
                 <DataGridTextColumn Width="100" Header="Amount" Binding="{Binding Amount }" />
             </DataGrid.Columns>
         </DataGrid>
+        <!--#endregion-->
 
-        <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" >
+        <!--#region Right Panel-->
+        <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
+            
 
+            <!--#region Student Lessons-->
             <Label Content="Lessons" FontSize="18" FontWeight="Bold"
                    HorizontalAlignment="Left"
                    Grid.Row="0"/>
@@ -107,7 +116,9 @@
 
                 </DataGrid.Columns>
             </DataGrid>
+            <!--#endregion-->
 
+            <!--#region Student Grades-->
             <Label Content="Grades" FontSize="18" FontWeight="Bold"
                    HorizontalAlignment="Left"
                    Grid.Row="2"/>
@@ -133,8 +144,11 @@
                     <DataGridTextColumn Width="auto" Header="Teacher Name" Binding="{Binding Course.ReferentTeacher.FullName }"/>
                 </DataGrid.Columns>
             </DataGrid>
-
+            <!--#endregion-->
+            
         </Grid>
+        <!--#endregion-->
+        
     </Grid>
 </Window>
 

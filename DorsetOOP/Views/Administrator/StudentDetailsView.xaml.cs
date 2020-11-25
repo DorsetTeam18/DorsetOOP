@@ -25,6 +25,8 @@ namespace DorsetOOP
     public partial class StudentDetailsView : Window, INotifyPropertyChanged
     {
         #region ViewModel
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private Student _selectedStudent = new Student();
         public Student SelectedStudent
         {
@@ -35,9 +37,8 @@ namespace DorsetOOP
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedStudent"));
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
+
         public StudentDetailsView(Student _inputStudent)
         {
             InitializeComponent();
