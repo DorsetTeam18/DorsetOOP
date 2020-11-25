@@ -15,7 +15,7 @@ namespace DorsetOOP.ViewModels
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-           
+
         }
 
         public virtual DbSet<User> Users { get; set; }
@@ -47,7 +47,7 @@ namespace DorsetOOP.ViewModels
 
         public static bool CreateUser(User _userToAdd, Address _addressToAdd)
         {
-            using(var myDB = new VirtualCollegeContext())
+            using (var myDB = new VirtualCollegeContext())
             {
                 bool done = false;
                 var users = myDB.Users.ToList();
@@ -62,7 +62,7 @@ namespace DorsetOOP.ViewModels
                 string _description = _addressToAdd.ToString();
                 Address match = addresses.Find(a => a.ToString() == _description);
 
-                if (users.FindAll(s=>s.EmailAddress == _userToAdd.EmailAddress).Count() == 0)
+                if (users.FindAll(s => s.EmailAddress == _userToAdd.EmailAddress).Count() == 0)
                 {
                     if (match == null) _userToAdd.Address = _addressToAdd;
                     else _userToAdd.Address = match;
@@ -72,6 +72,30 @@ namespace DorsetOOP.ViewModels
                 myDB.SaveChanges();
                 return done;
             }
+        }
+
+        public static bool RemoveUser(User _userToRemove)
+        {
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var users = myDB.Users.ToList();
+                var addresses = myDB.Addresses.ToList();
+                var courses = myDB.Courses.ToList();
+                var lessons = myDB.Lessons.ToList();
+                var grades = myDB.Grades.ToList();
+                var payments = myDB.Payments.ToList();
+
+                myDB.Users.Remove(myDB.Users.Find(_userToRemove.UserId));
+
+                myDB.SaveChanges();
+            }
+
+            return true;
+        }
+        public static bool RemoveUser(List<User> _usersToRemove)
+        {
+            foreach (User u in _usersToRemove) RemoveUser(u);
+            return true;
         }
     }
 }

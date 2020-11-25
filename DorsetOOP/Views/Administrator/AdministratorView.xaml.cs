@@ -134,10 +134,8 @@ namespace DorsetOOP
         {
             if (e.Key == Key.D)
             {
-                var a = Students.ToList();
-                a.Remove((Student)viewStudentsDataGrid.SelectedItem);
-                Students = new ObservableCollection<Student>(a);
-                //var t = Students.ToList().Remove((Student)viewStudentsDataGrid.SelectedItem);
+                VirtualCollegeContext.RemoveUser((Student)viewStudentsDataGrid.SelectedItem);
+                GetAllStudents();
             }
         }
     }
