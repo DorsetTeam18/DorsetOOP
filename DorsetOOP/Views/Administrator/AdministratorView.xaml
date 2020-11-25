@@ -8,10 +8,9 @@
         Title="Administrator Window" Background="#F2F2F2" Height="450" Width="800" Icon="/img/LoginIcon.ico" FontFamily="Helvetica">
 
     <Window.Resources>
-
+        <local:SizeConverter x:Key="sizeConverter"/>
         <Style TargetType="{x:Type TabItem}">
-
-            <Setter Property="Height" Value="{Binding Path=ActualHeight, ElementName=toolBar, Converter={local:PercentageConverter}, ConverterParameter='0.25'}"/>
+            <Setter Property="Height" Value="{Binding ElementName=myTabControl, Path=ActualHeight, Converter={StaticResource sizeConverter}}" />
 
             <Setter Property="Template">
 
@@ -67,10 +66,10 @@
     </Window.Resources>
 
     <Grid>
-        <TabControl x:Name="toolBar" TabStripPlacement="Left" Margin="-2">
+        <TabControl x:Name="myTabControl" TabStripPlacement="Left" Margin="-2">
 
             <!--#region STUDENTS -->
-            <TabItem >
+            <TabItem>
                 <TabItem.Header>
                     <StackPanel>
                         <Image Source="https://cdn2.iconfinder.com/data/icons/picol-vector/32/view-512.png" Height="50"/>
@@ -198,6 +197,11 @@
                         <Label Content="Afficher Utilisateurs" FontStyle="Italic" />
                     </StackPanel>
                 </TabItem.Header>
+
+                <Grid>
+                    
+                </Grid>
+                
             </TabItem>
             <!--#endregion-->
 

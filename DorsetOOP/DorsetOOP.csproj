@@ -75,7 +75,7 @@
     <Compile Include="Views\Administrator\AdministratorView.xaml.cs">
       <DependentUpon>AdministratorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\PercentageConverter.cs" />
+    <Compile Include="Converters\SizeConverter.cs" />
     <Compile Include="LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
