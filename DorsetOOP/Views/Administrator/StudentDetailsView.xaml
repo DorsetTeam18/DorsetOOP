@@ -17,42 +17,50 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
-            <StackPanel Orientation="Horizontal">
+
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
                 <Image Source="/img/ProfilePicture.png" Height="70"/>
 
-                <StackPanel Orientation="Vertical" Margin="10,0">
+                <StackPanel Orientation="Vertical" Margin="10,0" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                    <Label Margin="0,3" Content="{Binding Test.FullName, UpdateSourceTrigger=PropertyChanged}"
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Name"/>
+                        <Label  Content="{Binding SelectedStudent.FullName, UpdateSourceTrigger=PropertyChanged}"
                                FontSize="22" FontWeight="Bold"/>
+                    </StackPanel>
 
-                    <Label Margin="0,-12" Content="{Binding Test.UserId, UpdateSourceTrigger=PropertyChanged}"
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="ID"/>
+                        <Label  Content="{Binding SelectedStudent.UserId, UpdateSourceTrigger=PropertyChanged}"
                                    ContentStringFormat="#0000{0}"
                                    FontSize="16" FontWeight="Bold" Foreground="Gray"/>
-
+                    </StackPanel>
+                    
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-                <Label>Date of Birth</Label>
-                <Label Content="{Binding Test.BirthDate}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label>E-mail Address</Label>
-                <Label Content="{Binding Test.EmailAddress}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label>Phone Number</Label>
-                <Label Content="A FAIRE" Background="Gray"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label>Address</Label>
-                <Label Content="{Binding Test.Address}"/>
-            </StackPanel>
+            <Label>Date of Birth</Label>
+                <Label Content="{Binding SelectedStudent.BirthDate}" FontWeight="Bold"/>
         </StackPanel>
-        
+        <StackPanel Orientation="Horizontal">
+            <Label>E-mail Address</Label>
+                <Label Content="{Binding SelectedStudent.EmailAddress}" FontWeight="Bold"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label>Phone Number</Label>
+            <Label Content="A FAIRE" Background="Gray" FontWeight="Bold"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label>Address</Label>
+                <Label Content="{Binding SelectedStudent.Address}" FontWeight="Bold"/>
+        </StackPanel>
+        </StackPanel>
+
         <DataGrid x:Name="viewPaymentsDataGrid" Grid.Column="0" Grid.Row="1" Margin="5" 
                   AutoGenerateColumns="False" IsReadOnly="True"
-                  ItemsSource="{Binding Test.Grades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding SelectedStudent.Grades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   GridLinesVisibility="All" Width="auto">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Mark" Binding="{Binding ExamName }"/>
@@ -60,6 +68,67 @@
             </DataGrid.Columns>
         </DataGrid>
 
+        <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Lessons" FontSize="18" FontWeight="Bold"
+                   HorizontalAlignment="Left"
+                   Grid.Row="0"/>
+
+            <Button Content="Edit" FontSize="18" FontWeight="Bold" Padding="5,0"
+                    HorizontalAlignment="Right" 
+                    Grid.Row="0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <DataGrid x:Name="viewLessonsDataGrid" Margin="5" 
+                  AutoGenerateColumns="False" IsReadOnly="True"
+                  ItemsSource="{Binding SelectedStudent.Lessons, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  GridLinesVisibility="All" Width="auto"
+                      Grid.Row="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Lessons" Binding="{Binding Room}"/>
+                    <DataGridTextColumn Width="auto" Header="Date" Binding="{Binding Day}"/>
+                    <DataGridTextColumn Width="auto" Header="Duration" Binding="{Binding Duration}"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Label Content="Grades" FontSize="18" FontWeight="Bold"
+                   HorizontalAlignment="Left"
+                   Grid.Row="2"/>
+
+            <Button Content="Edit" FontSize="18" FontWeight="Bold" Padding="5,0"
+                    HorizontalAlignment="Right" 
+                    Grid.Row="2">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <DataGrid x:Name="viewGradeDataGrid" Grid.Row="3" Margin="5" 
+                  AutoGenerateColumns="False" IsReadOnly="True"
+                  ItemsSource="{Binding SelectedStudent.Grades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  GridLinesVisibility="All" Width="auto">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Exam Name" Binding="{Binding ExamName }"/>
+                    <DataGridTextColumn Width="*" Header="Mark" Binding="{Binding Mark }"/>
+                    <DataGridTextColumn Width="auto" Header="Coefficient" Binding="{Binding Coefficient }"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
     </Grid>
 </Window>
 

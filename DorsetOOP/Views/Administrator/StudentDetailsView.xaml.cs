@@ -25,23 +25,23 @@ namespace DorsetOOP
     public partial class StudentDetailsView : Window, INotifyPropertyChanged
     {
         #region ViewModel
-        private Student _test = new Student();
-        public Student Test
+        private Student _selectedStudent = new Student();
+        public Student SelectedStudent
         {
-            get { return _test; }
+            get { return _selectedStudent; }
             set
             {
-                _test = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Test"));
+                _selectedStudent = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedStudent"));
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
-        public StudentDetailsView(Student _student)
+        public StudentDetailsView(Student _inputStudent)
         {
             InitializeComponent();
-            Test = _student;
+            SelectedStudent = _inputStudent;
         }        
     }
 }
