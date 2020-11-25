@@ -129,5 +129,16 @@ namespace DorsetOOP
             new StudentDetailsView(DataStudent).ShowDialog();
             Console.WriteLine();
         }
+
+        private void viewStudentsDataGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.D)
+            {
+                var a = Students.ToList();
+                a.Remove((Student)viewStudentsDataGrid.SelectedItem);
+                Students = new ObservableCollection<Student>(a);
+                //var t = Students.ToList().Remove((Student)viewStudentsDataGrid.SelectedItem);
+            }
+        }
     }
 }

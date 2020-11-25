@@ -13,7 +13,10 @@ namespace DorsetOOP.ViewModels
     {
         public VirtualCollegeContext() : base("name=VirtualCollege") { }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder) { }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+           
+        }
 
         public virtual DbSet<User> Users { get; set; }
         //public virtual DbSet<Student> Students { get; set; }
@@ -24,6 +27,7 @@ namespace DorsetOOP.ViewModels
         public virtual DbSet<Lesson> Lessons { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }
 
+        public virtual DbSet<Payment> Payments { get; set; }
 
         public static List<Student> GetStudents()
         {
@@ -35,7 +39,7 @@ namespace DorsetOOP.ViewModels
                 var courses = myDB.Courses.ToList();
                 var lessons = myDB.Lessons.ToList();
                 var grades = myDB.Grades.ToList();
-
+                var payments = myDB.Payments.ToList();
                 t = myDB.Users.OfType<Student>().ToList();
             }
             return t;
@@ -53,6 +57,7 @@ namespace DorsetOOP.ViewModels
                 var courses = myDB.Courses.ToList();
                 var lessons = myDB.Lessons.ToList();
                 var grades = myDB.Grades.ToList();
+                var payments = myDB.Payments.ToList();
 
                 string _description = _addressToAdd.ToString();
                 Address match = addresses.Find(a => a.ToString() == _description);

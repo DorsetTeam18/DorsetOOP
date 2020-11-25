@@ -33,19 +33,13 @@
 
                 <StackPanel Orientation="Vertical" Margin="10,0" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Name"/>
-                        <Label  Content="{Binding SelectedStudent.FullName, UpdateSourceTrigger=PropertyChanged}"
+                    <Label Margin="0,3" Content="{Binding SelectedStudent.FullName, UpdateSourceTrigger=PropertyChanged}"
                                FontSize="22" FontWeight="Bold"/>
-                    </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="ID"/>
-                        <Label  Content="{Binding SelectedStudent.UserId, UpdateSourceTrigger=PropertyChanged}"
+                    <Label Margin="0,-12" Content="{Binding SelectedStudent.UserId, UpdateSourceTrigger=PropertyChanged}"
                                    ContentStringFormat="#0000{0}"
                                    FontSize="16" FontWeight="Bold" Foreground="Gray"/>
-                    </StackPanel>
-                    
+
                 </StackPanel>
             </StackPanel>
 
@@ -66,14 +60,16 @@
                 <Label Content="{Binding SelectedStudent.Address}" FontWeight="Bold"/>
         </StackPanel>
         </StackPanel>
-
-        <DataGrid x:Name="viewPaymentsDataGrid" Grid.Column="0" Grid.Row="1" Margin="5" 
+        <Label Content="Fees" FontSize="18" FontWeight="Bold"
+                   HorizontalAlignment="Left"
+                    Grid.Row="1"/>
+        <DataGrid x:Name="viewPaymentsDataGrid" Grid.Column="0" Grid.Row="2" Margin="5,35,5,5" 
                   AutoGenerateColumns="False" IsReadOnly="True"
-                  ItemsSource="{Binding SelectedStudent.Grades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding SelectedStudent.Payments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   GridLinesVisibility="All" Width="auto">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Mark" Binding="{Binding ExamName }"/>
-                <DataGridTextColumn Width="*" Header="Exan Name" Binding="{Binding Mark }"/>
+                <DataGridTextColumn Width="*" Header="Date" Binding="{Binding Date }"/>
+                <DataGridTextColumn Width="100" Header="Amount" Binding="{Binding Amount }" />
             </DataGrid.Columns>
         </DataGrid>
 
@@ -89,12 +85,12 @@
                    HorizontalAlignment="Left"
                    Grid.Row="0"/>
 
-            <Button Content="Edit" FontSize="18" FontWeight="Bold" Padding="5,0"
+            <Button Content="Edit" FontSize="12" FontWeight="Bold" Padding="10,0"  Height="20" Margin="5,0"
                     HorizontalAlignment="Right" 
                     Grid.Row="0">
                 <Button.Resources>
                     <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
+                        <Setter Property="CornerRadius" Value="7"/>
                     </Style>
                 </Button.Resources>
             </Button>
@@ -116,12 +112,12 @@
                    HorizontalAlignment="Left"
                    Grid.Row="2"/>
 
-            <Button Content="Edit" FontSize="18" FontWeight="Bold" Padding="5,0"
+            <Button Content="Edit" FontSize="12" FontWeight="Bold" Padding="10,0" Height="20" Margin="5,0"
                     HorizontalAlignment="Right" 
                     Grid.Row="2">
                 <Button.Resources>
                     <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
+                        <Setter Property="CornerRadius" Value="7"/>
                     </Style>
                 </Button.Resources>
             </Button>

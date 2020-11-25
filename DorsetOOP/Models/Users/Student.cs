@@ -14,11 +14,12 @@ namespace DorsetOOP.Models.Users
         {
             this.Lessons = new HashSet<Lesson>();
             this.Grades = new HashSet<Grade>();
+            this.Payments = new HashSet<Payment>();
         }
 
         #region Properties
-        public double Fees { get; set; }
-
+        
+        public decimal Fees { get; set; }
         // Many to one (one students has one tutor and one tutor has many students)
         public int? TutorId { get; set; }
         [ForeignKey("TutorId")]
@@ -29,6 +30,10 @@ namespace DorsetOOP.Models.Users
 
         // Many to many (each student has multiple lessons and each lessons have multiple students)
         public ICollection<Lesson> Lessons { get; set; }
+
+        public ICollection<Payment> Payments { get; set; }
+
+        
         #endregion
 
         public string GradesInfo
@@ -52,6 +57,19 @@ namespace DorsetOOP.Models.Users
                     ExamName = _examName,
                     Coefficient = _coefficient,
                     Student = this
+                });
+            }
+        }
+
+        public void AddPayment(DateTime _datetime,long _amount)
+        {
+            using(var AppDB=new VirtualCollegeContext())
+            {
+                AppDB.Payments.Add(new Payment
+                {
+                    Date=_datetime,
+                    Amount=_amount,
+                    Student=this
                 });
             }
         }

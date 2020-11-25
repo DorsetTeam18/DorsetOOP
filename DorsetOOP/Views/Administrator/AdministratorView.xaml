@@ -163,9 +163,10 @@
 
                     <!--#region Row 2-->
                     <DataGrid x:Name="viewStudentsDataGrid" Grid.Row="2" Margin="0,10,0,0" IsReadOnly="True"
-                              ItemsSource="{Binding Students, UpdateSourceTrigger=PropertyChanged}" 
+                              ItemsSource="{Binding Students, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                               SelectedItem="{Binding DataStudent, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                              AutoGenerateColumns="False" GridLinesVisibility="All" Width="auto" >
+                              AutoGenerateColumns="False" GridLinesVisibility="All" Width="auto" 
+                              KeyDown="viewStudentsDataGrid_KeyDown">
                         <DataGrid.Resources>
                             <Style TargetType="DataGridRow">
                                 <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>

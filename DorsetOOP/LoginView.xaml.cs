@@ -28,7 +28,6 @@ namespace DorsetOOP
         public LoginView()
         {
             InitializeComponent();
-            InitializeComponent();
             userLoginInput.Focus();
 
             using (var myDB = new VirtualCollegeContext())
@@ -40,28 +39,18 @@ namespace DorsetOOP
                 var lessons = myDB.Lessons.ToList();
                 var grades = myDB.Grades.ToList();
                 var users = myDB.Users.ToList();
-
+                //var payments = myDB.Payments.ToList();
                 #region Initial inputs
 
                 #region Students
                 //myDB.Addresses.Add(new Address()
                 //{
-                //    AddressLine1 = "31 BVD Troussel",
-                //    AddressLine2 = "Building A, M08",
-                //    City = "Conflans",
-                //    State = "Yvellines",
-                //    Postcode = "78700",
+                //     AddressLine1 = "31 bvd Troussel",
+                //     AddressLine2 = "Building a, m08",
+                //     City = "Conflans",
+                //     State = "Yvelines",
+                //     Postcode = "78700",
                 //    Country = "France"
-                //});
-
-                //myDB.Addresses.Add(new Address()
-                //{
-                //    AddressLine1 = "TestAddress",
-                //    AddressLine2 = "TestAddress",
-                //    City = "TestAddress",
-                //    State = "TestAddress",
-                //    Postcode = "TestAddress",
-                //    Country = "TestAddress"
                 //});
 
                 //var studs = new List<Student>();
@@ -255,53 +244,9 @@ namespace DorsetOOP
 
                 #endregion
 
-                #region Grades
-
-                //var grades = new List<Grade>();
-
-                //var firstGrade = new Grade()
-                //{
-                //    Course = courses.Find(c => c.Title == "Mathematics"),
-                //    Coefficient = 1,
-                //    ExamName = "Test 1",
-                //    Mark = 60,
-                //    Student = myDB.Users.OfType<Student>().FirstOrDefault(s => s.FirstName == "Rémi")
-                //};
-                //grades.Add(firstGrade);
-
-                //var secondGrade = new Grade()
-                //{
-                //    Course = courses.Find(c => c.Title == "Mecatronnics"),
-                //    Coefficient = 2,
-                //    ExamName = "Online quizz #1",
-                //    Mark = 92.75m,
-                //    Student = myDB.Users.OfType<Student>().FirstOrDefault(s => s.FirstName == "Christophe")
-                //};
-                //grades.Add(secondGrade);
-
-                //var thirdGrade = new Grade()
-                //{
-                //    Course = courses.Find(c => c.Title == "Mecatronnics"),
-                //    Coefficient = 2,
-                //    ExamName = "Online quizz #1",
-                //    Mark = 12.25m,
-                //    Student = myDB.Users.OfType<Student>().FirstOrDefault(s => s.FirstName == "Maxime")
-                //};
-                //grades.Add(thirdGrade);
-
-                //var fourthGrade = new Grade()
-                //{
-                //    Course = courses.Find(c => c.Title == "Mecatronnics"),
-                //    Coefficient = 2,
-                //    ExamName = "Online quizz #2",
-                //    Mark = 64,
-                //    Student = myDB.Users.OfType<Student>().FirstOrDefault(s => s.FirstName == "Maxime")
-                //};
-                //grades.Add(fourthGrade);
-
-                //myDB.Grades.AddRange(grades);
-
-                #endregion
+                //Student s = (Student)myDB.Users.Find(1);
+                //s.AddPayment(new DateTime(2020, 11, 25, 14, 30, 00), (long)3000.50);
+                
                 #endregion
 
                 myDB.SaveChanges();
