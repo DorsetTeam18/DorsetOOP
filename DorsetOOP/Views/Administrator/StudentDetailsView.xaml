@@ -4,15 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DorsetOOP.Converters"
-        mc:Ignorable="d" WindowStartupLocation="CenterScreen" DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" FontFamily="Helvetica" DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Student Details" Height="450" Width="800" Background="#F2F2F2" Icon="/img/LoginIcon.ico" >
-    <Grid>
+    <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -33,16 +33,20 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-                <Label>Birthday</Label>
+                <Label>Date of Birth</Label>
                 <Label Content="{Binding Test.BirthDate}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label>Email</Label>
+                <Label>E-mail Address</Label>
                 <Label Content="{Binding Test.EmailAddress}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label>Password</Label>
-                <Label Content="{Binding Test.Password}"/>
+                <Label>Phone Number</Label>
+                <Label Content="A FAIRE" Background="Gray"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Address</Label>
+                <Label Content="{Binding Test.Address}"/>
             </StackPanel>
         </StackPanel>
         

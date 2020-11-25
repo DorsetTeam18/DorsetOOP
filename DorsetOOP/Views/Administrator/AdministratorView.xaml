@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DorsetOOP.Converters"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="Administrator Window" Background="#F2F2F2" Height="450" Width="800" Icon="/img/LoginIcon.ico">
+        Title="Administrator Window" Background="#F2F2F2" Height="450" Width="800" Icon="/img/LoginIcon.ico" FontFamily="Helvetica">
 
     <Window.Resources>
 
