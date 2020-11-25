@@ -6,6 +6,15 @@
         xmlns:local="clr-namespace:DorsetOOP.Converters"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" FontFamily="Helvetica" DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Student Details" Height="450" Width="800" Background="#F2F2F2" Icon="/img/LoginIcon.ico" >
+
+    <Window.Resources>
+        <Style TargetType="DataGridCell">
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        </Style>
+
+    </Window.Resources>
+
+
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -123,8 +132,9 @@
                   GridLinesVisibility="All" Width="auto">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" Header="Exam Name" Binding="{Binding ExamName }"/>
-                    <DataGridTextColumn Width="*" Header="Mark" Binding="{Binding Mark }"/>
+                    <DataGridTextColumn Width="auto" Header="Mark" Binding="{Binding Mark }"/>
                     <DataGridTextColumn Width="auto" Header="Coefficient" Binding="{Binding Coefficient }"/>
+                    <DataGridTextColumn Width="auto" Header="Teacher Name" Binding="{Binding Course.ReferentTeacher.FullName }"/>
                 </DataGrid.Columns>
             </DataGrid>
 
