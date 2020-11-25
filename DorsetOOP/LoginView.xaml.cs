@@ -265,7 +265,7 @@ namespace DorsetOOP
             if (a != null)
             {
                 var t = a.GetType().Name.Split('_')[0];
-                MessageBox.Show($"Succesfully logged in to { t } account { a.FullName }!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                //MessageBox.Show($"Succesfully logged in to { t } account { a.FullName }!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 switch (t)
                 {
                     case "Student":

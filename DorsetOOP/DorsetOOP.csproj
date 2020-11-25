@@ -89,10 +89,10 @@
     <Compile Include="Models\Users\Student.cs" />
     <Compile Include="Models\Users\Administrator.cs" />
     <Compile Include="Models\Users\User.cs" />
-    <Compile Include="StudentView.xaml.cs">
+    <Compile Include="Views\Student\StudentView.xaml.cs">
       <DependentUpon>StudentView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TeacherView.xaml.cs">
+    <Compile Include="Views\Teacher\TeacherView.xaml.cs">
       <DependentUpon>TeacherView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\VirtualCollegeContext.cs" />
@@ -116,11 +116,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StudentView.xaml">
+    <Page Include="Views\Student\StudentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TeacherView.xaml">
+    <Page Include="Views\Teacher\TeacherView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

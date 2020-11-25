@@ -128,15 +128,15 @@
                                         </VisualBrush>
                                     </Style.Resources>
                                     <Style.Triggers>
-                                        <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
-                                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                        </Trigger>
-                                        <Trigger Property="IsFocused" Value="False">
-                                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                        </Trigger>
-                                        <Trigger Property="IsFocused" Value="True">
-                                            <Setter Property="Background" Value="White" />
-                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="Text" Value="{x:Static sys:String.Empty}"/>
+                                                <Condition Property="IsFocused"  Value="False"/>
+                                            </MultiTrigger.Conditions>
+                                            <MultiTrigger.Setters>
+                                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                            </MultiTrigger.Setters>
+                                        </MultiTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </TextBox.Style>
