@@ -116,7 +116,7 @@ namespace DorsetOOP.ViewModels
             using (var myDB = new VirtualCollegeContext())
             {
                 bool done = false;
-                var users = myDB.Users.Include("Lessons").ToList();
+                var users = myDB.Users.ToList();
                 var addresses = myDB.Addresses.ToList();
                 var students = myDB.Users.OfType<Student>().ToList();
                 var teachers = myDB.Users.OfType<Teacher>().ToList();
