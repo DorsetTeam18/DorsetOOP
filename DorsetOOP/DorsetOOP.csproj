@@ -70,6 +70,9 @@
     <Compile Include="Views\Administrator\StudentDetailsView.xaml.cs">
       <DependentUpon>StudentDetailsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Administrator\TeacherDetailsView.xaml.cs">
+      <DependentUpon>TeacherDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Administrator\AddStudentView.xaml.cs">
       <DependentUpon>AddStudentView.xaml</DependentUpon>
     </Compile>
@@ -101,6 +104,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Administrator\StudentDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Administrator\TeacherDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -152,7 +159,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="img\students.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="img\LoginLogo.png" />
   </ItemGroup>
@@ -161,6 +170,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="img\ProfilePicture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\courses.png" />
+    <Resource Include="img\fees.png" />
+    <Resource Include="img\info.png" />
+    <Resource Include="img\schedule.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -33,23 +33,32 @@ namespace DorsetOOP
             using (var myDB = new VirtualCollegeContext())
             {
                 var addresses = myDB.Addresses.ToList();
-                var studs = myDB.Users.OfType<Student>().ToList();
+                var studs = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().ToList();
+
                 var teachers = myDB.Users.OfType<Teacher>().ToList();
+
                 var courses = myDB.Courses.ToList();
-                var lessons = myDB.Lessons.ToList();
+
+                var lessons = myDB.Lessons.Include("Students").
+                    ToList();
+
                 var grades = myDB.Grades.ToList();
-                var users = myDB.Users.ToList();
+
+                //var users = myDB.Users.ToList();
                 //var payments = myDB.Payments.ToList();
+
                 #region Initial inputs
 
                 #region Students
                 //myDB.Addresses.Add(new Address()
                 //{
-                //     AddressLine1 = "31 bvd Troussel",
-                //     AddressLine2 = "Building a, m08",
-                //     City = "Conflans",
-                //     State = "Yvelines",
-                //     Postcode = "78700",
+                //    AddressLine1 = "31 bvd Troussel",
+                //    AddressLine2 = "Building A, M08",
+                //    City = "Conflans",
+                //    State = "Yvelines",
+                //    Postcode = "78700",
                 //    Country = "France"
                 //});
 
@@ -159,8 +168,8 @@ namespace DorsetOOP
                 //    Gender = "Male",
                 //    BirthDate = new DateTime(1972, 01, 10),
                 //    Address = addresses.Find(a => a.AddressId == 6),
-                //    EmailAddress = "admin@edu.devinci.fr",
-                //    Password = "AdminPassword"
+                //    EmailAddress = "1",
+                //    Password = "1"
                 //};
                 //myDB.Users.Add(superAdmin);
                 #endregion
@@ -235,6 +244,8 @@ namespace DorsetOOP
                 //{
                 //    lessons.Find(l => l.LessonId == 1).Students.Add(s);
                 //}
+
+
                 //a = studs.FindAll(s => s.FirstName == "Christophe" || s.LastName == "Dennery" || s.UserId == 1);
 
                 //foreach (var s in a)
@@ -244,10 +255,54 @@ namespace DorsetOOP
 
                 #endregion
 
-                //Student s = (Student)myDB.Users.Find(1);
-                //s.AddPayment(new DateTime(2020, 11, 25, 14, 30, 00), (long)3000.50);
-                
+                #region Grades
+                //var grades = new List<Grade>();
+
+                //var firstGrade = new Grade()
+                //{
+                //    Course = courses.Find(c => c.Title == "Mathematics"),
+                //    Coefficient = 1,
+                //    ExamName = "Test 1",
+                //    Mark = 60,
+                //    Student = myDB.Users.OfType<Student>().FirstOrDefault(s => s.FirstName == "Rémi")
+                //};
+                //grades.Add(firstGrade);
+
+                //var secondGrade = new Grade()
+                //{
+                //    Course = courses.Find(c => c.Title == "Mecatronnics"),
+                //    Coefficient = 2,
+                //    ExamName = "Online quizz #1",
+                //    Mark = 92.75m,
+                //    Student = myDB.Users.OfType<Student>().FirstOrDefault(s => s.FirstName == "Christophe")
+                //};
+                //grades.Add(secondGrade);
+
+                //var thirdGrade = new Grade()
+                //{
+                //    Course = courses.Find(c => c.Title == "Mecatronnics"),
+                //    Coefficient = 2,
+                //    ExamName = "Online quizz #1",
+                //    Mark = 12.25m,
+                //    Student = myDB.Users.OfType<Student>().FirstOrDefault(s => s.FirstName == "Maxime")
+                //};
+                //grades.Add(thirdGrade);
+
+                //var fourthGrade = new Grade()
+                //{
+                //    Course = courses.Find(c => c.Title == "Mecatronnics"),
+                //    Coefficient = 2,
+                //    ExamName = "Online quizz #2",
+                //    Mark = 64,
+                //    Student = myDB.Users.OfType<Student>().FirstOrDefault(s => s.FirstName == "Maxime")
+                //};
+                //grades.Add(fourthGrade);
+
+                //myDB.Grades.AddRange(grades);
                 #endregion
+                #endregion
+
+                studs.Find(s => s.FirstName == "Maxime").AddPayment(DateTime.Now, (long)7800.25);
 
                 myDB.SaveChanges();
             }
@@ -265,7 +320,6 @@ namespace DorsetOOP
             if (a != null)
             {
                 var t = a.GetType().Name.Split('_')[0];
-                //MessageBox.Show($"Succesfully logged in to { t } account { a.FullName }!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 switch (t)
                 {
                     case "Student":

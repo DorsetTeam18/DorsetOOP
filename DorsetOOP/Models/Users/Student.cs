@@ -63,7 +63,7 @@ namespace DorsetOOP.Models.Users
 
         public void AddPayment(DateTime _datetime,long _amount)
         {
-            using(var AppDB=new VirtualCollegeContext())
+            using (var AppDB = new VirtualCollegeContext()) 
             {
                 AppDB.Payments.Add(new Payment
                 {

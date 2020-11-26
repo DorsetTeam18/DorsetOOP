@@ -15,21 +15,27 @@ namespace DorsetOOP.ViewModels
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<Lesson>().
+                HasMany(c => c.Students).
+                WithMany(p => p.Lessons).
+                Map(
+                m =>
+                    {
+                        m.MapLeftKey("LessonId");
+                        m.MapRightKey("UserId");
+                        m.ToTable("StudentLessons");
+                     });
         }
 
-        public virtual DbSet<User> Users { get; set; }
-        //public virtual DbSet<Student> Students { get; set; }
-        //public virtual DbSet<Teacher> Teachers { get; set; }
-        //public virtual DbSet<Administrator> Administrators { get; set; }
-        public virtual DbSet<Address> Addresses { get; set; }
-        public virtual DbSet<Course> Courses { get; set; }
-        public virtual DbSet<Lesson> Lessons { get; set; }
-        public virtual DbSet<Grade> Grades { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Lesson> Lessons { get; set; }
+        public DbSet<Grade> Grades { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
-        public virtual DbSet<Payment> Payments { get; set; }
-
-        public static List<Student> GetStudents()
+        #region Staitc Methods
+        public static List<Student> GetAllStudents() // Returns a list of all the students in the DB
         {
             var t = new List<Student>();
             using (var myDB = new VirtualCollegeContext())
@@ -40,22 +46,82 @@ namespace DorsetOOP.ViewModels
                 var lessons = myDB.Lessons.ToList();
                 var grades = myDB.Grades.ToList();
                 var payments = myDB.Payments.ToList();
-                t = myDB.Users.OfType<Student>().ToList();
+
+                t = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
             }
             return t;
         }
 
-        public static bool CreateUser(User _userToAdd, Address _addressToAdd)
+        public static List<Teacher> GetAllTeachers()
+        {
+            var t = new List<Teacher>();
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var addresses = myDB.Addresses.ToList();
+                var students = myDB.Users.OfType<Teacher>().ToList();
+                var courses = myDB.Courses.ToList();
+                var lessons = myDB.Lessons.ToList();
+                var grades = myDB.Grades.ToList();
+                var payments = myDB.Payments.ToList();
+
+                t = myDB.Users.OfType<Teacher>().ToList(); ;
+            }
+            return t;
+        }
+
+        public static List<Student> GetAllStudentsThatMatchFullName(string _fullName) // Returns a list of all the students in the DB whose full names math the input
+        {
+            var tempStuds = new List<Student>();
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var addresses = myDB.Addresses.ToList();
+                var teachers = myDB.Users.OfType<Teacher>().ToList();
+                var courses = myDB.Courses.ToList();
+                var lessons = myDB.Lessons.ToList();
+                var grades = myDB.Grades.ToList();
+                var payments = myDB.Payments.ToList();
+
+                tempStuds = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList().
+                    FindAll(s => s.FullName.ToLower().Contains(_fullName.ToLower()));
+            }
+
+            return tempStuds;
+        }
+
+        public static List<Teacher> GetAllTeachersThatMatchFullName(string _fullName)
+        {
+            var tempStuds = new List<Teacher>();
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var addresses = myDB.Addresses.ToList();
+                var students = myDB.Users.OfType<Student>().ToList();
+                var courses = myDB.Courses.ToList();
+                var lessons = myDB.Lessons.ToList();
+                var grades = myDB.Grades.ToList();
+                var payments = myDB.Payments.ToList();
+
+                tempStuds = myDB.Users.OfType<Teacher>().ToList().FindAll(s => s.FullName.ToLower().Contains(_fullName.ToLower()));
+            }
+            return tempStuds;
+        }
+
+        public static bool CreateUser(User _userToAdd, Address _addressToAdd) // Creates new User if doesn't already exist (checks email)
         {
             using (var myDB = new VirtualCollegeContext())
             {
                 bool done = false;
-                var users = myDB.Users.ToList();
+                var users = myDB.Users.Include("Lessons").ToList();
                 var addresses = myDB.Addresses.ToList();
                 var students = myDB.Users.OfType<Student>().ToList();
                 var teachers = myDB.Users.OfType<Teacher>().ToList();
                 var courses = myDB.Courses.ToList();
-                var lessons = myDB.Lessons.ToList();
+                var lessons = myDB.Lessons.Include("Students").ToList();
                 var grades = myDB.Grades.ToList();
                 var payments = myDB.Payments.ToList();
 
@@ -74,7 +140,7 @@ namespace DorsetOOP.ViewModels
             }
         }
 
-        public static bool RemoveUser(User _userToRemove)
+        public static bool RemoveUser(User _userToRemove) // Removes a single User
         {
             using (var myDB = new VirtualCollegeContext())
             {
@@ -92,10 +158,12 @@ namespace DorsetOOP.ViewModels
 
             return true;
         }
-        public static bool RemoveUser(List<User> _usersToRemove)
+
+        public static bool RemoveUser(List<User> _usersToRemove) // Removes a list of Users
         {
             foreach (User u in _usersToRemove) RemoveUser(u);
             return true;
         }
+        #endregion
     }
 }

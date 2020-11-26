@@ -16,31 +16,34 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
 namespace DorsetOOP
 {
     /// <summary>
-    /// Interaction logic for StudentDetailsView.xaml
+    /// Interaction logic for TeacherDetailsView.xaml
     /// </summary>
-    public partial class StudentDetailsView : Window, INotifyPropertyChanged
+    public partial class TeacherDetailsView : Window, INotifyPropertyChanged
     {
+
         #region ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Student _selectedStudent = new Student ();
-        public Student SelectedStudent
+        private Teacher _selectedTeacher = new Teacher();
+        public Teacher SelectedTeacher
         {
-            get { return _selectedStudent; }
+            get { return _selectedTeacher; }
             set
             {
-                _selectedStudent = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("SelectedStudent"));
+                _selectedTeacher = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedTeacher"));
             }
         }
         #endregion
-        public StudentDetailsView(Student _inputStudent)
+
+        public TeacherDetailsView(Teacher _inputTeacher)
         {
             InitializeComponent();
-            SelectedStudent = _inputStudent;
+            SelectedTeacher = _inputTeacher;
         }
     }
 }

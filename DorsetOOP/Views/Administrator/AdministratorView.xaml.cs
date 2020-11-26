@@ -27,6 +27,18 @@ namespace DorsetOOP
         #region ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
+        Administrator _loggedInAdmin = new Administrator();
+        public Administrator LoggedInAdmin
+        {
+            get { return _loggedInAdmin; }
+            set
+            {
+                _loggedInAdmin = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("LoggedInAdmin"));
+            }
+        }
+
+        #region STUDENTS
         private ObservableCollection<Student> _students;
         public ObservableCollection<Student> Students
         {
@@ -39,24 +51,38 @@ namespace DorsetOOP
         }
 
         private Student _selectedStudent = new Student();
-        public Student SelectedStudent
+        public Student SelectedStudent // 
         { 
             get { return _selectedStudent; }
             set
             {
                 _selectedStudent = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("SelectedStudent"));
+                PropertyChanged(this, new PropertyChangedEventArgs("DataStudent"));
             }
         }
 
-        private Student _dataStudent = new Student();
-        public Student DataStudent
+        private string _searchStudentsText;
+        public string SearchStudentsText
         {
-            get { return _dataStudent; }
+            get { return _searchStudentsText; }
             set
             {
-                _dataStudent = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("DataStudent"));
+                _searchStudentsText = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SearchStudentsText"));
+                GetStudentsThatMatch(SearchStudentsText);
+            }
+        }
+        #endregion
+
+        #region TEACHERS
+        private ObservableCollection<Teacher> _teachers;
+        public ObservableCollection<Teacher> Teachers
+        {
+            get { return _teachers; }
+            set
+            {
+                _teachers = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Teachers"));
             }
         }
 
@@ -70,29 +96,21 @@ namespace DorsetOOP
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedTeacher"));
             }
         }
-        
-        Administrator _loggedInAdmin = new Administrator();
-        public Administrator LoggedInAdmin
+
+        private string _searchTeachersText;
+        public string SearchTeachersText
         {
-            get { return _loggedInAdmin; }
+            get { return _searchTeachersText; }
             set
             {
-                _loggedInAdmin = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("LoggedInAdmin"));
+                _searchTeachersText = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SearchTeachersText"));
+                GetTeachersThatMatch(SearchTeachersText);
             }
         }
+        #endregion
 
-        private string _searchStudentsText;
-        public string SearchStudentsText
-        {
-            get { return _searchStudentsText; }
-            set 
-            {
-                _searchStudentsText = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("SearchStudentsText"));
-                GetStudentsThatMatch(SearchStudentsText);
-            }
-        }
+
         #endregion
 
         public AdministratorView(User _admin)               
@@ -100,23 +118,30 @@ namespace DorsetOOP
             InitializeComponent();
             LoggedInAdmin = (Administrator)_admin;
             GetAllStudents();
+            GetAllTeachers();
         }
 
+        
         private void GetAllStudents()
         {
-            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetStudents());
+            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudents());
         }
 
-        private void GetStudentsThatMatch(string t)
+        private void GetAllTeachers()
         {
-            var tempStuds = new List<Student>();
-            using (var myDB = new VirtualCollegeContext())
-            {
-                var a = myDB.Addresses.ToList();
-                tempStuds = myDB.Users.OfType<Student>().ToList().FindAll(s => s.FullName.ToLower().Contains(t.ToLower()));
-            }
-            Students = new ObservableCollection<Student>(tempStuds);
+            Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachers());
         }
+
+        private void GetStudentsThatMatch(string _searchBoxValue)
+        {
+            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudentsThatMatchFullName(_searchBoxValue));
+        }
+
+        private void GetTeachersThatMatch(string _searchBoxValue)
+        {
+            Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachersThatMatchFullName(_searchBoxValue));
+        }
+
 
         private void addStudentButton_Click(object sender, RoutedEventArgs e)
         {
@@ -124,10 +149,9 @@ namespace DorsetOOP
             GetAllStudents();
         }
 
-        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        private void Students_Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new StudentDetailsView(DataStudent).ShowDialog();
-            Console.WriteLine();
+            new StudentDetailsView(SelectedStudent).ShowDialog();
         }
 
         private void viewStudentsDataGrid_KeyDown(object sender, KeyEventArgs e)
@@ -135,6 +159,20 @@ namespace DorsetOOP
             if (e.Key == Key.D)
             {
                 VirtualCollegeContext.RemoveUser((Student)viewStudentsDataGrid.SelectedItem);
+                GetAllStudents();
+            }
+        }
+
+        private void Teachers_Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new TeacherDetailsView(SelectedTeacher).ShowDialog();
+        }
+
+        private void viewTeachersDataGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.D)
+            {
+                VirtualCollegeContext.RemoveUser((Teacher)viewStudentsDataGrid.SelectedItem);
                 GetAllStudents();
             }
         }
