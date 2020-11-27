@@ -24,7 +24,8 @@ namespace DorsetOOP.Models.Users
         [Column(TypeName = "date")]
         public DateTime BirthDate { get; set; }
 
-        // Many to one (each User has one address and each Address can have many users)
+        // 1 élève à 1 adresse. 1 adresse peut avoir plusieurs élèves. 
+        // One to many
         public int? AddressId { get; set; }
         [ForeignKey("AddressId")]
         public Address Address { get; set; }

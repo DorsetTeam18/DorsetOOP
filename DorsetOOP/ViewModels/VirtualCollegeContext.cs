@@ -143,16 +143,8 @@ namespace DorsetOOP.ViewModels
         public static bool RemoveUser(User _userToRemove) // Removes a single User
         {
             using (var myDB = new VirtualCollegeContext())
-            {
-                var users = myDB.Users.ToList();
-                var addresses = myDB.Addresses.ToList();
-                var courses = myDB.Courses.ToList();
-                var lessons = myDB.Lessons.ToList();
-                var grades = myDB.Grades.ToList();
-                var payments = myDB.Payments.ToList();
-
+            { 
                 myDB.Users.Remove(myDB.Users.Find(_userToRemove.UserId));
-
                 myDB.SaveChanges();
             }
 

@@ -99,7 +99,7 @@
                             <Label Margin="0,-12" Content="{Binding LoggedInAdmin.UserId, UpdateSourceTrigger=PropertyChanged}"
                                    ContentStringFormat="#0000{0}"
                                    FontSize="16" FontWeight="Bold" Foreground="Gray"/>
-                            
+
                         </StackPanel>
 
                     </StackPanel>
@@ -181,15 +181,13 @@
                             <DataGridTextColumn Width="auto" Header="Password" Binding="{Binding Password}"/>
                             <DataGridTextColumn Width="auto" Header="Country" Binding="{Binding Address.Country}"/>
                         </DataGrid.Columns>
-                        
+
                     </DataGrid>
                     <!--#endregion-->
-                    
-                </Grid>
 
+                </Grid>
+                <!--#endregion-->
             </TabItem>
-            <!--#endregion-->
-            
             
             <!--#region TEACHERS -->
             <TabItem>

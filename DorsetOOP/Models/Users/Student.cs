@@ -20,6 +20,7 @@ namespace DorsetOOP.Models.Users
         #region Properties
         
         public decimal Fees { get; set; }
+
         // Many to one (one students has one tutor and one tutor has many students)
         public int? TutorId { get; set; }
         [ForeignKey("TutorId")]
@@ -36,15 +37,15 @@ namespace DorsetOOP.Models.Users
         
         #endregion
 
-        public string GradesInfo
-        {
-            get
-            {
-                string r = $" { FullName }'s grades:\n";
-                foreach (var g in Grades) r += $"{ g.Course.Title } : { g.ExamName } - { g.Mark }% (Coeff. { g.Coefficient })\n";
-                return r;
-            }
-        }
+        //public string GradesInfo
+        //{
+        //    get
+        //    {
+        //        string r = $" { FullName }'s grades:\n";
+        //        foreach (var g in Grades) r += $"{ g.Course.Title } : { g.ExamName } - { g.Mark }% (Coeff. { g.Coefficient })\n";
+        //        return r;
+        //    }
+        //}
 
         public void AddGrade(Course _course, decimal _mark, string _examName, decimal _coefficient)
         {

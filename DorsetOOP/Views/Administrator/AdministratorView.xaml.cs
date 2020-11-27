@@ -155,9 +155,9 @@ namespace DorsetOOP
 
         private void viewStudentsDataGrid_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.D)
+            if(e.Key == Key.D)
             {
-                VirtualCollegeContext.RemoveUser((Student)viewStudentsDataGrid.SelectedItem);
+                VirtualCollegeContext.RemoveUser(SelectedStudent);
                 GetAllStudents();
             }
         }

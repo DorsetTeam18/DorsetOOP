@@ -28,16 +28,14 @@ namespace DorsetOOP
 
         public LoginView()
         {
-            
             InitializeComponent();
             userLoginInput.Focus();
 
             using (var myDB = new VirtualCollegeContext())
             {
+                #region
                 var addresses = myDB.Addresses.ToList();
-                var studs = myDB.Users.
-                    Include("Lessons").
-                    OfType<Student>().ToList();
+                var studs = myDB.Users.Include("Lessons").OfType<Student>().ToList();
 
                 var teachers = myDB.Users.OfType<Teacher>().ToList();
 
@@ -48,11 +46,11 @@ namespace DorsetOOP
 
                 var grades = myDB.Grades.ToList();
 
-                //var users = myDB.Users.ToList();
-                //var payments = myDB.Payments.ToList();
+                var users = myDB.Users.ToList();
+                var payments = myDB.Payments.ToList();
+                #endregion
 
                 #region Initial inputs
-
                 #region Students
                 //myDB.Addresses.Add(new Address()
                 //{
@@ -303,6 +301,11 @@ namespace DorsetOOP
                 //myDB.Grades.AddRange(grades);
                 #endregion
                 #endregion
+
+
+
+                //var t = mesEleves.FindAll(s => s.Gender == "Male" && s.Address.Country == "France");
+
 
                 studs.Find(s => s.FirstName == "Maxime").AddPayment(DateTime.Now, (long)7800.25);
 

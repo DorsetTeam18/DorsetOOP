@@ -17,6 +17,7 @@ namespace DorsetOOP.Models
             this.Students = new HashSet<Student>();
         }
 
+        #region Props
         public int LessonId { get; set; }
         public string RoomName { get; set; }
         public string Day { get; set; }
@@ -25,6 +26,7 @@ namespace DorsetOOP.Models
 
         // One to many (each lesson corresponds to one course, each course has multiple lessons)
         public int? CourseId { get; set; }
+        [ForeignKey("CourseId")]
         public Course Course { get; set; }
 
         // Many to one (each teacher has many lessons, each lesson has one teacher)
@@ -34,6 +36,7 @@ namespace DorsetOOP.Models
 
         // Many to many (each lesson has multiple students and each student has multiple lessons)
         public ICollection<Student> Students { get; set; }
+        #endregion
 
         public string DateAndTime
         {

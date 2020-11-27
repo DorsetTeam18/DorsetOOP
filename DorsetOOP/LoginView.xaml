@@ -41,12 +41,6 @@
 
             <PasswordBox x:Name="userPasswordinput" MinWidth="200" Margin="20,5" Padding="5" KeyDown="Input_KeyDown" />
 
-            <!--<CheckBox x:Name="showPasswordCheckBox" Content="Show Password" 
-                      FontSize="12" Margin="0,0,20,0"
-                      HorizontalAlignment="Right" VerticalContentAlignment="Center"
-                      Checked="showPasswordCheckBox_Checked"
-                      Unchecked="showPasswordCheckBox_Unchecked"/>-->
-
             <Button x:Name="userLoginButton"  Padding="6" Content="Login" Margin="60,20"
                     VerticalContentAlignment="center" Background="Green" 
                     Foreground="White" Click="userLoginButton_Click"/>

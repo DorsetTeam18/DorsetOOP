@@ -25,12 +25,12 @@ namespace DorsetOOP.Models
 
         public string Country { get; set; }
 
-        // One to many (each adress can have multiple students
+        // One to many (each adress can have multiple users)
         public ICollection<User> Users { get; set; }
 
         public override string ToString()
         {
-            return $"{ AddressLine1 }\n{ AddressLine2 }\n{ Postcode },{ City }\n{ State }, { Country }";
+            return $"{ AddressLine1 }\n{ AddressLine2 }\n{ Postcode }, { City }\n{ State }, { Country }";
         }
     }
 }
