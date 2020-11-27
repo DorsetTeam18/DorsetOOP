@@ -142,7 +142,6 @@ namespace DorsetOOP
             Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachersThatMatchFullName(_searchBoxValue));
         }
 
-
         private void addStudentButton_Click(object sender, RoutedEventArgs e)
         {
             new AddStudentView().ShowDialog();
@@ -172,8 +171,8 @@ namespace DorsetOOP
         {
             if (e.Key == Key.D)
             {
-                VirtualCollegeContext.RemoveUser((Teacher)viewStudentsDataGrid.SelectedItem);
-                GetAllStudents();
+                VirtualCollegeContext.RemoveUser((Teacher)viewTeachersDataGrid.SelectedItem);
+                GetAllTeachers();
             }
         }
     }
