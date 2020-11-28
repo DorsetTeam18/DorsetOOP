@@ -38,6 +38,7 @@ namespace DorsetOOP
             }
         }
 
+
         #region STUDENTS
         private ObservableCollection<Student> _students;
         public ObservableCollection<Student> Students
@@ -110,6 +111,45 @@ namespace DorsetOOP
         }
         #endregion
 
+        #region COURSES
+
+        private ObservableCollection<Course> _courses;
+        public ObservableCollection<Course> Courses
+        {
+            get { return _courses; }
+            set
+            {
+                _courses = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Courses"));
+            }
+        }
+
+        private Course _selectedCourse = new Course();
+        public Course SelectedCourse
+        {
+            get { return _selectedCourse; }
+            set
+            {
+                _selectedCourse = value;
+
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedCourse"));
+            }
+        }
+
+        private string _searchCoursesText;
+        public string SearchCoursesText
+        {
+            get { return _searchCoursesText; }
+            set
+            {
+                _searchCoursesText = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SearchCoursesText"));
+                GetCoursesThatMatch(SearchCoursesText);
+            }
+        }
+
+
+        #endregion
 
         #endregion
 
@@ -117,21 +157,24 @@ namespace DorsetOOP
         {
             InitializeComponent();
             LoggedInAdmin = (Administrator)_admin;
-            GetAllStudents();
-            GetAllTeachers();
+            GetAllUsers();
+            GetAllCourses();
         }
 
-        
-        private void GetAllStudents()
+        #region Get Lists
+        private void GetAllUsers()
         {
-            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudents());
+            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAll<Student>());
+            Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAll<Teacher>());
         }
 
-        private void GetAllTeachers()
+        private void GetAllCourses()
         {
-            Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachers());
+            Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCourses());
         }
+        #endregion
 
+        #region Matching Search Boxes
         private void GetStudentsThatMatch(string _searchBoxValue)
         {
             Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudentsThatMatchFullName(_searchBoxValue));
@@ -142,38 +185,60 @@ namespace DorsetOOP
             Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachersThatMatchFullName(_searchBoxValue));
         }
 
+        private void GetCoursesThatMatch(string _searchBoxValue)
+        {
+            Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCoursesThatMatchTitle(_searchBoxValue));
+        }
+        #endregion
+
+        #region Adding (new ...)
         private void addStudentButton_Click(object sender, RoutedEventArgs e)
         {
             new AddStudentView().ShowDialog();
-            GetAllStudents();
+            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAll<Student>());
+        }
+        #endregion
+
+        #region Double Clicking
+        private void Teachers_Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new TeacherDetailsView(SelectedTeacher).ShowDialog();
         }
 
         private void Students_Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             new StudentDetailsView(SelectedStudent).ShowDialog();
         }
+        #endregion
 
-        private void viewStudentsDataGrid_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.D)
-            {
-                VirtualCollegeContext.RemoveUser(SelectedStudent);
-                GetAllStudents();
-            }
-        }
-
-        private void Teachers_Row_DoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            new TeacherDetailsView(SelectedTeacher).ShowDialog();
-        }
-
+        #region Key Down
         private void viewTeachersDataGrid_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.D)
             {
                 VirtualCollegeContext.RemoveUser((Teacher)viewTeachersDataGrid.SelectedItem);
-                GetAllTeachers();
+                Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAll<Teacher>());
             }
+        }
+
+        private void viewStudentsDataGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.D)
+            {
+                VirtualCollegeContext.RemoveUser(SelectedStudent);
+                Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAll<Student>());
+            }
+        }
+        #endregion
+
+        private void deleteCourseButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Suppession à faire");
+        }
+
+        private void editCourseButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Modification à faire");
         }
     }
 }

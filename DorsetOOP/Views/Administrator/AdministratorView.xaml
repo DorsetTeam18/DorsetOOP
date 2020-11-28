@@ -186,9 +186,10 @@
                     <!--#endregion-->
 
                 </Grid>
-                <!--#endregion-->
             </TabItem>
-            
+            <!--#endregion-->
+
+
             <!--#region TEACHERS -->
             <TabItem>
                 <TabItem.Header>
@@ -317,9 +318,153 @@
                 <TabItem.Header>
                     <StackPanel>
                         <Image Source="/img/courses.png" Height="80" />
-                        <Label Content="Afficher Utilisateurs" FontStyle="Italic" HorizontalAlignment="Center" />
+                        <Label Content="Courses" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--#region ROW 0-->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Image Source="/img/ProfilePicture.png" Height="70"/>
+
+                        <StackPanel Orientation="Vertical" Margin="10,0">
+
+                            <Label Margin="0,3" Content="{Binding LoggedInAdmin.FullName, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="22" FontWeight="Bold"/>
+
+                            <Label Margin="0,-12" Content="{Binding LoggedInAdmin.UserId, UpdateSourceTrigger=PropertyChanged}"
+                                   ContentStringFormat="#0000{0}"
+                                   FontSize="16" FontWeight="Bold" Foreground="Gray"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+                    <!--#endregion-->
+
+                    <!--#region ROW 1-->
+                    <Grid Grid.Row="1" Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0" Padding="5" Margin="0,10,10,10"
+                                 Text="{Binding SearchCoursesText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                    <Style.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                            <VisualBrush.Visual>
+                                                <Label Content="Search courses by their title here..." Opacity="0.5" FontSize="14" />
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </Style.Resources>
+                                    <Style.Triggers>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="Text" Value="{x:Static sys:String.Empty}"/>
+                                                <Condition Property="IsFocused"  Value="False"/>
+                                            </MultiTrigger.Conditions>
+                                            <MultiTrigger.Setters>
+                                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                            </MultiTrigger.Setters>
+                                        </MultiTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+
+                        </TextBox>
+
+                        <Button x:Name="AddCourseButton" Content="New Course +" Grid.Column="2" Padding="5,0"
+                                Background="Green" 
+                                Foreground="White" Margin="0,10,10,10">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsFocused" Value="true">
+                                            <Setter Property="Background" Value="Black"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                    </Grid>
+                        
+                    <!--#endregion-->
+
+                    <!--#region ROW 2-->
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <DataGrid x:Name="viewCoursesDataGrid" Grid.Column="0" Margin="0,10,0,0" IsReadOnly="True"
+                              ItemsSource="{Binding Courses, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                              SelectedItem="{Binding SelectedCourse, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                              AutoGenerateColumns="False" GridLinesVisibility="All" Width="auto"
+                              KeyDown="viewTeachersDataGrid_KeyDown">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width="*" Header="Course Title" Binding="{Binding Title}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <StackPanel Grid.Column="1" Margin="5,10,5,0" Orientation="Vertical" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Title"/>
+                                <Label Content="{Binding SelectedCourse.Title}" FontWeight="Bold"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Referent Teacher"/>
+                                <Label Content="{Binding SelectedCourse.ReferentTeacher.FullName}" FontWeight="Bold"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Credits"/>
+                                <Label Content="{Binding SelectedCourse.Credits}" FontWeight="Bold"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                                <Button x:Name="deleteCourseButton" Content="Delete" Margin="10,0"  
+                                    Background="#FF950000" Foreground="white"
+                                    Click="deleteCourseButton_Click" Width="100" Padding="3" FontSize="16">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                                <Button x:Name="editCourseButton" Content="Edit" Margin="10,0" 
+                                    Background="Gray" Foreground="white"
+                                    Click="editCourseButton_Click"  Width="100" Padding="3" FontSize="16">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                    </Grid>
+                    
+                    <!--#endregion-->
+                    
+                </Grid>
             </TabItem>
             <!--#endregion-->
 
@@ -329,7 +474,7 @@
                 <TabItem.Header>
                     <StackPanel>
                         <Image Source="/img/schedule.png" Height="80"/>
-                        <Label Content="Afficher Utilisateurs" FontStyle="Italic" HorizontalAlignment="Center" />
+                        <Label Content="Timetable" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
             </TabItem>

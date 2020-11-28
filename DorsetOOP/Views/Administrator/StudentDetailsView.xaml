@@ -41,7 +41,6 @@
                     <Label Margin="0,-12" Content="{Binding SelectedStudent.UserId, UpdateSourceTrigger=PropertyChanged}"
                                    ContentStringFormat="#0000{0}"
                                    FontSize="16" FontWeight="Bold" Foreground="Gray"/>
-
                 </StackPanel>
             </StackPanel>
 

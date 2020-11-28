@@ -34,44 +34,43 @@ namespace DorsetOOP.ViewModels
         public DbSet<Grade> Grades { get; set; }
         public DbSet<Payment> Payments { get; set; }
 
-        #region Staitc Methods
-        public static List<Student> GetAllStudents() // Returns a list of all the students in the DB
+        #region Static Methods
+
+        #region Get All Elements
+        public static List<T> GetAll<T>()
         {
-            var t = new List<Student>();
+            var t = new List<T>();
             using (var myDB = new VirtualCollegeContext())
             {
                 var addresses = myDB.Addresses.ToList();
-                var teachers = myDB.Users.OfType<Teacher>().ToList();
                 var courses = myDB.Courses.ToList();
                 var lessons = myDB.Lessons.ToList();
                 var grades = myDB.Grades.ToList();
                 var payments = myDB.Payments.ToList();
 
-                t = myDB.Users.
-                    Include("Lessons").
-                    OfType<Student>().
-                    ToList();
+                t = myDB.Users.OfType<T>().ToList();
             }
             return t;
         }
 
-        public static List<Teacher> GetAllTeachers()
+        public static List<Course> GetAllCourses()
         {
-            var t = new List<Teacher>();
+            var t = new List<Course>();
             using (var myDB = new VirtualCollegeContext())
             {
                 var addresses = myDB.Addresses.ToList();
-                var students = myDB.Users.OfType<Teacher>().ToList();
-                var courses = myDB.Courses.ToList();
+                var users = myDB.Users.ToList();
                 var lessons = myDB.Lessons.ToList();
                 var grades = myDB.Grades.ToList();
                 var payments = myDB.Payments.ToList();
 
-                t = myDB.Users.OfType<Teacher>().ToList(); ;
+                t = myDB.Courses.ToList();
             }
             return t;
         }
+        #endregion
 
+        #region Get all that match text
         public static List<Student> GetAllStudentsThatMatchFullName(string _fullName) // Returns a list of all the students in the DB whose full names math the input
         {
             var tempStuds = new List<Student>();
@@ -111,6 +110,24 @@ namespace DorsetOOP.ViewModels
             return tempStuds;
         }
 
+        public static List<Course> GetAllCoursesThatMatchTitle(string _courseTitle)
+        {
+            var courses = new List<Course>();
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var addresses = myDB.Addresses.ToList();
+                var students = myDB.Users.OfType<Student>().ToList();
+                var lessons = myDB.Lessons.ToList();
+                var grades = myDB.Grades.ToList();
+                var payments = myDB.Payments.ToList();
+
+                courses = myDB.Courses.ToList().FindAll(c => c.Title.ToLower().Contains(_courseTitle.ToLower()));
+            }
+            return courses;
+        }
+        #endregion
+
+        #region Add and Remove
         public static bool CreateUser(User _userToAdd, Address _addressToAdd) // Creates new User if doesn't already exist (checks email)
         {
             using (var myDB = new VirtualCollegeContext())
@@ -156,6 +173,8 @@ namespace DorsetOOP.ViewModels
             foreach (User u in _usersToRemove) RemoveUser(u);
             return true;
         }
+        #endregion
+
         #endregion
     }
 }
