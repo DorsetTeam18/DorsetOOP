@@ -147,8 +147,6 @@ namespace DorsetOOP
                 GetCoursesThatMatch(SearchCoursesText);
             }
         }
-
-
         #endregion
 
         #endregion
@@ -191,11 +189,17 @@ namespace DorsetOOP
         }
         #endregion
 
-        #region Adding (new ...)
+        #region Creating a new entity
         private void addStudentButton_Click(object sender, RoutedEventArgs e)
         {
             new AddStudentView().ShowDialog();
             Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAll<Student>());
+        }
+
+        private void addCourseButton_Click(object sender, RoutedEventArgs e)
+        {
+            new AddCourseView().ShowDialog();
+            Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCourses());
         }
         #endregion
 
@@ -233,12 +237,15 @@ namespace DorsetOOP
 
         private void deleteCourseButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Suppession à faire");
+            VirtualCollegeContext.RemoveCourse(SelectedCourse);
+            Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCourses());
         }
 
         private void editCourseButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Modification à faire");
         }
+
+        
     }
 }

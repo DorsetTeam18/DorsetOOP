@@ -127,12 +127,12 @@ namespace DorsetOOP.ViewModels
         }
         #endregion
 
-        #region Add and Remove
+        #region Add entitites
         public static bool CreateUser(User _userToAdd, Address _addressToAdd) // Creates new User if doesn't already exist (checks email)
         {
+            bool done = false;
             using (var myDB = new VirtualCollegeContext())
-            {
-                bool done = false;
+            {   
                 var users = myDB.Users.ToList();
                 var addresses = myDB.Addresses.ToList();
                 var students = myDB.Users.OfType<Student>().ToList();
@@ -153,10 +153,34 @@ namespace DorsetOOP.ViewModels
                     done = true;
                 }
                 myDB.SaveChanges();
-                return done;
             }
+            return done;
         }
 
+        public static bool CreateCourse(Course _courseToAdd)
+        {
+            bool done = false;
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var users = myDB.Users.ToList();
+                var addresses = myDB.Addresses.ToList();
+                var courses = myDB.Courses.ToList();
+                var lessons = myDB.Lessons.Include("Students").ToList();
+                var grades = myDB.Grades.ToList();
+                var payments = myDB.Payments.ToList();
+
+                if (courses.FindAll(c => c.ToString() == _courseToAdd.ToString()).Count == 0)
+                {
+                    myDB.Courses.Add(_courseToAdd);
+                    done = true;
+                }
+                myDB.SaveChanges();
+            }
+            return done;
+        }
+        #endregion
+
+        #region Remove entitites
         public static bool RemoveUser(User _userToRemove) // Removes a single User
         {
             using (var myDB = new VirtualCollegeContext())
@@ -172,6 +196,15 @@ namespace DorsetOOP.ViewModels
         {
             foreach (User u in _usersToRemove) RemoveUser(u);
             return true;
+        }
+
+        public static void RemoveCourse(Course selectedCourse)
+        {
+            using (var myDB = new VirtualCollegeContext())
+            {
+                myDB.Courses.Remove(myDB.Courses.Find(selectedCourse.CourseId));
+                myDB.SaveChanges();
+            }
         }
         #endregion
 

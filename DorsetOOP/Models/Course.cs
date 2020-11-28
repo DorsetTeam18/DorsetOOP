@@ -28,5 +28,10 @@ namespace DorsetOOP.Models
         public ICollection<Teacher> Teachers { get; set; }
 
         public ICollection<Lesson> Lessons { get; set; }
+
+        public override string ToString()
+        {
+            return $"{ Title } ({ Credits } credits) - Referent is { ReferentTeacher.FullName }";
+        }
     }
 }

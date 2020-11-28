@@ -85,14 +85,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\Administrator\Courses\AddCourseView.xaml.cs">
+      <DependentUpon>AddCourseView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Payment.cs" />
-    <Compile Include="Views\Administrator\StudentDetailsView.xaml.cs">
+    <Compile Include="Views\Administrator\Students\StudentDetailsView.xaml.cs">
       <DependentUpon>StudentDetailsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Administrator\TeacherDetailsView.xaml.cs">
+    <Compile Include="Views\Administrator\Teachers\TeacherDetailsView.xaml.cs">
       <DependentUpon>TeacherDetailsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Administrator\AddStudentView.xaml.cs">
+    <Compile Include="Views\Administrator\Students\AddStudentView.xaml.cs">
       <DependentUpon>AddStudentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Administrator\AdministratorView.xaml.cs">
@@ -122,15 +125,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Administrator\StudentDetailsView.xaml">
+    <Page Include="Views\Administrator\Courses\AddCourseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Administrator\TeacherDetailsView.xaml">
+    <Page Include="Views\Administrator\Students\StudentDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Administrator\AddStudentView.xaml">
+    <Page Include="Views\Administrator\Teachers\TeacherDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Administrator\Students\AddStudentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
