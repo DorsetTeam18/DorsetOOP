@@ -258,7 +258,7 @@
 
                         <Button x:Name="addPaymentButton" Content="Add Payment +" Grid.Column="4" Padding="5,0"
                                 Background="Green" 
-                                Foreground="White" Margin="0.2,10,9.8,5.6" Click="addStudentButton_Click" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                                Foreground="White" Margin="0.2,10,9.8,5.6" Click="addPaymentButton_Click"  Grid.ColumnSpan="2" Grid.RowSpan="2">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="10"/>
@@ -278,7 +278,7 @@
                     <!--#region Row 2-->
                     <DataGrid x:Name="viewPaymentsDataGrid" Grid.Column="0" Grid.Row="2" 
                         AutoGenerateColumns="False" IsReadOnly="True"
-                        ItemsSource="{Binding LoggedInStudent.Payments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding Payments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         GridLinesVisibility="All" Width="auto"
                         KeyDown="viewStudentsDataGrid_KeyDown">
                         <DataGrid.Resources>

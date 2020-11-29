@@ -24,6 +24,7 @@ namespace DorsetOOP
     /// </summary>
     public partial class StudentView : Window, INotifyPropertyChanged
     {
+
         #region ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,6 +36,47 @@ namespace DorsetOOP
             {
                 _loggedInStudent = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("LoggedInStudent"));
+            }
+        }
+
+        private decimal _studentDeposit;
+        public decimal StudentDeposit
+        {
+            get
+            {
+                return _studentDeposit;
+            }
+            set
+            {
+                _studentDeposit = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("StudentDeposit"));
+                StudentDue -= StudentDeposit;
+            }
+        }
+
+        private decimal _studentDue;
+        public decimal StudentDue
+        {
+            get
+            {
+                //return LoggedInStudent.Fees - studentDeposit;
+                return _studentDue;
+            }
+            set
+            {
+                _studentDue = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("StudentDue"));
+            }
+        }
+
+        private ObservableCollection<Payment> _payments;
+        public ObservableCollection<Payment> Payments
+        {
+            get { return _payments; }
+            set
+            {
+                _payments = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Payments"));
             }
         }
 
@@ -156,41 +198,8 @@ namespace DorsetOOP
             InitializeComponent();
             LoggedInStudent = (Student)_student;
             StudentDue = LoggedInStudent.Fees;
-            decimal deposit = 0;
-            List<Payment> fees = LoggedInStudent.Payments.ToList();
-            for (int i = 0; i < fees.Count; i++)
-            {
-                deposit += LoggedInStudent.Payments.ElementAt(i).Amount;
-            }
-            StudentDeposit = deposit;
-        }
-        private decimal _studentDeposit;
-        public decimal StudentDeposit
-        {
-            get{
-                return _studentDeposit;
-            }
-            set
-            {
-                _studentDeposit = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("StudentDeposit"));
-                StudentDue -= StudentDeposit;
-            }
-        }
-        private decimal _studentDue;
+            GetPayments();
 
-        public decimal StudentDue
-        {
-            get
-            {
-                //return LoggedInStudent.Fees - studentDeposit;
-                return _studentDue;
-            }
-            set
-            {
-                _studentDue = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("StudentDue"));
-            }
         }
 
         #region Get Lists
@@ -203,6 +212,19 @@ namespace DorsetOOP
         private void GetAllCourses()
         {
             Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCourses());
+        }
+
+        private void GetPayments()
+        {
+            Payments = new ObservableCollection<Payment>(LoggedInStudent.Payments);
+
+            decimal deposit = 0;
+            List<Payment> fees = LoggedInStudent.Payments.ToList();
+            for (int i = 0; i < fees.Count; i++)
+            {
+                deposit += LoggedInStudent.Payments.ElementAt(i).Amount;
+            }
+            StudentDeposit = deposit;
         }
         #endregion
 
@@ -224,18 +246,13 @@ namespace DorsetOOP
         #endregion
 
         #region Creating a new entity
-        private void addStudentButton_Click(object sender, RoutedEventArgs e)
+        private void addPaymentButton_Click(object sender, RoutedEventArgs e)
         {
-            new AddStudentView().ShowDialog();
-            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudents());
-        }
-
-        private void addCourseButton_Click(object sender, RoutedEventArgs e)
-        {
-            new AddCourseView().ShowDialog();
-            Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCourses());
+            new AddPaymentView(LoggedInStudent).ShowDialog();
+            GetPayments();
         }
         #endregion
+
         #region Key Down
         //private void viewTeachersDataGrid_KeyDown(object sender, KeyEventArgs e)
         //{
@@ -268,7 +285,6 @@ namespace DorsetOOP
         }
         #endregion
 
-
-
+        
     }
 }

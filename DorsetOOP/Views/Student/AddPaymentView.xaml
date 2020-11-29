@@ -1,0 +1,56 @@
+﻿<Window x:Class="DorsetOOP.AddPaymentView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DorsetOOP"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d" Background="#F2F2F2" ResizeMode="NoResize"  WindowStartupLocation="CenterScreen"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="Add payment" Height="109.005" Width="380" Icon="/img/loginIcon.ico">
+    
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Payment Amount" VerticalAlignment="Center"/>
+ 
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="5" Height="20"
+                 Text="{Binding PaymentToAdd.Amount, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="cancelButton" Grid.Column="1" Grid.Row="1" Margin="0,0,8,8"
+                HorizontalAlignment="Right"
+                Content="Cancel"  Width="70"
+                Background="#FF950000" Foreground="white"
+                    Click="cancelButton_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            
+            <Button x:Name="addPaymentButton" Grid.Column="1" Grid.Row="1" Margin="0,0,8,8"
+                HorizontalAlignment="Right"
+                Content="Add"  Width="70"
+                Background="Green" Foreground="white"
+                    Click="addPaymentButton_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="8"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+
+
+    </Grid>
+</Window>
+

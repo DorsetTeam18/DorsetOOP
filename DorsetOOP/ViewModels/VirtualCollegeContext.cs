@@ -316,14 +316,44 @@ namespace DorsetOOP.ViewModels
                         ReferentTeacher = teachers.Find(x => x.FullName == _courseToAdd.ReferentTeacher.FullName)
                     };
 
-                    foreach(Teacher t in _courseToAdd.Teachers)
+                    foreach (Teacher t in _courseToAdd.Teachers)
                     {
-                        co.Teachers.Add(teachers.Find(x=>x.FullName == t.FullName));
+                        co.Teachers.Add(teachers.Find(x => x.FullName == t.FullName));
                     }
 
                     myDB.Courses.Add(co);
                     done = true;
                 }
+                myDB.SaveChanges();
+            }
+            return done;
+        }
+
+        public static bool AddPayment(Payment paymentToAdd)
+        {
+            bool done = true;
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var users = myDB.Users.
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                Student userToAddPayment = (Student)users.Find(u => u.UserId == paymentToAdd.Student.UserId);
+                userToAddPayment.AddPayment(paymentToAdd.Date, paymentToAdd.Amount);
+
                 myDB.SaveChanges();
             }
             return done;
