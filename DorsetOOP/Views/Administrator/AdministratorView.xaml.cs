@@ -162,8 +162,8 @@ namespace DorsetOOP
         #region Get Lists
         private void GetAllUsers()
         {
-            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAll<Student>());
-            Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAll<Teacher>());
+            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudents());
+            Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachers());
         }
 
         private void GetAllCourses()
@@ -193,7 +193,7 @@ namespace DorsetOOP
         private void addStudentButton_Click(object sender, RoutedEventArgs e)
         {
             new AddStudentView().ShowDialog();
-            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAll<Student>());
+            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudents());
         }
 
         private void addCourseButton_Click(object sender, RoutedEventArgs e)
@@ -221,7 +221,7 @@ namespace DorsetOOP
             if (e.Key == Key.D)
             {
                 VirtualCollegeContext.RemoveUser((Teacher)viewTeachersDataGrid.SelectedItem);
-                Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAll<Teacher>());
+                Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachers());
             }
         }
 
@@ -230,7 +230,7 @@ namespace DorsetOOP
             if (e.Key == Key.D)
             {
                 VirtualCollegeContext.RemoveUser(SelectedStudent);
-                Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAll<Student>());
+                Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudents());
             }
         }
         #endregion

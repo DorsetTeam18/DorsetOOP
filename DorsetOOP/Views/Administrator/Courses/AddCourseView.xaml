@@ -31,12 +31,22 @@
             <TextBox Margin="8,4" Text="{Binding CourseToAdd.Credits, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
             <ComboBox Margin="8,2"
                       SelectedValue="{Binding CourseToAdd.ReferentTeacher, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
-                      ItemsSource="{Binding Teachers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Teachers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       DisplayMemberPath="FullName"/>
 
-            <Rectangle Margin="0,2" Width="auto" Height="1" Fill="Black"/>
-            
+            <Rectangle Margin="0,8" Width="auto" Height="1" Fill="Black"/>
+
             <!--<TextBox Margin="8,4" Text="{Binding , Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />-->
+
+            <DataGrid x:Name="teachersAbleToTeachDataGrid" 
+                      ItemsSource="{Binding Teachers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      AutoGenerateColumns="False" GridLinesVisibility="All" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Header="Can Teach" Width="auto" IsReadOnly="False"/>
+                    <DataGridTextColumn Header="Teacher" Binding="{Binding FullName}" Width="*" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -63,5 +73,7 @@
                 </Button.Resources>
             </Button>
         </StackPanel>
+        
+        
     </Grid>
 </Window>

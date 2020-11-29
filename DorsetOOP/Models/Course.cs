@@ -19,7 +19,7 @@ namespace DorsetOOP.Models
         public string Title { get; set; }
         public decimal Credits { get; set; }
 
-        // One to many (each course has one leader, each leader can have multiple courses)
+        // Many to one (each course has one leader, each leader can have multiple courses)
         public int ReferentTeacherId { get; set; }
         [ForeignKey("ReferentTeacherId")]
         public Teacher ReferentTeacher { get; set; }
@@ -27,6 +27,7 @@ namespace DorsetOOP.Models
         // Many to many (each course can be tought by multiple teachers and each teacher can teach multiple courses)
         public ICollection<Teacher> Teachers { get; set; }
 
+        // One to many 
         public ICollection<Lesson> Lessons { get; set; }
 
         public override string ToString()

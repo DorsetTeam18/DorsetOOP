@@ -35,18 +35,26 @@ namespace DorsetOOP
             {
                 #region
                 var addresses = myDB.Addresses.ToList();
-                var studs = myDB.Users.Include("Lessons").OfType<Student>().ToList();
 
-                var teachers = myDB.Users.OfType<Teacher>().ToList();
+                var studs = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
 
-                var courses = myDB.Courses.ToList();
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().ToList();
 
-                var lessons = myDB.Lessons.Include("Students").
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
 
-                var users = myDB.Users.ToList();
                 var payments = myDB.Payments.ToList();
                 #endregion
 
@@ -235,8 +243,6 @@ namespace DorsetOOP
 
                 //myDB.SaveChanges();
 
-                //var studentsForFirstLesson = studs.FindAll(s => s.UserId == 2 || s.UserId == 3);
-
                 //lessons.Find(l => l.LessonId == 1).Teacher = teachers.Find(c => c.LastName == "Zanette");
 
                 //var a = studs.FindAll(s => s.UserId == 2 || s.UserId == 3);
@@ -300,14 +306,32 @@ namespace DorsetOOP
 
                 //myDB.Grades.AddRange(grades);
                 #endregion
+
+                #region Course Test
+                //List<Teacher> teachersThatCanTeach = new List<Teacher>()
+                //{
+                //    teachers.Find(x => x.FirstName == "Marie-Noémie"),
+                //    teachers.Find(x => x.FirstName == "Walter")
+                //};
+
+                //Course newCourse = new Course()
+                //{
+                //    Title = "Espaces Vect",
+                //    Credits = 5,
+                //    ReferentTeacher = teachers.Find(x => x.FirstName == "Marie-Noémie")
+                //};
+
+                //foreach (Teacher item in teachersThatCanTeach)
+                //{
+                //    newCourse.Teachers.Add(item);
+                //}
+
+                //myDB.Courses.Add(newCourse);
+                #endregion
                 #endregion
 
-
-
-                //var t = mesEleves.FindAll(s => s.Gender == "Male" && s.Address.Country == "France");
-
-
-                studs.Find(s => s.FirstName == "Maxime").AddPayment(DateTime.Now, (long)7800.25);
+                var t = studs.Find(s => s.FirstName == "Maxime");
+                t.AddPayment(DateTime.Now, (long)7800.25);
 
                 myDB.SaveChanges();
             }

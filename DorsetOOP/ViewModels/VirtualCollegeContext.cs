@@ -3,6 +3,7 @@ using DorsetOOP.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace DorsetOOP.ViewModels
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
             modelBuilder.Entity<Lesson>().
                 HasMany(c => c.Students).
                 WithMany(p => p.Lessons).
@@ -24,31 +27,87 @@ namespace DorsetOOP.ViewModels
                         m.MapLeftKey("LessonId");
                         m.MapRightKey("UserId");
                         m.ToTable("StudentLessons");
-                     });
+                    });
+
+            modelBuilder.Entity<Course>().
+                HasMany(c => c.Teachers).
+                WithMany(p => p.Courses).
+                Map(
+                m =>
+                    {
+                        m.MapLeftKey("CourseId");
+                        m.MapRightKey("UserId");
+                        m.ToTable("TeacherCourses");
+                    });
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<Course> Courses { get; set; }
-        public DbSet<Lesson> Lessons { get; set; }
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<Payment> Payments { get; set; }
+        #region Tables
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Lesson> Lessons { get; set; }
+        public virtual DbSet<Grade> Grades { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
+        #endregion
 
         #region Static Methods
 
         #region Get All Elements
-        public static List<T> GetAll<T>()
+        public static List<Student> GetAllStudents()
         {
-            var t = new List<T>();
+            var t = new List<Student>();
             using (var myDB = new VirtualCollegeContext())
             {
                 var addresses = myDB.Addresses.ToList();
-                var courses = myDB.Courses.ToList();
-                var lessons = myDB.Lessons.ToList();
+
+                var courses = myDB.Courses.Include("Teachers").
+                    ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
                 var grades = myDB.Grades.ToList();
+
                 var payments = myDB.Payments.ToList();
 
-                t = myDB.Users.OfType<T>().ToList();
+                var teachers = myDB.Users.
+                    Include("Courses").OfType<Teacher>().
+                    ToList();
+
+                t = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+            }
+            return t;
+        }
+
+        public static List<Teacher> GetAllTeachers()
+        {
+            var t = new List<Teacher>();
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var addresses = myDB.Addresses.ToList();
+
+                var courses = myDB.Courses.Include("Teachers").
+                    ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                t = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
             }
             return t;
         }
@@ -58,13 +117,29 @@ namespace DorsetOOP.ViewModels
             var t = new List<Course>();
             using (var myDB = new VirtualCollegeContext())
             {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
                 var addresses = myDB.Addresses.ToList();
-                var users = myDB.Users.ToList();
-                var lessons = myDB.Lessons.ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
                 var grades = myDB.Grades.ToList();
+
                 var payments = myDB.Payments.ToList();
 
-                t = myDB.Courses.ToList();
+                t = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
             }
             return t;
         }
@@ -77,10 +152,22 @@ namespace DorsetOOP.ViewModels
             using (var myDB = new VirtualCollegeContext())
             {
                 var addresses = myDB.Addresses.ToList();
-                var teachers = myDB.Users.OfType<Teacher>().ToList();
-                var courses = myDB.Courses.ToList();
-                var lessons = myDB.Lessons.ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers")
+                    .ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students")
+                    .ToList();
+
                 var grades = myDB.Grades.ToList();
+
                 var payments = myDB.Payments.ToList();
 
                 tempStuds = myDB.Users.
@@ -95,19 +182,35 @@ namespace DorsetOOP.ViewModels
 
         public static List<Teacher> GetAllTeachersThatMatchFullName(string _fullName)
         {
-            var tempStuds = new List<Teacher>();
+            var tempTeach = new List<Teacher>();
             using (var myDB = new VirtualCollegeContext())
             {
                 var addresses = myDB.Addresses.ToList();
-                var students = myDB.Users.OfType<Student>().ToList();
-                var courses = myDB.Courses.ToList();
-                var lessons = myDB.Lessons.ToList();
+
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers")
+                    .ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students")
+                    .ToList();
+
                 var grades = myDB.Grades.ToList();
+
                 var payments = myDB.Payments.ToList();
 
-                tempStuds = myDB.Users.OfType<Teacher>().ToList().FindAll(s => s.FullName.ToLower().Contains(_fullName.ToLower()));
+                tempTeach = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList().
+                    FindAll(s => s.FullName.ToLower().Contains(_fullName.ToLower()));
             }
-            return tempStuds;
+            return tempTeach;
         }
 
         public static List<Course> GetAllCoursesThatMatchTitle(string _courseTitle)
@@ -116,12 +219,28 @@ namespace DorsetOOP.ViewModels
             using (var myDB = new VirtualCollegeContext())
             {
                 var addresses = myDB.Addresses.ToList();
-                var students = myDB.Users.OfType<Student>().ToList();
-                var lessons = myDB.Lessons.ToList();
+
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
                 var grades = myDB.Grades.ToList();
+
                 var payments = myDB.Payments.ToList();
 
-                courses = myDB.Courses.ToList().FindAll(c => c.Title.ToLower().Contains(_courseTitle.ToLower()));
+                courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList().FindAll(c => c.Title.ToLower().Contains(_courseTitle.ToLower()));
             }
             return courses;
         }
@@ -132,13 +251,20 @@ namespace DorsetOOP.ViewModels
         {
             bool done = false;
             using (var myDB = new VirtualCollegeContext())
-            {   
-                var users = myDB.Users.ToList();
+            {
+                var users = myDB.Users.
+                    ToList();
+
                 var addresses = myDB.Addresses.ToList();
-                var students = myDB.Users.OfType<Student>().ToList();
-                var teachers = myDB.Users.OfType<Teacher>().ToList();
-                var courses = myDB.Courses.ToList();
-                var lessons = myDB.Lessons.Include("Students").ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
                 var grades = myDB.Grades.ToList();
                 var payments = myDB.Payments.ToList();
 
@@ -162,16 +288,40 @@ namespace DorsetOOP.ViewModels
             bool done = false;
             using (var myDB = new VirtualCollegeContext())
             {
-                var users = myDB.Users.ToList();
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers")
+                    .ToList();
+
                 var addresses = myDB.Addresses.ToList();
-                var courses = myDB.Courses.ToList();
-                var lessons = myDB.Lessons.Include("Students").ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
                 var grades = myDB.Grades.ToList();
+
                 var payments = myDB.Payments.ToList();
 
                 if (courses.FindAll(c => c.ToString() == _courseToAdd.ToString()).Count == 0)
                 {
-                    myDB.Courses.Add(_courseToAdd);
+                    Course co = new Course
+                    {
+                        Title = _courseToAdd.Title,
+                        Credits = _courseToAdd.Credits,
+                        ReferentTeacher = teachers.Find(x => x.FullName == _courseToAdd.ReferentTeacher.FullName)
+                    };
+
+                    foreach(Teacher t in _courseToAdd.Teachers)
+                    {
+                        co.Teachers.Add(teachers.Find(x=>x.FullName == t.FullName));
+                    }
+
+                    myDB.Courses.Add(co);
                     done = true;
                 }
                 myDB.SaveChanges();
@@ -184,7 +334,7 @@ namespace DorsetOOP.ViewModels
         public static bool RemoveUser(User _userToRemove) // Removes a single User
         {
             using (var myDB = new VirtualCollegeContext())
-            { 
+            {
                 myDB.Users.Remove(myDB.Users.Find(_userToRemove.UserId));
                 myDB.SaveChanges();
             }

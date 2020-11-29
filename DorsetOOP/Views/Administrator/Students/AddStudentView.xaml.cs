@@ -25,6 +25,7 @@ namespace DorsetOOP
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        #region ViewModel
         private Address _addressToAdd = new Address();
         public Address AddressToAdd
         {
@@ -46,7 +47,7 @@ namespace DorsetOOP
                 PropertyChanged(this, new PropertyChangedEventArgs("StudentToAdd"));
             }
         }
-
+        #endregion
         public AddStudentView()
         {
             InitializeComponent();
