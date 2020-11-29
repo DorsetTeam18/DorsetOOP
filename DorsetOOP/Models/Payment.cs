@@ -10,7 +10,6 @@ namespace DorsetOOP.Models
 {
     public class Payment
     {
-
         public int PaymentId { get; set; }
         public DateTime Date { get; set; }
         public long Amount { get; set; }

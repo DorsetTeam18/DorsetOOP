@@ -3,10 +3,301 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DorsetOOP"
-        mc:Ignorable="d" Background="Green" WindowStartupLocation="CenterScreen"
-        Title="StudentView" Height="450" Width="800" Icon="/img/LoginIcon.ico">
+        xmlns:local="clr-namespace:DorsetOOP.Converters"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="Student Window" Background="#F2F2F2" Height="450" Width="800" Icon="/img/LoginIcon.ico" FontFamily="Helvetica">
+
+    <Window.Resources>
+        <local:SizeConverter x:Key="sizeConverter"/>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Height" Value="{Binding ElementName=myTabControl, Path=ActualHeight, Converter={StaticResource sizeConverter}}" />
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+
+                        <Grid>
+
+                            <Border Name="Border" Background="#3E7591">
+
+                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="12,2,12,2"/>
+
+                            </Border>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsSelected" Value="True">
+
+                                <Setter TargetName="Border" Property="Background" Value="#66B2D8" />
+
+                            </Trigger>
+
+                            <Trigger Property="IsSelected" Value="False">
+
+                                <Setter TargetName="Border" Property="Background" Value="#3E7591" />
+
+                            </Trigger>
+
+                            <MultiTrigger>
+
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                </MultiTrigger.Conditions>
+
+                                <Setter TargetName="Border" Property="Background" Value="#66B2D8" />
+
+                            </MultiTrigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </Window.Resources>
+
     <Grid>
-        
+        <TabControl x:Name="myTabControl" TabStripPlacement="Left" Margin="-2" >
+
+            <!--#region myInfo -->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <Image Source="/img/info.png" Height="80"/>
+                        <Label Content="my Info" FontStyle="Italic" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--#region Row 0-->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Image Source="/img/ProfilePicture.png" Height="70"/>
+
+                        <StackPanel Orientation="Vertical" Margin="10,0">
+
+                            <Label Margin="0,3" Content="{Binding LoggedInStudent.FullName, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="22" FontWeight="Bold"/>
+
+                            <Label Margin="0,-12" Content="{Binding LoggedInStudent.UserId, UpdateSourceTrigger=PropertyChanged}"
+                                   ContentStringFormat="#0000{0}"
+                                   FontSize="16" FontWeight="Bold" Foreground="Gray"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+                    <!--#endregion-->
+
+                    <!--#region Row 1-->
+                    <Grid Grid.Row="1" Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                            <Label>Date of Birth</Label>
+                            <Label Content="{Binding LoggedInStudent.BirthDate}" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Grid>
+                    <!--#endregion-->
+
+                    <!--#region Row 2-->
+                    <Grid Grid.Row="2" Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>E-mail Address</Label>
+                            <Label Content="{Binding LoggedInStudent.EmailAddress}" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Grid>
+                    <!--#endregion-->
+                    
+                    <!--#region Row 3-->
+                <Grid Grid.Row="3" Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Phone Number</Label>
+                            <Label Content="A FAIRE" Background="Gray" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Grid>
+                <!--#endregion-->
+                    
+                    <!--#region Row 4-->
+                    <Grid Grid.Row="4" Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Address</Label>
+                            <Label Content="{Binding LoggedInStudent.Address}" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Grid>
+                    <!--#endregion-->
+                </Grid>
+            </TabItem>
+            <!--#endregion-->
+
+
+            <!--#region myTimeTable -->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <Image Source="/img/schedule.png"  Height="80"/>
+                        <Label Content="my Timetable" FontStyle="Italic" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+            <!--#endregion-->
+
+
+            <!--#region my Courses -->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <Image Source="/img/courses.png" Height="80" />
+                        <Label Content="my Courses" FontStyle="Italic" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+            <!--#endregion-->
+
+
+            <!--#region myFees -->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <Image Source="/img/fees.png" Height="80"/>
+                        <Label Content="my Fees" FontStyle="Italic" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--#region Row 0-->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Image Source="/img/ProfilePicture.png" Height="70"/>
+
+                        <StackPanel Orientation="Vertical" Margin="10,0">
+
+                            <Label Margin="0,3" Content="{Binding LoggedInStudent.FullName, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="22" FontWeight="Bold"/>
+
+                            <Label Margin="0,-12" Content="{Binding LoggedInStudent.UserId, UpdateSourceTrigger=PropertyChanged}"
+                                   ContentStringFormat="#0000{0}"
+                                   FontSize="16" FontWeight="Bold" Foreground="Gray"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+                    <!--#endregion-->
+
+                    <!--#region Row 1-->
+                    <Grid Grid.Row="1" Margin="0,5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="9*"/>
+                            <RowDefinition Height="13*"/>
+                            <RowDefinition Height="0*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="129*"/>
+                            <ColumnDefinition Width="126*"/>
+                            <ColumnDefinition Width="52*"/>
+                            <ColumnDefinition Width="266*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Margin="0,5,0.2,2.6" Content= "Deposit :"
+                               FontSize="15" FontWeight="Bold" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
+                        <Label Margin="80,5,28.2,2.6" Content=  "{Binding StudentDeposit, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="15" FontWeight="Bold" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+
+
+                        <Label Margin="51.8,5,51.8,2.6" Content="Due :"
+                                 FontSize="15" FontWeight="Bold" Foreground="Black" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
+                        <Label Margin="79.8,5,79.8,2.6" Content="{Binding StudentDue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                 FontSize="15" FontWeight="Bold" Foreground="Black" Grid.Column="3" Grid.RowSpan="2"/>
+
+
+
+                        <Button x:Name="addPaymentButton" Content="Add Payment +" Grid.Column="4" Padding="5,0"
+                                Background="Green" 
+                                Foreground="White" Margin="0.2,10,9.8,5.6" Click="addStudentButton_Click" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsFocused" Value="true">
+                                            <Setter Property="Background" Value="Black"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                    </Grid>
+                    <!--#endregion-->
+
+
+                    <!--#region Row 2-->
+                    <DataGrid x:Name="viewPaymentsDataGrid" Grid.Column="0" Grid.Row="2" 
+                        AutoGenerateColumns="False" IsReadOnly="True"
+                        ItemsSource="{Binding LoggedInStudent.Payments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        GridLinesVisibility="All" Width="auto"
+                        KeyDown="viewStudentsDataGrid_KeyDown">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridRow">
+                                <EventSetter Event="MouseDoubleClick" Handler="Students_Row_DoubleClick"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="*" Header="Date" Binding="{Binding Date}"/>
+                            <DataGridTextColumn Width="auto" Header="Sum" Binding="{Binding Amount}"/>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                    <!--#endregion-->
+
+                </Grid>
+            </TabItem>
+            <!--#endregion-->
+
+        </TabControl>
     </Grid>
 </Window>
