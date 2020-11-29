@@ -196,6 +196,12 @@ namespace DorsetOOP
             Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudents());
         }
 
+        private void addTeacherButton_Click(object sender, RoutedEventArgs e)
+        {
+            new AddTeacherView().ShowDialog();
+            Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachers());
+        }
+
         private void addCourseButton_Click(object sender, RoutedEventArgs e)
         {
             new AddCourseView().ShowDialog();
@@ -245,7 +251,5 @@ namespace DorsetOOP
         {
             MessageBox.Show("Modification à faire");
         }
-
-        
     }
 }

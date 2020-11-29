@@ -343,6 +343,19 @@ namespace DorsetOOP
             using(var myDb = new VirtualCollegeContext())
             {
                 var addresses = myDb.Addresses.ToList();
+
+                var courses = myDb.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                var lessons = myDb.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDb.Grades.ToList();
+
+                var payments = myDb.Payments.ToList();
+
                 a = myDb.Users.ToList().Find(u => u.EmailAddress == userLoginInput.Text && u.Password == userPasswordinput.Password.ToString());
             }
 

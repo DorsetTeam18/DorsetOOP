@@ -19,37 +19,37 @@ using System.Windows.Shapes;
 namespace DorsetOOP
 {
     /// <summary>
-    /// Interaction logic for AddStudentView.xaml
+    /// Interaction logic for AddTeacherView.xaml
     /// </summary>
-    public partial class AddStudentView : Window, INotifyPropertyChanged
+    public partial class AddTeacherView : Window, INotifyPropertyChanged
     {
-        #region ViewModel
+        #region View Model
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private Teacher _teacherToAdd = new Teacher();
+        public Teacher TeacherToAdd
+        {
+            get { return _teacherToAdd; }
+            set
+            {
+                _teacherToAdd = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("TeacherToAdd"));
+            }
+        }
 
         private Address _addressToAdd = new Address();
         public Address AddressToAdd
         {
             get { return _addressToAdd; }
-            set 
+            set
             {
                 _addressToAdd = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("AddressToAdd"));
             }
         }
-
-        private Student _studentToAdd = new Student();
-        public Student StudentToAdd
-        {
-            get { return _studentToAdd; }
-            set
-            {
-                _studentToAdd = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("StudentToAdd"));
-            }
-        }
         #endregion
 
-        public AddStudentView()
+        public AddTeacherView()
         {
             InitializeComponent();
         }
@@ -58,9 +58,9 @@ namespace DorsetOOP
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            if (VirtualCollegeContext.CreateUser(StudentToAdd, AddressToAdd))
+            if (VirtualCollegeContext.CreateUser(TeacherToAdd, AddressToAdd))
             {
-                MessageBox.Show("Student created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Teacher created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
             else MessageBox.Show("Couldn't create user", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

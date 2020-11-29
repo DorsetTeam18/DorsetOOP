@@ -266,10 +266,10 @@ namespace DorsetOOP.ViewModels
                     ToList();
 
                 var grades = myDB.Grades.ToList();
+
                 var payments = myDB.Payments.ToList();
 
-                string _description = _addressToAdd.ToString();
-                Address match = addresses.Find(a => a.ToString() == _description);
+                Address match = addresses.Find(a => a.ToString() == _addressToAdd.ToString());
 
                 if (users.FindAll(s => s.EmailAddress == _userToAdd.EmailAddress).Count() == 0)
                 {
@@ -350,10 +350,13 @@ namespace DorsetOOP.ViewModels
 
         public static void RemoveCourse(Course selectedCourse)
         {
-            using (var myDB = new VirtualCollegeContext())
+            if (selectedCourse != null)
             {
-                myDB.Courses.Remove(myDB.Courses.Find(selectedCourse.CourseId));
-                myDB.SaveChanges();
+                using (var myDB = new VirtualCollegeContext())
+                {
+                    myDB.Courses.Remove(myDB.Courses.Find(selectedCourse.CourseId));
+                    myDB.SaveChanges();
+                }
             }
         }
         #endregion
