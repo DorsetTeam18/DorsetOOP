@@ -331,7 +331,7 @@ namespace DorsetOOP
                 #endregion
 
                 var t = studs.Find(s => s.FirstName == "Maxime");
-                t.AddPayment(DateTime.Now, (long)7800.25);
+                t.AddPayment(DateTime.Now, (long)1000);
 
                 myDB.SaveChanges();
             }
@@ -343,19 +343,10 @@ namespace DorsetOOP
             using(var myDb = new VirtualCollegeContext())
             {
                 var addresses = myDb.Addresses.ToList();
-
-                var courses = myDb.Courses.
-                    Include("Teachers").
-                    ToList();
-
-                var lessons = myDb.Lessons.
-                    Include("Students").
-                    ToList();
-
-                var grades = myDb.Grades.ToList();
-
                 var payments = myDb.Payments.ToList();
-
+                var lessons = myDb.Lessons.Include("Students").ToList();
+                var courses = myDb.Courses.Include("Teachers").ToList();
+                var grades = myDb.Grades.ToList();
                 a = myDb.Users.ToList().Find(u => u.EmailAddress == userLoginInput.Text && u.Password == userPasswordinput.Password.ToString());
             }
 
@@ -365,7 +356,7 @@ namespace DorsetOOP
                 switch (t)
                 {
                     case "Student":
-                        StudentView studentViewWindow = new StudentView();
+                        StudentView studentViewWindow = new StudentView(a);
                         studentViewWindow.Closing += new CancelEventHandler(AnyViewWindow_Closing);
                         studentViewWindow.Show();
                         this.Visibility = Visibility.Hidden;
