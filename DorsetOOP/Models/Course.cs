@@ -1,6 +1,8 @@
 ﻿using DorsetOOP.Models.Users;
+using DorsetOOP.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -14,7 +16,8 @@ namespace DorsetOOP.Models
         {
             this.Teachers = new HashSet<Teacher>();
         }
-
+        
+        #region Preoperties
         public int CourseId { get; set; }
         public string Title { get; set; }
         public decimal Credits { get; set; }
@@ -29,10 +32,29 @@ namespace DorsetOOP.Models
 
         // One to many 
         public ICollection<Lesson> Lessons { get; set; }
+        #endregion
 
         public override string ToString()
         {
             return $"{ Title } ({ Credits } credits) - Referent is { ReferentTeacher.FullName }";
         }
+
+        public ObservableCollection<Student> ParticipatingStudents
+        {
+            get
+            {
+                List<Student> myList = new List<Student>();
+                if (Lessons != null)
+                {
+                    foreach (Lesson lesson in Lessons)
+                    {
+                        myList.AddRange(lesson.Students.ToList());
+                    }
+                }
+                return new ObservableCollection<Student>(myList);
+            }
+        }
+
+        public ObservableCollection<Grade> AllCourseGrades { get { return new ObservableCollection<Grade>(VirtualCollegeContext.GetAllGrades(this)); } }
     }
 }

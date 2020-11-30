@@ -216,6 +216,7 @@ namespace DorsetOOP
 
         private void GetPayments()
         {
+
             Payments = new ObservableCollection<Payment>(LoggedInStudent.Payments);
 
             decimal deposit = 0;

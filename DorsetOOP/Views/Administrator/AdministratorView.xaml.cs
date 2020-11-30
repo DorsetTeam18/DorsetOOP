@@ -251,5 +251,10 @@ namespace DorsetOOP
         {
             MessageBox.Show("Modification à faire");
         }
+
+        private void moreDetailsButton_Click(object sender, RoutedEventArgs e)
+        {
+            new CourseDetailsView(SelectedCourse).ShowDialog();
+        }
     }
 }

@@ -30,6 +30,8 @@ namespace DorsetOOP.ViewModels
                     });
 
             modelBuilder.Entity<Course>().
+                Ignore(x => x.ParticipatingStudents).
+                Ignore(x=> x.AllCourseGrades).
                 HasMany(c => c.Teachers).
                 WithMany(p => p.Courses).
                 Map(
@@ -142,6 +144,34 @@ namespace DorsetOOP.ViewModels
                     ToList();
             }
             return t;
+        }
+
+        public static List<Grade> GetAllGrades(Course _courseToGetGradesFrom)
+        {
+            var grades = new List<Grade>();
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                grades = myDB.Grades.ToList().FindAll(g=>g.Course.CourseId == _courseToGetGradesFrom.CourseId);
+            }
+            return grades;
         }
         #endregion
 
