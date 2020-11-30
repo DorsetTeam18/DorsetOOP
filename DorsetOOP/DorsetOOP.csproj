@@ -88,7 +88,10 @@
     <Compile Include="AddGradeView.xaml.cs">
       <DependentUpon>AddGradeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EditGradeView.xaml.cs">
+    <Compile Include="EditLessonView.xaml.cs">
+      <DependentUpon>EditLessonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\Courses\EditGradeView.xaml.cs">
       <DependentUpon>EditGradeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Administrator\Courses\EditCourseView.xaml.cs">
@@ -147,7 +150,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EditGradeView.xaml">
+    <Page Include="EditLessonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Administrator\Courses\EditGradeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -45,13 +45,6 @@ namespace DorsetOOP
             GradeToEdit = _inputGrade;
         }
 
-        private void cancelButton_Click(object sender, RoutedEventArgs e) { this.Close(); }
-
-        private void deleteGradeButton_Click(object sender, RoutedEventArgs e)
-        {
-            VirtualCollegeContext.RemoveGrade(GradeToEdit);
-            MessageBox.Show("Grade deleted!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            this.Close();
-        }
+        private void CloseGradeButton_Click(object sender, RoutedEventArgs e) { this.Close(); }
     }
 }

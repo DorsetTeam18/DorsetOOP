@@ -263,6 +263,8 @@ namespace DorsetOOP
             if (SelectedCourse != null)
             {
                 new CourseDetailsView(SelectedCourse).ShowDialog();
+                GetAllCourses();
+                GetAllUsers();
             }
             else MessageBox.Show("Please select a course", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }

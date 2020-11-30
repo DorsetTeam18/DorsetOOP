@@ -305,6 +305,15 @@ namespace DorsetOOP
                 //grades.Add(fourthGrade);
 
                 //myDB.Grades.AddRange(grades);
+
+                myDB.Grades.Add(new Grade()
+                {
+                    Course = courses.Find(c => c.CourseId == 2),
+                    ExamName = "Test Exam to delete",
+                    Mark = 52,
+                    Coefficient = 3,
+                    Student = studs.Find(s => s.UserId == 1)
+                });
                 #endregion
 
                 #region Course Test
