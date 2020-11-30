@@ -314,7 +314,7 @@ namespace DorsetOOP
 
         private void addLessonButton_Click(object sender, RoutedEventArgs e)
         {
-
+            new AddLessonView().ShowDialog();
         }
     }
 }

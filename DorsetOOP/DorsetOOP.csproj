@@ -88,6 +88,9 @@
     <Compile Include="AddGradeView.xaml.cs">
       <DependentUpon>AddGradeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Administrator\Lessons\AddLessonView.xaml.cs">
+      <DependentUpon>AddLessonView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditLessonView.xaml.cs">
       <DependentUpon>EditLessonView.xaml</DependentUpon>
     </Compile>
@@ -147,6 +150,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="AddGradeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Administrator\Lessons\AddLessonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -264,6 +271,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

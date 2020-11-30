@@ -311,6 +311,38 @@ namespace DorsetOOP.ViewModels
             }
             return courses;
         }
+        public static List<Lesson> GetAllLessonsThatMatchTitle(string _lessonTitle)
+        {
+            var lessons = new List<Lesson>();
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var addresses = myDB.Addresses.ToList();
+
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var courses = myDB.Courses.Include("Teachers").ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+                if (_lessonTitle == "el")
+                {
+
+                }
+                lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList().FindAll(l => l.Course.Title.ToLower().Contains(_lessonTitle.ToLower()));
+            }
+            return lessons;
+        }
         #endregion
 
         #region Add entitites
@@ -395,7 +427,13 @@ namespace DorsetOOP.ViewModels
             }
             return done;
         }
+        public static bool CreateLesson(Lesson _lessonToAdd)
+        {
+            bool done = false;
 
+
+            return done;
+        }
         public static bool AddPayment(Payment paymentToAdd)
         {
             bool done = true;
