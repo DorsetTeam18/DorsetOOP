@@ -47,19 +47,11 @@ namespace DorsetOOP
 
         private void cancelButton_Click(object sender, RoutedEventArgs e) { this.Close(); }
 
-        private void addButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (VirtualCollegeContext.UpdateGrade(GradeToEdit))
-            {
-                MessageBox.Show("Grade updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
-            }
-            else MessageBox.Show("Couldn't update grade!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
         private void deleteGradeButton_Click(object sender, RoutedEventArgs e)
         {
-
+            VirtualCollegeContext.RemoveGrade(GradeToEdit);
+            MessageBox.Show("Grade deleted!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            this.Close();
         }
     }
 }
