@@ -1,4 +1,4 @@
-﻿using DorsetOOP.Models;
+using DorsetOOP.Models;
 using DorsetOOP.Models.Users;
 using DorsetOOP.ViewModels;
 using System;
@@ -254,38 +254,7 @@ namespace DorsetOOP
         }
         #endregion
 
-        #region Key Down
-        //private void viewTeachersDataGrid_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.Key == Key.D)
-        //    {
-        //        VirtualCollegeContext.RemoveUser((Teacher)viewTeachersDataGrid.SelectedItem);
-        //        Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachers());
-        //    }
-        //}
-
-        private void viewStudentsDataGrid_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.D)
-            {
-                VirtualCollegeContext.RemoveUser(SelectedStudent);
-                Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudents());
-            }
-        }
-        #endregion
-
-        #region Double Clicking
-        private void Teachers_Row_DoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            new TeacherDetailsView(SelectedTeacher).ShowDialog();
-        }
-
-        private void Students_Row_DoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            new StudentDetailsView(SelectedStudent).ShowDialog();
-        }
-        #endregion
-
+        
         
     }
 }
