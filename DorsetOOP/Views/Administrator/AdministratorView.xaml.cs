@@ -249,7 +249,13 @@ namespace DorsetOOP
 
         private void editCourseButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Modification à faire");
+            if (SelectedCourse != null)
+            {
+                new EditCourseView(SelectedCourse).ShowDialog();
+                Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCourses());
+            }
+            else MessageBox.Show("Please select a course", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            
         }
 
         private void moreDetailsButton_Click(object sender, RoutedEventArgs e)

@@ -146,7 +146,44 @@ namespace DorsetOOP.ViewModels
             return t;
         }
 
-        public static List<Grade> GetAllGrades(Course _courseToGetGradesFrom)
+        public static List<Course> GetAllCourses(Student _studentToGetCoursesOf)
+        {
+            var t = new List<Course>();
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                foreach (Lesson lesson in students.Find(s=>s.UserId == _studentToGetCoursesOf.UserId).Lessons)
+                {
+                    if(t.FindAll(c=>c.Title == lesson.Course.Title).Count != 0) t.Add(lesson.Course);
+                }
+            }
+            return t;
+        }
+
+        public static List<Grade> GetAllGrades(Course _courseToGetGradesOf)
         {
             var grades = new List<Grade>();
             using (var myDB = new VirtualCollegeContext())
@@ -169,7 +206,7 @@ namespace DorsetOOP.ViewModels
 
                 var payments = myDB.Payments.ToList();
 
-                grades = myDB.Grades.ToList().FindAll(g=>g.Course.CourseId == _courseToGetGradesFrom.CourseId);
+                grades = myDB.Grades.ToList().FindAll(g=>g.Course.CourseId == _courseToGetGradesOf.CourseId);
             }
             return grades;
         }

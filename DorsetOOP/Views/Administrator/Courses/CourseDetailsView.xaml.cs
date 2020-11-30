@@ -85,6 +85,7 @@ namespace DorsetOOP
             }
         }
         #endregion
+
         public CourseDetailsView(Course _inputCourse)
         {
             InitializeComponent();

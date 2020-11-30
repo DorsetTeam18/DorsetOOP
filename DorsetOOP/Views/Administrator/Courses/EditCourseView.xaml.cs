@@ -23,7 +23,7 @@ namespace DorsetOOP
     /// <summary>
     /// Interaction logic for AddCourseView.xaml
     /// </summary>
-    public partial class AddCourseView : Window, INotifyPropertyChanged
+    public partial class EditCourseView : Window, INotifyPropertyChanged
     {
         #region ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
@@ -51,39 +51,32 @@ namespace DorsetOOP
         }
         #endregion
 
-        public AddCourseView()
-        {
-            InitializeComponent();
-            Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachers());
-        }
-
-        public AddCourseView(Course _courseToEdit)
+        public EditCourseView(Course _courseToEdit)
         {
             InitializeComponent();
             CourseToAdd = _courseToEdit;
             Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachers());
         }
 
-        private void cancelButton_Click(object sender, RoutedEventArgs e) { this.Close(); }
-
-        private void addButton_Click(object sender, RoutedEventArgs e)
+        private void SetCheckBoxesValues()
         {
-            foreach (var row in GetDataGridRows(teachersAbleToTeachDataGrid).ToList())
+            var rows = GetDataGridRows(teachersAbleToTeachDataGrid).ToList();
+            foreach (var row in rows)
             {
                 Teacher currentTeacher = (Teacher)row.Item;
                 CheckBox cb = (CheckBox)teachersAbleToTeachDataGrid.Columns.ToList()[0].GetCellContent(row);
-                if (cb.IsChecked==true)
+                if (CourseToAdd.Teachers.ToList().FindAll(u=>u.UserId == currentTeacher.UserId).Count!=0)
                 {
-                    CourseToAdd.Teachers.Add(currentTeacher);
+                    cb.IsChecked = true;
                 }
             }
+        }
 
-            if (VirtualCollegeContext.CreateCourse(CourseToAdd))
-            {
-                MessageBox.Show("Course created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
-            }
-            else MessageBox.Show("Couldn't create course. Check if it doesn't already exsit!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        private void cancelButton_Click(object sender, RoutedEventArgs e) { this.Close(); }
+
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         public IEnumerable<DataGridRow> GetDataGridRows(DataGrid grid)
@@ -97,5 +90,9 @@ namespace DorsetOOP
             }
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            SetCheckBoxesValues();
+        }
     }
 }
