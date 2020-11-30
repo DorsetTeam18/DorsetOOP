@@ -33,11 +33,11 @@
             <TextBox Margin="5,4" Text="{Binding GradeToEdit.Coefficient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
         </StackPanel>
 
-        <Button x:Name="deleteGradeButton" Grid.Column="1" Grid.Row="1" Margin="5"
+        <Button x:Name="CloseGradeButton" Grid.Column="1" Grid.Row="1" Margin="5"
                 HorizontalAlignment="Right"
-                Content="Delete" Padding="5,3"
+                Content="Close" Padding="5,3"
                 Background="#FF950000" Foreground="white"
-                    Click="deleteGradeButton_Click">
+                    Click="CloseGradeButton_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>

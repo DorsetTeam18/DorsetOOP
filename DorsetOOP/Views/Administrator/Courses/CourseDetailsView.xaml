@@ -22,7 +22,7 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Content="{Binding SelectedCourse.Title}" ContentStringFormat="Teachers for {0}" HorizontalAlignment="Center" Margin="0,0,0,-5" FontWeight="Bold"/>
-            <DataGrid Grid.Row="1" Margin="5" AutoGenerateColumns="False"
+            <DataGrid Grid.Row="1" Margin="5" AutoGenerateColumns="False" CanUserResizeColumns="False"
                   ItemsSource="{Binding SelectedCourse.Teachers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="True">
                 <DataGrid.Columns>
@@ -42,7 +42,7 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Content="{Binding SelectedCourse.Title}" ContentStringFormat="Students enrolled for {0}" HorizontalAlignment="Center" Margin="0,0,0,-5" FontWeight="Bold"/>
-            <DataGrid Grid.Row="1" AutoGenerateColumns="False" Margin="0,5,0,0"
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False" Margin="0,5,0,0" CanUserResizeColumns="False"
                       ItemsSource="{Binding SelectedCourse.ParticipatingStudents, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedStudent, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                       IsReadOnly="True">
@@ -66,7 +66,7 @@
                     <Label Content="{Binding SelectedStudent.LastName}" ContentStringFormat="{}{0}'s " HorizontalAlignment="Center" FontWeight="Bold" Padding="0"/>
                     <Label Content="{Binding SelectedCourse.Title}" ContentStringFormat="Lessons for {0}" HorizontalAlignment="Center" FontWeight="Bold" Padding="0"/>
                 </StackPanel>
-                <DataGrid Grid.Column="0" Grid.Row="1" AutoGenerateColumns="False" Margin="0,0,3,0"
+                <DataGrid Grid.Column="0" Grid.Row="1" AutoGenerateColumns="False" Margin="0,0,3,0" CanUserResizeColumns="False"
                           ItemsSource="{Binding SelectedStudentLessonsInCourse, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           IsReadOnly="True">
                     <DataGrid.Columns>
@@ -82,7 +82,7 @@
                     <Label Content="{Binding SelectedCourse.Title}" ContentStringFormat="Grades for {0}" HorizontalAlignment="Center" FontWeight="Bold" Padding="0"/>
                 </StackPanel>
                 
-                <DataGrid Grid.Column="1" Grid.Row="1"  AutoGenerateColumns="False" Margin="3,0,0,0"
+                <DataGrid Grid.Column="1" Grid.Row="1"  AutoGenerateColumns="False" Margin="3,0,0,0" 
                           ItemsSource="{Binding SelectedStudentGradesInCourse, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           IsReadOnly="True">        
                     <DataGrid.Columns>
@@ -95,14 +95,28 @@
             </Grid>
         </Grid>
 
-        <Grid Grid.Column="2">
+        <Grid x:Name="lessonsGrid" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Content="{Binding SelectedCourse.Title}" ContentStringFormat="All lessons for {0}" HorizontalAlignment="Center" Margin="0,0,0,-5" FontWeight="Bold"/>
-            <DataGrid x:Name="allLessonsOfCourse" Grid.Row="1" Margin="5" AutoGenerateColumns="False"
+            <Label Grid.Row="0" Content="{Binding SelectedCourse.Title}" ContentStringFormat="All lessons for {0}"
+                   HorizontalAlignment="Left" Margin="5,0,0,-5" FontWeight="Bold"/>
+            
+            <!--<Button x:Name="deleteLessonButton" Grid.Row="0" Margin="5,0,0,0"
+                HorizontalAlignment="Right"
+                Content="Delete Lesson" Padding="5,3"
+                Background="#FF950000" Foreground="white"
+                    Click="deleteLessonButton_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>-->
+            
+            <DataGrid x:Name="allLessonsOfCourse" Grid.Row="1" Margin="5" AutoGenerateColumns="False" CanUserResizeColumns="False"
                       SelectedItem="{Binding SelectedLesson, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding SelectedCourse.Lessons, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       IsReadOnly="True">
@@ -120,14 +134,28 @@
             </DataGrid>
         </Grid>
 
-        <Grid Grid.Column="3">
+        <Grid x:Name="gradesGrid" Grid.Column="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Content="{Binding SelectedCourse.Title}" ContentStringFormat="All grades for {0}" HorizontalAlignment="Center" Margin="0,0,0,-5" FontWeight="Bold"/>
-            <DataGrid x:Name="allGradesOfCourse" Grid.Row="1" Margin="5" AutoGenerateColumns="False"
+            <Label Grid.Row="0" Content="{Binding SelectedCourse.Title}" ContentStringFormat="All grades for {0}"
+                   HorizontalAlignment="Left" Margin="5,0,5,-5" FontWeight="Bold"/>
+            
+            <Button x:Name="deleteGradeButton" Grid.Row="0" Margin="5,0,0,-3"
+                HorizontalAlignment="Right"
+                Content="Delete Grade" Padding="5,3"
+                Background="#FF950000" Foreground="white"
+                    Click="deleteGradeButton_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <DataGrid x:Name="allGradesOfCourse" Grid.Row="1" Margin="5" AutoGenerateColumns="False" CanUserResizeColumns="False"
                       SelectedItem="{Binding SelectedGrade, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding SelectedCourse.AllCourseGrades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       IsReadOnly="True">

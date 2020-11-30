@@ -113,17 +113,37 @@ namespace DorsetOOP
         {
             InitializeComponent();
             SelectedCourse = _inputCourse;
+            SetViews();
+        }
+
+        private void SetViews()
+        {
+            if (SelectedCourse.Lessons == null) lessonsGrid.Visibility = Visibility.Collapsed;
+            if (SelectedCourse.AllCourseGrades.Count == 0) gradesGrid.Visibility = Visibility.Collapsed;
         }
 
         private void allLessonsOfCourse_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
+            new EditLessonView(SelectedLesson).ShowDialog();
+            VirtualCollegeContext.UpdateLesson(SelectedLesson);
+            // UPDATE 
         }
 
         private void allGradesOfCourse_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             new EditGradeView(SelectedGrade).ShowDialog();
             VirtualCollegeContext.UpdateGrade(SelectedGrade);
+        }
+
+        private void deleteGradeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedGrade != null)
+            {
+                VirtualCollegeContext.RemoveGrade(SelectedGrade);
+                MessageBox.Show("Grade deleted!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                SelectedCourse = SelectedCourse;
+            }
+            else MessageBox.Show("Please select a grade", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
