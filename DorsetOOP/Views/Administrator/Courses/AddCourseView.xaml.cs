@@ -96,6 +96,5 @@ namespace DorsetOOP
                 if (null != row) yield return row;
             }
         }
-
     }
 }

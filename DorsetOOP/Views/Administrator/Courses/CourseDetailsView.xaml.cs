@@ -84,12 +84,46 @@ namespace DorsetOOP
                 
             }
         }
+
+        private Grade _selectedGrade = new Grade();      
+        public Grade SelectedGrade
+        {
+            get { return _selectedGrade; }
+            set
+            {
+                _selectedGrade = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedGrade"));
+            }
+        }
+
+        private Lesson _selectedLesson = new Lesson();
+        public Lesson SelectedLesson
+        {
+            get { return _selectedLesson; }
+            set
+            {
+                _selectedLesson = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedLesson"));
+            }
+        }
+
         #endregion
 
         public CourseDetailsView(Course _inputCourse)
         {
             InitializeComponent();
             SelectedCourse = _inputCourse;
+        }
+
+        private void allLessonsOfCourse_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+
+        private void allGradesOfCourse_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new EditGradeView(SelectedGrade).ShowDialog();
+            VirtualCollegeContext.UpdateGrade(SelectedGrade);
         }
     }
 }

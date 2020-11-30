@@ -425,6 +425,86 @@ namespace DorsetOOP.ViewModels
             }
             return done;
         }
+
+        public static bool UpdateCourse(Course _courseToEdit)
+        {
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                var courseToEdit = courses.Find(c => c.CourseId == _courseToEdit.CourseId);
+                courseToEdit.Title = _courseToEdit.Title;
+                courseToEdit.Credits = _courseToEdit.Credits;
+                courseToEdit.ReferentTeacher = teachers.Find(x => x.UserId == _courseToEdit.ReferentTeacher.UserId);
+                courseToEdit.Teachers.Clear();
+                foreach (Teacher teacher in _courseToEdit.Teachers)
+                {
+                    courseToEdit.Teachers.Add(teachers.Find(x=>x.UserId == teacher.UserId));
+                }
+                myDB.SaveChanges();
+            }
+            return true;
+        }
+
+        public static bool UpdateGrade(Grade _gradeToEdit)
+        {
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                var gradeToChange = grades.Find(g => g.GradeId == _gradeToEdit.GradeId);
+                gradeToChange.Mark = _gradeToEdit.Mark;
+                gradeToChange.ExamName = _gradeToEdit.ExamName;
+                gradeToChange.Coefficient = _gradeToEdit.Coefficient;
+
+                myDB.SaveChanges();
+            }
+            return true;
+        }
         #endregion
 
         #region Remove entitites

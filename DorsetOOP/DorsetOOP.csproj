@@ -85,6 +85,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddGradeView.xaml.cs">
+      <DependentUpon>AddGradeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditGradeView.xaml.cs">
+      <DependentUpon>EditGradeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Administrator\Courses\EditCourseView.xaml.cs">
       <DependentUpon>EditCourseView.xaml</DependentUpon>
     </Compile>
@@ -137,6 +143,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="AddGradeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditGradeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Administrator\Courses\EditCourseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

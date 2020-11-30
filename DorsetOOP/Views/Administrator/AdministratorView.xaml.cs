@@ -260,7 +260,11 @@ namespace DorsetOOP
 
         private void moreDetailsButton_Click(object sender, RoutedEventArgs e)
         {
-            new CourseDetailsView(SelectedCourse).ShowDialog();
+            if (SelectedCourse != null)
+            {
+                new CourseDetailsView(SelectedCourse).ShowDialog();
+            }
+            else MessageBox.Show("Please select a course", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

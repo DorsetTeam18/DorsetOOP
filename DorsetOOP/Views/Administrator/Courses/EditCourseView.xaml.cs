@@ -40,13 +40,13 @@ namespace DorsetOOP
         }
 
         private Course _courseToAdd = new Course();
-        public Course CourseToAdd
+        public Course CourseToEdit
         {
             get { return _courseToAdd; }
             set
             {
                 _courseToAdd = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("CourseToAdd"));
+                PropertyChanged(this, new PropertyChangedEventArgs("CourseToEdit"));
             }
         }
         #endregion
@@ -54,7 +54,7 @@ namespace DorsetOOP
         public EditCourseView(Course _courseToEdit)
         {
             InitializeComponent();
-            CourseToAdd = _courseToEdit;
+            CourseToEdit = _courseToEdit;
             Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachers());
         }
 
@@ -65,7 +65,7 @@ namespace DorsetOOP
             {
                 Teacher currentTeacher = (Teacher)row.Item;
                 CheckBox cb = (CheckBox)teachersAbleToTeachDataGrid.Columns.ToList()[0].GetCellContent(row);
-                if (CourseToAdd.Teachers.ToList().FindAll(u=>u.UserId == currentTeacher.UserId).Count!=0)
+                if (CourseToEdit.Teachers.ToList().FindAll(u=>u.UserId == currentTeacher.UserId).Count!=0)
                 {
                     cb.IsChecked = true;
                 }
@@ -76,7 +76,23 @@ namespace DorsetOOP
 
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
+            CourseToEdit.Teachers = new ObservableCollection<Teacher>();
+            foreach (var row in GetDataGridRows(teachersAbleToTeachDataGrid).ToList())
+            {
+                Teacher currentTeacher = (Teacher)row.Item;
+                CheckBox cb = (CheckBox)teachersAbleToTeachDataGrid.Columns.ToList()[0].GetCellContent(row);
+                if (cb.IsChecked == true)
+                {
+                    CourseToEdit.Teachers.Add(currentTeacher);
+                }
+            }
 
+            if (VirtualCollegeContext.UpdateCourse(CourseToEdit))
+            {
+                MessageBox.Show("Course updates!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            else MessageBox.Show("Couldn't create course. Check if it doesn't already exsit!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         public IEnumerable<DataGridRow> GetDataGridRows(DataGrid grid)

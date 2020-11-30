@@ -20,8 +20,8 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
-            <Label Grid.Row="0" Content="Teachers for course" HorizontalAlignment="Center" Margin="0,0,0,-5" FontWeight="Bold"/>
+
+            <Label Grid.Row="0" Content="{Binding SelectedCourse.Title}" ContentStringFormat="Teachers for {0}" HorizontalAlignment="Center" Margin="0,0,0,-5" FontWeight="Bold"/>
             <DataGrid Grid.Row="1" Margin="5" AutoGenerateColumns="False"
                   ItemsSource="{Binding SelectedCourse.Teachers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="True">
@@ -41,8 +41,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Content="Students enrolled to course" HorizontalAlignment="Center" FontWeight="Bold"/>
-                <DataGrid Grid.Row="1" AutoGenerateColumns="False"
+            <Label Grid.Row="0" Content="{Binding SelectedCourse.Title}" ContentStringFormat="Students enrolled for {0}" HorizontalAlignment="Center" Margin="0,0,0,-5" FontWeight="Bold"/>
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False" Margin="0,5,0,0"
                       ItemsSource="{Binding SelectedCourse.ParticipatingStudents, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedStudent, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                       IsReadOnly="True">
@@ -62,7 +62,10 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="Selected student's lessons for course" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label Content="{Binding SelectedStudent.LastName}" ContentStringFormat="{}{0}'s " HorizontalAlignment="Center" FontWeight="Bold" Padding="0"/>
+                    <Label Content="{Binding SelectedCourse.Title}" ContentStringFormat="Lessons for {0}" HorizontalAlignment="Center" FontWeight="Bold" Padding="0"/>
+                </StackPanel>
                 <DataGrid Grid.Column="0" Grid.Row="1" AutoGenerateColumns="False" Margin="0,0,3,0"
                           ItemsSource="{Binding SelectedStudentLessonsInCourse, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           IsReadOnly="True">
@@ -74,7 +77,11 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <Label Grid.Row="0" Grid.Column="1" Content="Selected student's grades for course" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label Content="{Binding SelectedStudent.LastName}" ContentStringFormat="{}{0}'s " HorizontalAlignment="Center" FontWeight="Bold" Padding="0"/>
+                    <Label Content="{Binding SelectedCourse.Title}" ContentStringFormat="Grades for {0}" HorizontalAlignment="Center" FontWeight="Bold" Padding="0"/>
+                </StackPanel>
+                
                 <DataGrid Grid.Column="1" Grid.Row="1"  AutoGenerateColumns="False" Margin="3,0,0,0"
                           ItemsSource="{Binding SelectedStudentGradesInCourse, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           IsReadOnly="True">        
@@ -94,10 +101,16 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Content="All lessons for course" HorizontalAlignment="Center" Margin="0,0,0,-5" FontWeight="Bold"/>
-            <DataGrid Grid.Row="1" Margin="5" AutoGenerateColumns="False"
-                  ItemsSource="{Binding SelectedCourse.Lessons, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  IsReadOnly="True">
+            <Label Grid.Row="0" Content="{Binding SelectedCourse.Title}" ContentStringFormat="All lessons for {0}" HorizontalAlignment="Center" Margin="0,0,0,-5" FontWeight="Bold"/>
+            <DataGrid x:Name="allLessonsOfCourse" Grid.Row="1" Margin="5" AutoGenerateColumns="False"
+                      SelectedItem="{Binding SelectedLesson, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding SelectedCourse.Lessons, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      IsReadOnly="True">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="MouseDoubleClick" Handler="allLessonsOfCourse_MouseDoubleClick"/>
+                    </Style>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Teacher" Binding="{Binding Teacher.FullName}" Width="auto"/>
                     <DataGridTextColumn Header="Room" Binding="{Binding RoomName}" Width="auto"/>
@@ -113,10 +126,16 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Content="All grades for course" HorizontalAlignment="Center" Margin="0,0,0,-5" FontWeight="Bold"/>
-            <DataGrid Grid.Row="1" Margin="5" AutoGenerateColumns="False"
-                  ItemsSource="{Binding SelectedCourse.AllCourseGrades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  IsReadOnly="True">
+            <Label Grid.Row="0" Content="{Binding SelectedCourse.Title}" ContentStringFormat="All grades for {0}" HorizontalAlignment="Center" Margin="0,0,0,-5" FontWeight="Bold"/>
+            <DataGrid x:Name="allGradesOfCourse" Grid.Row="1" Margin="5" AutoGenerateColumns="False"
+                      SelectedItem="{Binding SelectedGrade, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding SelectedCourse.AllCourseGrades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      IsReadOnly="True">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="MouseDoubleClick" Handler="allGradesOfCourse_MouseDoubleClick"/>
+                    </Style>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Student" Binding="{Binding Student.FullName}"/>
                     <DataGridTextColumn Header="Title" Binding="{Binding ExamName}" Width="auto"/>

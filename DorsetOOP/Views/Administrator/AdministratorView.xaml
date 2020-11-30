@@ -73,7 +73,7 @@
                 <TabItem.Header>
                     <StackPanel>
                         <Image Source="/img/students.png" Height="80"/>
-                        <Label Content="Students" FontStyle="Italic" HorizontalAlignment="Center" />
+                        <Label Content="Students" Foreground="White" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -195,7 +195,7 @@
                 <TabItem.Header>
                     <StackPanel>
                         <Image Source="/img/info.png"  Height="80"/>
-                        <Label Content="Teachers" FontStyle="Italic" HorizontalAlignment="Center" />
+                        <Label Content="Teachers" Foreground="White" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -318,7 +318,7 @@
                 <TabItem.Header>
                     <StackPanel>
                         <Image Source="/img/courses.png" Height="80" />
-                        <Label Content="Courses" FontStyle="Italic" HorizontalAlignment="Center" />
+                        <Label Content="Courses" Foreground="White" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -507,7 +507,7 @@
                 <TabItem.Header>
                     <StackPanel>
                         <Image Source="/img/schedule.png" Height="80"/>
-                        <Label Content="Timetable" FontStyle="Italic" HorizontalAlignment="Center" />
+                        <Label Content="Timetable" Foreground="White" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
             </TabItem>
