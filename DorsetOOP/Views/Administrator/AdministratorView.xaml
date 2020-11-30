@@ -389,7 +389,7 @@
                         </TextBox>
 
                         <Button x:Name="addCourseButton" Content="New Course +" Grid.Column="2" Padding="5,0"
-                                Background="Green" Foreground="White" Margin="0,10,10,10"
+                                Background="Green" Foreground="White" Margin="10.333,10,-0.333,10.333"
                                 Click="addCourseButton_Click">
                             <Button.Resources>
                                 <Style TargetType="Border">
@@ -510,6 +510,167 @@
                         <Label Content="Timetable" Foreground="White" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--#region ROW 0-->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Image Source="/img/ProfilePicture.png" Height="70"/>
+
+                        <StackPanel Orientation="Vertical" Margin="10,0">
+
+                            <Label Margin="0,3" Content="{Binding LoggedInAdmin.FullName, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="22" FontWeight="Bold"/>
+
+                            <Label Margin="0,-12" Content="{Binding LoggedInAdmin.UserId, UpdateSourceTrigger=PropertyChanged}"
+                                   ContentStringFormat="#0000{0}"
+                                   FontSize="16" FontWeight="Bold" Foreground="Gray"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+                    <!--#endregion-->
+
+                    <!--#region ROW 1-->
+                    <Grid Grid.Row="1" Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0" Padding="5" Margin="0,10,10,10"
+                                 Text="{Binding SearchLessonsText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                    <Style.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                            <VisualBrush.Visual>
+                                                <Label Content="Search lessons by their course name here..." Opacity="0.5" FontSize="14" />
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </Style.Resources>
+                                    <Style.Triggers>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="Text" Value="{x:Static sys:String.Empty}"/>
+                                                <Condition Property="IsFocused"  Value="False"/>
+                                            </MultiTrigger.Conditions>
+                                            <MultiTrigger.Setters>
+                                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                            </MultiTrigger.Setters>
+                                        </MultiTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+
+                        </TextBox>
+
+                        <Button x:Name="addLessonButton" Content="New Lesson +" Grid.Column="2" Padding="5,0"
+                                Background="Green" Foreground="White" Margin="0,10,10,10"
+                                Click="addLessonButton_Click">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsFocused" Value="true">
+                                            <Setter Property="Background" Value="Black"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                    </Grid>
+
+                    <!--#endregion-->
+
+                    <!--#region ROW 2-->
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <DataGrid x:Name="viewLessonsDataGrid" Grid.Column="0" Margin="0,10,0,0" IsReadOnly="True"
+                              ItemsSource="{Binding Lessons, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                              SelectedItem="{Binding SelectedLesson, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                              AutoGenerateColumns="False" GridLinesVisibility="All" Width="auto"
+                              KeyDown="viewTeachersDataGrid_KeyDown">
+                            <DataGrid.Resources>
+                                <Style TargetType="DataGridRow">
+                                    <EventSetter Event="MouseDoubleClick" Handler="moreDetailsButton_Click"/>
+                                </Style>
+                            </DataGrid.Resources>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width="auto" Header="Lesson ID" Binding="{Binding LessonId}"/>
+                                <DataGridTextColumn Width="*" Header="Course" Binding="{Binding Course.Title}"/>
+                                <DataGridTextColumn Width="*" Header="Date" Binding="{Binding DateAndTime}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <!-- RIGHT PANE-->
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Margin="5,10,5,0" Orientation="Vertical" VerticalAlignment="Top">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Course"/>
+                                    <Label Content="{Binding SelectedLesson.Course.Title}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Teacher"/>
+                                    <Label Content="{Binding SelectedLesson.Teacher.FullName}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Date"/>
+                                    <Label Content="{Binding SelectedLesson.DateAndTime}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Duration"/>
+                                    <Label Content="{Binding SelectedLesson.Duration}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Room Name"/>
+                                    <Label Content="{Binding SelectedLesson.RoomName}" FontWeight="Bold"/>
+                                </StackPanel>
+                                
+                            </StackPanel>
+
+                            <DataGrid ItemsSource="{Binding SelectedLesson.Students, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0"
+                                      AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding UserId}"/>
+                                    <DataGridTextColumn Header="Last Name" Width="auto" Binding="{Binding LastName}"/>
+                                    <DataGridTextColumn Header="First Name" Width="*" Binding="{Binding FirstName}"/>
+                                    <DataGridTextColumn Header="Email Adress" Width="*" Binding="{Binding EmailAddress}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                          
+
+                        </Grid>
+
+                    </Grid>
+
+                    <!--#endregion-->
+                </Grid>
             </TabItem>
             <!--#endregion-->
 

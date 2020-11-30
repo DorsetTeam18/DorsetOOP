@@ -149,6 +149,44 @@ namespace DorsetOOP
         }
         #endregion
 
+        #region LESSONS
+        private ObservableCollection<Lesson> _lessons;
+        public ObservableCollection<Lesson> Lessons
+        {
+            get { return _lessons; }
+            set
+            {
+                _lessons = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Lessons"));
+            }
+        }
+        private string _searchLessonsText;
+        public string SearchLessonsText
+        {
+            get { return _searchLessonsText; }
+            set
+            {
+                if (value == "e")
+                {
+
+                }
+                _searchLessonsText = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SearchLessonsText"));
+                GetLessonsThatMatch(SearchLessonsText);
+            }
+        }
+        private Lesson _selectedLesson = new Lesson();
+        public Lesson SelectedLesson
+        {
+            get { return _selectedLesson; }
+            set
+            {
+                _selectedLesson = value;
+
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedLesson"));
+            }
+        }
+        #endregion
         #endregion
 
         public AdministratorView(User _admin)               
@@ -186,6 +224,11 @@ namespace DorsetOOP
         private void GetCoursesThatMatch(string _searchBoxValue)
         {
             Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCoursesThatMatchTitle(_searchBoxValue));
+        }
+
+        private void GetLessonsThatMatch(string _searchBoxValue)
+        {
+            Lessons = new ObservableCollection<Lesson>(VirtualCollegeContext.GetAllLessonsThatMatchTitle(_searchBoxValue));
         }
         #endregion
 
@@ -265,6 +308,11 @@ namespace DorsetOOP
                 new CourseDetailsView(SelectedCourse).ShowDialog();
             }
             else MessageBox.Show("Please select a course", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void addLessonButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
