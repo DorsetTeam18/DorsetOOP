@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DorsetOOP" xmlns:local1="clr-namespace:DorsetOOP.Converters"
-        mc:Ignorable="d" Background="#3E7591" WindowStartupLocation="CenterScreen"
-        Title="TeacherView" Height="450" Width="800" Icon="/img/LoginIcon.ico">
+        xmlns:local="clr-namespace:DorsetOOP.Converters"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="Teacher Window" Background="#F2F2F2" Height="450" Width="800" Icon="/img/LoginIcon.ico" FontFamily="Helvetica">
 
     <Window.Resources>
-        <local1:SizeConverter x:Key="sizeConverter"/>
+        <local:SizeConverter x:Key="sizeConverter"/>
         <Style TargetType="{x:Type TabItem}">
             <Setter Property="Height" Value="{Binding ElementName=myTabControl, Path=ActualHeight, Converter={StaticResource sizeConverter}}" />
 
@@ -73,7 +73,7 @@
                 <TabItem.Header>
                     <StackPanel>
                         <Image Source="/img/students.png" Height="80"/>
-                        <Label Content="Students" Foreground="White" FontStyle="Italic" HorizontalAlignment="Center" />
+                        <Label Content=" My Students" Foreground="White" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -94,10 +94,10 @@
 
                         <StackPanel Orientation="Vertical" Margin="10,0">
 
-                            <Label Margin="0,3" Content="{Binding LoggedInAdmin.FullName, UpdateSourceTrigger=PropertyChanged}"
+                            <Label Margin="0,3" Content="{Binding LoggedInTeacher.FullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                FontSize="22" FontWeight="Bold"/>
 
-                            <Label Margin="0,-12" Content="{Binding LoggedInAdmin.UserId, UpdateSourceTrigger=PropertyChanged}"
+                            <Label Margin="0,-12" Content="{Binding LoggedInTeacher.UserId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                    ContentStringFormat="#0000{0}"
                                    FontSize="16" FontWeight="Bold" Foreground="Gray"/>
 
@@ -115,7 +115,7 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBox Grid.Column="0" Padding="5" Margin="0,10,10,10"
-                                 Text="{Binding SearchStudentsText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                                 Text="{Binding SearchStudentTextBox, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
                             <TextBox.Style>
                                 <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
                                     <Style.Resources>
@@ -144,28 +144,20 @@
 
                         </TextBox>
 
-
-
                     </Grid>
                     <!--#endregion-->
 
                     <!--#region Row 2-->
-                    <DataGrid x:Name="viewStudentsDataGrid" Grid.Row="2" Margin="0,9.8,-0.2,-0.2" IsReadOnly="True"
-                              ItemsSource="{Binding Students, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
-                              SelectedItem="{Binding SelectedStudent, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                              AutoGenerateColumns="False" GridLinesVisibility="All" Width="auto" 
-                              KeyDown="viewStudentsDataGrid_KeyDown" Grid.ColumnSpan="2">
-
+                    <DataGrid x:Name="tutoringStudentsDataGrid" Grid.Row="2" Grid.ColumnSpan="2" IsReadOnly="True" AutoGenerateColumns="False"
+                              ItemsSource="{Binding Students, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                              GridLinesVisibility="All" Width="auto" >
+                        <!--SelectedItem="{Binding , Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"-->
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="auto" Header="First Name" Binding="{Binding FirstName}"/>
-                            <DataGridTextColumn Width="auto" Header="Last Name" Binding="{Binding LastName}"/>
-                            <DataGridTextColumn Width="auto" Header="Gender" Binding="{Binding Gender}"/>
-                            <DataGridTextColumn Width="auto" Header="Birthday" Binding="{Binding BirthDate.Date, StringFormat=dd/MM/yyyy}"/>
-                            <DataGridTextColumn Width="*" Header="Email Address" Binding="{Binding EmailAddress}"/>
-                            <DataGridTextColumn Width="auto" Header="Password" Binding="{Binding Password}"/>
-                            <DataGridTextColumn Width="auto" Header="Country" Binding="{Binding Address.Country}"/>
+                            <DataGridTextColumn Header="Full Name" Width="*" Binding="{Binding FullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Gender" Width="*" Binding="{Binding Gender, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Birthday" Width="*" Binding="{Binding BirthDate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Email Address" Width="*" Binding="{Binding EmailAddress, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataGrid.Columns>
-
                     </DataGrid>
                     <!--#endregion-->
 

@@ -342,6 +342,7 @@ namespace DorsetOOP.ViewModels
             }
             return courses;
         }
+
         public static List<Lesson> GetAllLessonsThatMatchTitle(string _lessonTitle)
         {
             var lessons = new List<Lesson>();
@@ -373,6 +374,37 @@ namespace DorsetOOP.ViewModels
                     ToList().FindAll(l => l.Course.Title.ToLower().Contains(_lessonTitle.ToLower()));
             }
             return lessons;
+        }
+
+        public static List<Student> GetAllStudentsOfTutorThatMatchFullName(Teacher _tutor, string _fullNameSearch)
+        {
+            var tempStuds = new List<Student>();
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var addresses = myDB.Addresses.ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers")
+                    .ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students")
+                    .ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                var students = myDB.Users.Include("Lessons").OfType<Student>().ToList();
+
+                tempStuds = teachers.Find(t => t.UserId == _tutor.UserId).Tutoring.ToList().FindAll(s => s.FullName.ToLower().Contains(_fullNameSearch.ToLower()));
+            }
+            return tempStuds;
         }
         #endregion
 

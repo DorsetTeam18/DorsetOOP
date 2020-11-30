@@ -346,7 +346,7 @@ namespace DorsetOOP
             }
         }
 
-        private void userLoginButton_Click(object sender, RoutedEventArgs e)
+        private void UserLoginButton_Click(object sender, RoutedEventArgs e)
         {
             User a = new Administrator();
             using(var myDb = new VirtualCollegeContext())
@@ -377,7 +377,7 @@ namespace DorsetOOP
                         break;
 
                     case "Teacher":
-                        TeacherView teacherViewWindow = new TeacherView();
+                        TeacherView teacherViewWindow = new TeacherView(a);
                         teacherViewWindow.Closing += new CancelEventHandler(AnyViewWindow_Closing);
                         teacherViewWindow.Show();
                         this.Visibility = Visibility.Hidden;
@@ -398,6 +398,6 @@ namespace DorsetOOP
 
         private void AnyViewWindow_Closing(object sender, CancelEventArgs e) { this.Visibility = Visibility.Visible; }
 
-        private void Input_KeyDown(object sender, KeyEventArgs e) { if (e.Key == Key.Enter) userLoginButton_Click(new object(), new RoutedEventArgs()); }
+        private void Input_KeyDown(object sender, KeyEventArgs e) { if (e.Key == Key.Enter) UserLoginButton_Click(new object(), new RoutedEventArgs()); }
     }
 }

@@ -43,7 +43,7 @@
 
             <Button x:Name="userLoginButton"  Padding="6" Content="Login" Margin="60,20"
                     VerticalContentAlignment="center" Background="Green" 
-                    Foreground="White" Click="userLoginButton_Click"/>
+                    Foreground="White" Click="UserLoginButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>
