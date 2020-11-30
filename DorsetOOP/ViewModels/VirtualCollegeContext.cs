@@ -505,6 +505,46 @@ namespace DorsetOOP.ViewModels
             }
             return true;
         }
+
+        public static bool UpdateLesson(Lesson _lessonToEdit)
+        {
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                var lessonToChange = lessons.Find(l => l.LessonId == _lessonToEdit.LessonId);
+                lessonToChange.RoomName = _lessonToEdit.RoomName;
+                lessonToChange.Day = _lessonToEdit.Day;
+                lessonToChange.Hour = _lessonToEdit.Hour;
+                lessonToChange.Duration = _lessonToEdit.Duration;
+                lessonToChange.Teacher = teachers.Find(t => t.UserId == _lessonToEdit.Teacher.UserId);
+
+                myDB.SaveChanges();
+            }
+            return true;
+        }
         #endregion
 
         #region Remove entitites
