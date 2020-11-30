@@ -315,6 +315,7 @@ namespace DorsetOOP
                 new CourseDetailsView(SelectedCourse).ShowDialog();
                 GetAllCourses();
                 GetAllUsers();
+                GetAllLessons();
             }
             else MessageBox.Show("Please select a course", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -323,6 +324,8 @@ namespace DorsetOOP
         {
             new AddLessonView().ShowDialog();
             GetAllLessons();
+            GetAllUsers();
+            GetAllCourses();
             
         }
     }

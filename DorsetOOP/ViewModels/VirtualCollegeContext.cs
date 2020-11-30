@@ -492,8 +492,8 @@ namespace DorsetOOP.ViewModels
                 {
                     Lesson le = new Lesson()
                     {
-                        Teacher = _lessonToAdd.Teacher,
-                        Course = _lessonToAdd.Course,
+                        Teacher = teachers.Find(t => t.UserId == _lessonToAdd.Teacher.UserId),
+                        Course = courses.Find(c => c.CourseId == _lessonToAdd.Course.CourseId),
                         Day = _lessonToAdd.Day,
                         Duration = _lessonToAdd.Duration,
                         Hour = _lessonToAdd.Hour,
@@ -502,7 +502,7 @@ namespace DorsetOOP.ViewModels
 
                     foreach(Student stu in _lessonToAdd.Students)
                     {
-                        le.Students.Add(stu);
+                        le.Students.Add(students.Find(s => s.UserId == stu.UserId));
                     }
                     myDB.Lessons.Add(le);
                     done = true;
