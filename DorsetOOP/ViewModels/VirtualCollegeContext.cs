@@ -525,15 +525,24 @@ namespace DorsetOOP.ViewModels
             return true;
         }
 
-        public static void RemoveCourse(Course selectedCourse)
+        public static void RemoveCourse(Course _courseToRemove)
         {
-            if (selectedCourse != null)
+            if (_courseToRemove != null)
             {
                 using (var myDB = new VirtualCollegeContext())
                 {
-                    myDB.Courses.Remove(myDB.Courses.Find(selectedCourse.CourseId));
+                    myDB.Courses.Remove(myDB.Courses.Find(_courseToRemove.CourseId));
                     myDB.SaveChanges();
                 }
+            }
+        }
+
+        public static void RemoveGrade(Grade _gradeToRemove)
+        {
+            using (var myDB = new VirtualCollegeContext())
+            {
+                myDB.Grades.Remove(myDB.Grades.Find(_gradeToRemove.GradeId));
+                myDB.SaveChanges();
             }
         }
         #endregion
