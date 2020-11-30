@@ -223,11 +223,12 @@
                                HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0">
                         </Label>
                         <DataGrid x:Name="viewGradeDataGrid" Grid.Column="0" Grid.Row="1" Margin="5,0" 
-                  AutoGenerateColumns="False" IsReadOnly="True"
-                  ItemsSource="{Binding LoggedInStudent.Lessons, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  GridLinesVisibility="All" Width="auto">
+                                AutoGenerateColumns="False" IsReadOnly="True"
+                                ItemsSource="{Binding Courses, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding SelectedCourse, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                GridLinesVisibility="All" Width="auto">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Width="*" Binding="{Binding Course.Title }"/>
+                                <DataGridTextColumn Width="*" Binding="{Binding Title }"/>
                             </DataGrid.Columns>
                         </DataGrid>
 

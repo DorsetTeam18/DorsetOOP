@@ -178,17 +178,6 @@ namespace DorsetOOP
             }
         }
 
-        private string _searchCoursesText;
-        public string SearchCoursesText
-        {
-            get { return _searchCoursesText; }
-            set
-            {
-                _searchCoursesText = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("SearchCoursesText"));
-                GetCoursesThatMatch(SearchCoursesText);
-            }
-        }
         #endregion
 
         #endregion
@@ -199,24 +188,18 @@ namespace DorsetOOP
             LoggedInStudent = (Student)_student;
             StudentDue = LoggedInStudent.Fees;
             GetPayments();
-
+            GetAllCourses();
         }
 
         #region Get Lists
-        private void GetAllUsers()
-        {
-            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudents());
-            Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachers());
-        }
 
         private void GetAllCourses()
         {
-            Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCourses());
+            Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCourses(LoggedInStudent));
         }
 
         private void GetPayments()
         {
-
             Payments = new ObservableCollection<Payment>(LoggedInStudent.Payments);
 
             decimal deposit = 0;
@@ -286,6 +269,5 @@ namespace DorsetOOP
         }
         #endregion
 
-        
     }
 }

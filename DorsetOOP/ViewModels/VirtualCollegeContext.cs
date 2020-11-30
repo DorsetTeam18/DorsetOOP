@@ -177,7 +177,7 @@ namespace DorsetOOP.ViewModels
 
                 foreach (Lesson lesson in students.Find(s=>s.UserId == _studentToGetCoursesOf.UserId).Lessons)
                 {
-                    if(t.FindAll(c=>c.Title == lesson.Course.Title).Count != 0) t.Add(lesson.Course);
+                    if(t.FindAll(c=>c.Title == lesson.Course.Title).Count == 0) t.Add(lesson.Course);
                 }
             }
             return t;
