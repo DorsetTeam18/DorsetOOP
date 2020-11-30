@@ -3,10 +3,317 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DorsetOOP"
-        mc:Ignorable="d" Background="Red" WindowStartupLocation="CenterScreen"
+        xmlns:local="clr-namespace:DorsetOOP" xmlns:local1="clr-namespace:DorsetOOP.Converters"
+        mc:Ignorable="d" Background="#3E7591" WindowStartupLocation="CenterScreen"
         Title="TeacherView" Height="450" Width="800" Icon="/img/LoginIcon.ico">
+
+    <Window.Resources>
+        <local1:SizeConverter x:Key="sizeConverter"/>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Height" Value="{Binding ElementName=myTabControl, Path=ActualHeight, Converter={StaticResource sizeConverter}}" />
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+
+                        <Grid>
+
+                            <Border Name="Border" Background="#3E7591">
+
+                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="12,2,12,2"/>
+
+                            </Border>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsSelected" Value="True">
+
+                                <Setter TargetName="Border" Property="Background" Value="#66B2D8" />
+
+                            </Trigger>
+
+                            <Trigger Property="IsSelected" Value="False">
+
+                                <Setter TargetName="Border" Property="Background" Value="#3E7591" />
+
+                            </Trigger>
+
+                            <MultiTrigger>
+
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                </MultiTrigger.Conditions>
+
+                                <Setter TargetName="Border" Property="Background" Value="#66B2D8" />
+
+                            </MultiTrigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </Window.Resources>
+
     <Grid>
-        
+        <TabControl x:Name="myTabControl" TabStripPlacement="Left" Margin="-2" >
+
+            <!--#region STUDENTS -->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <Image Source="/img/students.png" Height="80"/>
+                        <Label Content="Students" Foreground="White" FontStyle="Italic" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="438*"/>
+                        <ColumnDefinition Width="239*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--#region Row 0-->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Grid.ColumnSpan="2" Margin="0,0,-0.2,0.4">
+                        <Image Source="/img/ProfilePicture.png" Height="70"/>
+
+                        <StackPanel Orientation="Vertical" Margin="10,0">
+
+                            <Label Margin="0,3" Content="{Binding LoggedInAdmin.FullName, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="22" FontWeight="Bold"/>
+
+                            <Label Margin="0,-12" Content="{Binding LoggedInAdmin.UserId, UpdateSourceTrigger=PropertyChanged}"
+                                   ContentStringFormat="#0000{0}"
+                                   FontSize="16" FontWeight="Bold" Foreground="Gray"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+                    <!--#endregion-->
+
+                    <!--#region Row 1-->
+                    <Grid Grid.Row="1" Margin="0,4.6,-0.2,5.2" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0" Padding="5" Margin="0,10,10,10"
+                                 Text="{Binding SearchStudentsText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                    <Style.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                            <VisualBrush.Visual>
+                                                <Label Content="Search students by full name here..." Opacity="0.5" FontSize="14" />
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </Style.Resources>
+                                    <Style.Triggers>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="Text" Value="{x:Static sys:String.Empty}"/>
+                                                <Condition Property="IsFocused"  Value="False"/>
+                                            </MultiTrigger.Conditions>
+                                            <MultiTrigger.Setters>
+                                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                            </MultiTrigger.Setters>
+                                        </MultiTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+
+                        </TextBox>
+
+
+
+                    </Grid>
+                    <!--#endregion-->
+
+                    <!--#region Row 2-->
+                    <DataGrid x:Name="viewStudentsDataGrid" Grid.Row="2" Margin="0,9.8,-0.2,-0.2" IsReadOnly="True"
+                              ItemsSource="{Binding Students, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                              SelectedItem="{Binding SelectedStudent, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                              AutoGenerateColumns="False" GridLinesVisibility="All" Width="auto" 
+                              KeyDown="viewStudentsDataGrid_KeyDown" Grid.ColumnSpan="2">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="auto" Header="First Name" Binding="{Binding FirstName}"/>
+                            <DataGridTextColumn Width="auto" Header="Last Name" Binding="{Binding LastName}"/>
+                            <DataGridTextColumn Width="auto" Header="Gender" Binding="{Binding Gender}"/>
+                            <DataGridTextColumn Width="auto" Header="Birthday" Binding="{Binding BirthDate.Date, StringFormat=dd/MM/yyyy}"/>
+                            <DataGridTextColumn Width="*" Header="Email Address" Binding="{Binding EmailAddress}"/>
+                            <DataGridTextColumn Width="auto" Header="Password" Binding="{Binding Password}"/>
+                            <DataGridTextColumn Width="auto" Header="Country" Binding="{Binding Address.Country}"/>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                    <!--#endregion-->
+
+                </Grid>
+            </TabItem>
+            <!--#endregion-->
+
+
+            <!--#region COURSES -->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <Image Source="/img/courses.png" Height="80" RenderTransformOrigin="0.635,2.845" />
+                        <Label Content="Courses" Foreground="White" FontStyle="Italic" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--#region ROW 0-->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Image Source="/img/ProfilePicture.png" Height="70"/>
+
+                        <StackPanel Orientation="Vertical" Margin="10,0">
+
+                            <Label Margin="0,3" Content="{Binding LoggedInAdmin.FullName, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="22" FontWeight="Bold"/>
+
+                            <Label Margin="0,-12" Content="{Binding LoggedInAdmin.UserId, UpdateSourceTrigger=PropertyChanged}"
+                                   ContentStringFormat="#0000{0}"
+                                   FontSize="16" FontWeight="Bold" Foreground="Gray"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+                    <!--#endregion-->
+
+                    <!--#region ROW 1-->
+                    <Grid Grid.Row="1" Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0" Padding="5" Margin="0,10,10,10">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                    <Style.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                            <VisualBrush.Visual>
+                                                <Label Content="Search courses by their title here..." Opacity="0.5" FontSize="14" />
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </Style.Resources>
+                                    <Style.Triggers>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="Text" Value="{x:Static sys:String.Empty}"/>
+                                                <Condition Property="IsFocused"  Value="False"/>
+                                            </MultiTrigger.Conditions>
+                                            <MultiTrigger.Setters>
+                                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                            </MultiTrigger.Setters>
+                                        </MultiTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+
+                        </TextBox>
+
+
+
+                    </Grid>
+
+                    <!--#endregion-->
+
+                    <!--#region ROW 2-->
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+
+
+                        <!-- RIGHT PANE-->
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Margin="5,10,5,0" Orientation="Vertical" VerticalAlignment="Top">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Title"/>
+                                    <Label Content="{Binding SelectedCourse.Title}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Referent Teacher"/>
+                                    <Label Content="{Binding SelectedCourse.ReferentTeacher.FullName}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Credits"/>
+                                    <Label Content="{Binding SelectedCourse.Credits}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+
+
+                                </StackPanel>
+                            </StackPanel>
+
+                            <DataGrid ItemsSource="{Binding SelectedCourse.Lessons, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0"
+                                      AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Room" Width="auto" Binding="{Binding RoomName}"/>
+                                    <DataGridTextColumn Header="Time" Width="*" Binding="{Binding DateAndTime}"/>
+                                    <DataGridTextColumn Header="Duration" Width="*" Binding="{Binding Duration}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+
+                        </Grid>
+
+                    </Grid>
+
+                    <!--#endregion-->
+
+                </Grid>
+            </TabItem>
+            <!--#endregion-->
+
+
+
+
+        </TabControl>
     </Grid>
 </Window>

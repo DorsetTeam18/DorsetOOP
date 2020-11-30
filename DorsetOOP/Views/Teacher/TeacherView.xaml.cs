@@ -23,5 +23,15 @@ namespace DorsetOOP
         {
             InitializeComponent();
         }
+
+        private void viewStudentsDataGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void Students_Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
