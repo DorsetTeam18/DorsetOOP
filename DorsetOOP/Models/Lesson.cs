@@ -55,5 +55,10 @@ namespace DorsetOOP.Models
         {
             using (var myDb = new VirtualCollegeContext()) foreach (var stud in Students) EnrollStudent(stud);
         }
+
+        public override string ToString()
+        {
+            return $"{Course} : {RoomName} - {DateAndTime} - {Duration} - {Teacher.FullName}";
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace DorsetOOP.ViewModels
 
             modelBuilder.Entity<Course>().
                 Ignore(x => x.ParticipatingStudents).
-                Ignore(x=> x.AllCourseGrades).
+                Ignore(x => x.AllCourseGrades).
                 HasMany(c => c.Teachers).
                 WithMany(p => p.Courses).
                 Map(
@@ -145,6 +145,37 @@ namespace DorsetOOP.ViewModels
             }
             return t;
         }
+        public static List<Lesson> GetAllLessons()
+        {
+            var t = new List<Lesson>();
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                t = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+            }
+            return t;
+        }
 
         public static List<Course> GetAllCourses(Student _studentToGetCoursesOf)
         {
@@ -175,9 +206,9 @@ namespace DorsetOOP.ViewModels
                     Include("Teachers").
                     ToList();
 
-                foreach (Lesson lesson in students.Find(s=>s.UserId == _studentToGetCoursesOf.UserId).Lessons)
+                foreach (Lesson lesson in students.Find(s => s.UserId == _studentToGetCoursesOf.UserId).Lessons)
                 {
-                    if(t.FindAll(c=>c.Title == lesson.Course.Title).Count == 0) t.Add(lesson.Course);
+                    if (t.FindAll(c => c.Title == lesson.Course.Title).Count == 0) t.Add(lesson.Course);
                 }
             }
             return t;
@@ -206,7 +237,7 @@ namespace DorsetOOP.ViewModels
 
                 var payments = myDB.Payments.ToList();
 
-                grades = myDB.Grades.ToList().FindAll(g=>g.Course.CourseId == _courseToGetGradesOf.CourseId);
+                grades = myDB.Grades.ToList().FindAll(g => g.Course.CourseId == _courseToGetGradesOf.CourseId);
             }
             return grades;
         }
@@ -431,7 +462,54 @@ namespace DorsetOOP.ViewModels
         {
             bool done = false;
 
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
 
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers")
+                    .ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                if (lessons.FindAll(l => l.ToString() == _lessonToAdd.ToString()).Count == 0)
+                {
+                    Lesson le = new Lesson()
+                    {
+                        Teacher = _lessonToAdd.Teacher,
+                        Course = _lessonToAdd.Course,
+                        Day = _lessonToAdd.Day,
+                        Duration = _lessonToAdd.Duration,
+                        Hour = _lessonToAdd.Hour,
+                        RoomName = _lessonToAdd.RoomName
+                    };
+
+                    foreach(Student stu in _lessonToAdd.Students)
+                    {
+                        le.Students.Add(stu);
+                    }
+                    myDB.Lessons.Add(le);
+                    done = true;
+                    
+                }
+                myDB.SaveChanges();
+            }
             return done;
         }
         public static bool AddPayment(Payment paymentToAdd)
@@ -499,7 +577,7 @@ namespace DorsetOOP.ViewModels
                 courseToEdit.Teachers.Clear();
                 foreach (Teacher teacher in _courseToEdit.Teachers)
                 {
-                    courseToEdit.Teachers.Add(teachers.Find(x=>x.UserId == teacher.UserId));
+                    courseToEdit.Teachers.Add(teachers.Find(x => x.UserId == teacher.UserId));
                 }
                 myDB.SaveChanges();
             }

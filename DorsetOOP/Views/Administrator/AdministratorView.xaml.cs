@@ -195,6 +195,7 @@ namespace DorsetOOP
             LoggedInAdmin = (Administrator)_admin;
             GetAllUsers();
             GetAllCourses();
+            GetAllLessons();
         }
 
         #region Get Lists
@@ -207,6 +208,12 @@ namespace DorsetOOP
         private void GetAllCourses()
         {
             Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCourses());
+        }
+
+        private void GetAllLessons()
+        {
+            Lessons = new ObservableCollection<Lesson>(VirtualCollegeContext.GetAllLessons());
+
         }
         #endregion
 
@@ -315,6 +322,8 @@ namespace DorsetOOP
         private void addLessonButton_Click(object sender, RoutedEventArgs e)
         {
             new AddLessonView().ShowDialog();
+            GetAllLessons();
+            
         }
     }
 }
