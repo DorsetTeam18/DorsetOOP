@@ -187,7 +187,55 @@
                         <Label Content="my Courses" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!--#region Row 0-->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Image Source="/img/ProfilePicture.png" Height="70"/>
+
+                        <StackPanel Orientation="Vertical" Margin="10,0">
+
+                            <Label Margin="0,3" Content="{Binding LoggedInStudent.FullName, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="22" FontWeight="Bold"/>
+
+                            <Label Margin="0,-12" Content="{Binding LoggedInStudent.UserId, UpdateSourceTrigger=PropertyChanged}"
+                                   ContentStringFormat="#0000{0}"
+                                   FontSize="16" FontWeight="Bold" Foreground="Gray"/>
+
+                        </StackPanel>
+                    </StackPanel>
+                    <!--#endregion-->
+                    <!--#region Row 1-->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Courses" FontSize="18" FontWeight="Bold"
+                               HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0">
+                        </Label>
+                        <DataGrid x:Name="viewGradeDataGrid" Grid.Column="0" Grid.Row="1" Margin="5,0" 
+                  AutoGenerateColumns="False" IsReadOnly="True"
+                  ItemsSource="{Binding LoggedInStudent.Lessons, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  GridLinesVisibility="All" Width="auto">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width="*" Binding="{Binding Course.Title }"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </Grid>
+                    <!--#endregion-->
+                </Grid>
             </TabItem>
+            
             <!--#endregion-->
 
 
