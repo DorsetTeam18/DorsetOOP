@@ -225,7 +225,7 @@
                             <Label Content="Courses" FontSize="18" FontWeight="Bold"
                                HorizontalAlignment="Left" Grid.Row="0">
                             </Label>
-                            <DataGrid x:Name="viewCoursesDataGrid" Grid.Row="1" Margin="5,0" 
+                            <DataGrid x:Name="viewCoursesDataGrid" Grid.Row="1" Margin="5" 
                                 AutoGenerateColumns="False" IsReadOnly="True"
                                 ItemsSource="{Binding Courses, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                 SelectedItem="{Binding SelectedCourse, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
@@ -241,10 +241,15 @@
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <!--#region Row 0-->
-                            <StackPanel Grid.Row="0" Margin="5,10,5,0" Orientation="Vertical" VerticalAlignment="Top">
+                            <Label Content="Details" FontSize="18" FontWeight="Bold"
+                               HorizontalAlignment="Left" Grid.Row="0">
+                            </Label>
+                            <!--#region Row 1-->
+                            <StackPanel Grid.Row="1" Margin="5,10,5,0" Orientation="Vertical" VerticalAlignment="Top">
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="Title"/>
                                     <Label Content="{Binding SelectedCourse.Title}" FontWeight="Bold"/>
@@ -259,9 +264,11 @@
                                 </StackPanel>
                             </StackPanel>
                             <!--#endregion-->
-
-                            <!--#region Row 1-->
-                            <DataGrid x:Name="viewGradeDataGrid" Grid.Row="1" Margin="5,0" 
+                            <Label Content="Grades" FontSize="18" FontWeight="Bold"
+                               HorizontalAlignment="Left" Grid.Row="2">
+                            </Label>
+                            <!--#region Row 3-->
+                            <DataGrid x:Name="viewGradeDataGrid" Grid.Row="3"  Margin="5" 
                   AutoGenerateColumns="False" IsReadOnly="True"
                   ItemsSource="{Binding SelectedGrades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   GridLinesVisibility="All" Width="auto">
