@@ -2,6 +2,7 @@
 using DorsetOOP.Models.Users;
 using DorsetOOP.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -48,5 +49,35 @@ namespace DorsetOOP
         }
 
         private void CloseLessonButton_Click(object sender, RoutedEventArgs e) { this.Close(); }
+
+        public IEnumerable<DataGridRow> GetDataGridRows(DataGrid grid)
+        {
+            var itemsSource = grid.ItemsSource as IEnumerable;
+            if (null == itemsSource) yield return null;
+            foreach (var item in itemsSource)
+            {
+                var row = grid.ItemContainerGenerator.ContainerFromItem(item) as DataGridRow;
+                if (null != row) yield return row;
+            }
+        }
+
+        private void SetCheckBoxesValues()
+        {
+            var rows = GetDataGridRows(StudentsAbleToAttendDataGrid).ToList();
+            foreach (var row in rows)
+            {
+                Student currentStudent = (Student)row.Item;
+                CheckBox cb = (CheckBox)StudentsAbleToAttendDataGrid.Columns.ToList()[0].GetCellContent(row);
+                if (LessonToEdit.Students.ToList().FindAll(u => u.UserId == currentStudent.UserId).Count != 0)
+                {
+                    cb.IsChecked = true;
+                }
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            SetCheckBoxesValues();
+        }
     }
 }
