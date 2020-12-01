@@ -579,6 +579,7 @@ namespace DorsetOOP.ViewModels
         public static bool AddPayment(Payment paymentToAdd)
         {
             bool done = true;
+
             using (var myDB = new VirtualCollegeContext())
             {
                 var users = myDB.Users.
@@ -599,7 +600,7 @@ namespace DorsetOOP.ViewModels
                 var payments = myDB.Payments.ToList();
 
                 Student userToAddPayment = (Student)users.Find(u => u.UserId == paymentToAdd.Student.UserId);
-                userToAddPayment.AddPayment(paymentToAdd.Date, paymentToAdd.Amount);
+                userToAddPayment.Payments.Add(new Payment() { Amount = paymentToAdd.Amount, Date = paymentToAdd.Date, Student = userToAddPayment });
 
                 myDB.SaveChanges();
             }

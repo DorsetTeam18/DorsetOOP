@@ -31,19 +31,20 @@ namespace DorsetOOP
         public Payment PaymentToAdd
         {
             get { return _paymentToAdd; }
-            set { _paymentToAdd = value; }
+            set
+            {
+                _paymentToAdd = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("PaymentToAdd"));
+            }
         }
         #endregion
 
-        private Student stud;
-
+        private Student StudentConcerned { get; set; }
         public AddPaymentView(Student _stud)
         {
             InitializeComponent();
-            stud = _stud;
+            StudentConcerned = _stud;
         }
-
-        
 
         private void cancelButton_Click(object sender, RoutedEventArgs e) { this.Close(); }
 
@@ -51,7 +52,7 @@ namespace DorsetOOP
         {
             var p = PaymentToAdd;
             p.Date = DateTime.Now;
-            p.Student = stud;
+            p.Student = StudentConcerned;
             PaymentToAdd = p;
 
             if (VirtualCollegeContext.AddPayment(PaymentToAdd))
@@ -63,7 +64,6 @@ namespace DorsetOOP
             {
                 MessageBox.Show("Too much!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
         }
     }
 }

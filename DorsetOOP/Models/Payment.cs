@@ -12,7 +12,7 @@ namespace DorsetOOP.Models
     {
         public int PaymentId { get; set; }
         public DateTime Date { get; set; }
-        public long Amount { get; set; }
+        public decimal Amount { get; set; }
 
         // One to many (each student has many fees, each fee has one student)
         public int? StudentId { get; set; }
