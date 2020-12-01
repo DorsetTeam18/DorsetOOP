@@ -37,15 +37,13 @@
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="1">
-            <TextBox Margin="8,4" Text="{Binding StudentToEdit.FirstName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
-            <TextBox Margin="8,4" Text="{Binding StudentToEdit.LastName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+            <TextBox Margin="8,4" Text="{Binding StudentToEdit.FirstName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"  />
+            <TextBox Margin="8,4" Text="{Binding StudentToEdit.LastName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" />
             <TextBox Margin="8,4" Text="{Binding StudentToEdit.EmailAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Margin="8,4" Text="{Binding StudentToEdit.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <ComboBox Margin="8,2" SelectedValuePath="Content" SelectedValue="{Binding StudentToEdit.Gender, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" >
-                <ComboBoxItem Content="{Binding StudentToEdit.Gender}"/>
-            </ComboBox>
-            <TextBox Margin="8,4" Text="{Binding StudentToEdit.PhoneNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center"/>
-            <TextBox Margin="8,4" Text="{Binding StudentToEdit.BirthDate, ConverterCulture='en-IE', StringFormat='MM/dd/yyyy', Mode=OneWay}"/>
+            <TextBox Margin="8,4" Text="{Binding StudentToEdit.Gender,Mode=OneWay}" IsReadOnly="True" IsEnabled="False"/>
+            <TextBox Margin="8,4" Text="{Binding StudentToEdit.PhoneNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Margin="8,4" Text="{Binding StudentToEdit.BirthDate, ConverterCulture='en-IE', StringFormat='MM/dd/yyyy', Mode=OneWay}" IsEnabled="False" IsReadOnly="True"/>
 
             <ComboBox Margin="8,2" DisplayMemberPath="FullName"
                       ItemsSource="{Binding Teachers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"

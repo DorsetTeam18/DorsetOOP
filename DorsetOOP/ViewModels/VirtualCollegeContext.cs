@@ -892,14 +892,36 @@ namespace DorsetOOP.ViewModels
         {
             using (var myDB = new VirtualCollegeContext())
             {
-                myDB.Users.Remove(myDB.Users.Find(_userToRemove.UserId));
+                var users = myDB.Users.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var temp = users.Find(u => u.UserId == _userToRemove.UserId);
+
+                myDB.Users.Remove(temp);
+                
+
                 myDB.SaveChanges();
             }
+           
             return true;
         }
 
         public static bool RemoveUser(List<User> _usersToRemove) // Removes a list of Users
         {
+
             foreach (User u in _usersToRemove) RemoveUser(u);
             return true;
         }
