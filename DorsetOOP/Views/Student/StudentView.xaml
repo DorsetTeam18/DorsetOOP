@@ -175,10 +175,34 @@
                         <Label Content="my Timetable" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
+
+                <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--#region Row 0-->
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Image Source="/img/ProfilePicture.png" Height="70"/>
+
+                    <StackPanel Orientation="Vertical" Margin="10,0">
+
+                        <Label Margin="0,3" Content="{Binding LoggedInStudent.FullName, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="22" FontWeight="Bold"/>
+
+                        <Label Margin="0,-12" Content="{Binding LoggedInStudent.UserId, UpdateSourceTrigger=PropertyChanged}"
+                                   ContentStringFormat="#0000{0}"
+                                   FontSize="16" FontWeight="Bold" Foreground="Gray"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+                <!--#endregion-->
+            </Grid>
             </TabItem>
+
             <!--#endregion-->
-
-
             <!--#region my Courses -->
             <TabItem>
                 <TabItem.Header>

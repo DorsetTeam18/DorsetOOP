@@ -7,7 +7,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" Background="#F2F2F2" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="Add student" Height="440" Width="380" Icon="/img/loginIcon.ico">
+        Title="Add student" Height="490" Width="380" Icon="/img/loginIcon.ico">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -26,6 +26,8 @@
             <Label >Gender</Label>
             <Label >Phone Number</Label>
             <Label >Birth Date</Label>
+            <Label >Tutor</Label>
+            <Label >Fees</Label>
             <Rectangle Margin="0,8" Width="auto" Height="1" Fill="Black"/>
             <Label >Address Line 1</Label>
             <Label >Address Line 2</Label>
@@ -50,7 +52,10 @@
                         SelectedDate="{Binding StudentToAdd.BirthDate, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                         DisplayDate="{Binding Source={x:Static sys:DateTime.Now}, Path=Date, Mode=OneWay}"
                         Height="24" />
-
+            <ComboBox Margin="5,3,5,2" DisplayMemberPath="FullName"
+                      ItemsSource="{Binding Teachers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding StudentToAdd.Tutor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Margin="8,4" Text="{Binding StudentToAdd.Fees, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
             <!--SelectedDate="{Binding StudentToAdd.BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         DisplayDate="{Binding StudentToAdd.BirthDate, TargetNullValue={x:Static sys:DateTime.Now}}"-->
 
