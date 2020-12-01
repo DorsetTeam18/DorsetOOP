@@ -175,9 +175,24 @@ namespace DorsetOOP
                 _selectedCourse = value;
 
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedCourse"));
+                if(SelectedCourse!=null)
+                    GetAllGradesSelectedStudent();
             }
         }
-
+        private ObservableCollection<Grade> _selectedGrades;
+        public ObservableCollection<Grade> SelectedGrades
+        {
+            get { return _selectedGrades; }
+            set
+            {
+                _selectedGrades = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedGrades"));
+            }
+        }
+        private void GetAllGradesSelectedStudent()
+        {
+            SelectedGrades = new ObservableCollection<Grade>(VirtualCollegeContext.GetAllGradesFromStudent(SelectedCourse, LoggedInStudent));
+        }
         #endregion
 
         #endregion
@@ -197,7 +212,6 @@ namespace DorsetOOP
         {
             Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCourses(LoggedInStudent));
         }
-
         private void GetPayments()
         {
             Payments = new ObservableCollection<Payment>(LoggedInStudent.Payments);
