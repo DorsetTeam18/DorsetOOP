@@ -527,6 +527,7 @@ namespace DorsetOOP.ViewModels
             }
             return done;
         }
+
         public static bool CreateLesson(Lesson _lessonToAdd)
         {
             bool done = false;
@@ -581,6 +582,7 @@ namespace DorsetOOP.ViewModels
             }
             return done;
         }
+
         public static bool AddPayment(Payment paymentToAdd)
         {
             bool done = true;
@@ -741,7 +743,6 @@ namespace DorsetOOP.ViewModels
                 myDB.Users.Remove(myDB.Users.Find(_userToRemove.UserId));
                 myDB.SaveChanges();
             }
-
             return true;
         }
 
