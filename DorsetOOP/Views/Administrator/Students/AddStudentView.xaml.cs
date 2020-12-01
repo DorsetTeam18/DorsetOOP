@@ -3,6 +3,7 @@ using DorsetOOP.Models.Users;
 using DorsetOOP.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -47,11 +48,23 @@ namespace DorsetOOP
                 PropertyChanged(this, new PropertyChangedEventArgs("StudentToAdd"));
             }
         }
+
+        private ObservableCollection<Teacher> _teachers;
+        public ObservableCollection<Teacher> Teachers
+        {
+            get { return _teachers; }
+            set
+            {
+                _teachers = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Teachers"));
+            }
+        }
         #endregion
 
         public AddStudentView()
         {
             InitializeComponent();
+            Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachers());
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e) { this.Close(); }

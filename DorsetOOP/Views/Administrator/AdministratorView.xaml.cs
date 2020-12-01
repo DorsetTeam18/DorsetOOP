@@ -243,7 +243,7 @@ namespace DorsetOOP
         private void addStudentButton_Click(object sender, RoutedEventArgs e)
         {
             new AddStudentView().ShowDialog();
-            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudents());
+            GetAllUsers();
         }
 
         private void addTeacherButton_Click(object sender, RoutedEventArgs e)
