@@ -20,6 +20,8 @@ namespace DorsetOOP.Models.Users
         #region Properties
         
         public decimal Fees { get; set; }
+        public decimal Paid { get; set; }
+        public string PhoneNumber { get; set; }
 
         // Many to one (one students has one tutor and one tutor has many students)
         public int? TutorId { get; set; }
@@ -34,18 +36,7 @@ namespace DorsetOOP.Models.Users
 
         public ICollection<Payment> Payments { get; set; }
 
-        
         #endregion
-
-        //public string GradesInfo
-        //{
-        //    get
-        //    {
-        //        string r = $" { FullName }'s grades:\n";
-        //        foreach (var g in Grades) r += $"{ g.Course.Title } : { g.ExamName } - { g.Mark }% (Coeff. { g.Coefficient })\n";
-        //        return r;
-        //    }
-        //}
 
         public void AddGrade(Course _course, decimal _mark, string _examName, decimal _coefficient)
         {
@@ -62,7 +53,7 @@ namespace DorsetOOP.Models.Users
             }
         }
 
-        public void AddPayment(DateTime _datetime,long _amount)
+        public void AddPayment(DateTime _datetime, long _amount)
         {
             using (var AppDB = new VirtualCollegeContext()) 
             {
@@ -74,6 +65,5 @@ namespace DorsetOOP.Models.Users
                 });
             }
         }
-
     }
 }

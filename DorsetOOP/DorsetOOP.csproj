@@ -91,7 +91,7 @@
     <Compile Include="Views\Administrator\Lessons\AddLessonView.xaml.cs">
       <DependentUpon>AddLessonView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EditLessonView.xaml.cs">
+    <Compile Include="Views\Administrator\Lessons\EditLessonView.xaml.cs">
       <DependentUpon>EditLessonView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Administrator\Courses\EditGradeView.xaml.cs">
@@ -157,7 +157,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EditLessonView.xaml">
+    <Page Include="Views\Administrator\Lessons\EditLessonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

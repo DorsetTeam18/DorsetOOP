@@ -7,7 +7,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" Background="#F2F2F2" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="Edit lesson" Height="235.001" Width="380" Icon="/img/loginIcon.ico">
+        Title="Edit lesson" Height="380" Width="390" Icon="/img/loginIcon.ico">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -25,6 +25,7 @@
             <Label>Day</Label>
             <Label>Time</Label>
             <Label>Duration</Label>
+            <Label>Attending Students</Label>
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="1">
@@ -36,6 +37,14 @@
             <TextBox Margin="5,4" Text="{Binding LessonToEdit.Day, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Margin="5,4" Text="{Binding LessonToEdit.Hour, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Margin="5,4" Text="{Binding LessonToEdit.Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <DataGrid x:Name="StudentsAbleToAttendDataGrid" Grid.Column="1" Grid.Row="1" Margin="5,0"
+                      ItemsSource="{Binding Students, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      AutoGenerateColumns="False" GridLinesVisibility="All" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Header="Attend" Width="auto" IsReadOnly="False"/>
+                    <DataGridTextColumn Header="Student" Binding="{Binding FullName}" Width="*" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
 
         <Button x:Name="CloseLessonButton" Grid.Column="1" Grid.Row="1" Margin="5"
