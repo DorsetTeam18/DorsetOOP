@@ -150,7 +150,13 @@
                     <!--#region Row 2-->
                     <DataGrid x:Name="tutoringStudentsDataGrid" Grid.Row="2" Grid.ColumnSpan="2" IsReadOnly="True" AutoGenerateColumns="False"
                               ItemsSource="{Binding Students, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedStudent, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                               GridLinesVisibility="All" Width="auto" >
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridRow">
+                                <EventSetter Event="MouseDoubleClick" Handler="Students_Row_DoubleClick"/>
+                            </Style>
+                        </DataGrid.Resources>
                         <!--SelectedItem="{Binding , Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"-->
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Full Name" Width="*" Binding="{Binding FullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>

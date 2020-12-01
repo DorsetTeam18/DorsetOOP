@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
             <Image Source="/img/LoginLogo.png" Height="70"/>
-            <TextBox x:Name="userLoginInput" MinWidth="200" Opacity="0.7" Margin="20,20" Padding="5" KeyDown="Input_KeyDown">
+            <TextBox x:Name="userLoginInput" MinWidth="200" Opacity="0.7" Margin="20,20" Padding="5" KeyDown="Input_KeyDown" ToolTip="Please enter your email adress">
                 <TextBox.Style>
                     <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
                         <Style.Resources>
@@ -39,7 +39,7 @@
                 </TextBox.Style>
             </TextBox>
 
-            <PasswordBox x:Name="userPasswordinput" MinWidth="200" Margin="20,5" Padding="5" KeyDown="Input_KeyDown" />
+            <PasswordBox x:Name="userPasswordinput" MinWidth="200" Margin="20,5" Padding="5" KeyDown="Input_KeyDown" ToolTip="Please enter your password"/>
 
             <Button x:Name="userLoginButton"  Padding="6" Content="Login" Margin="60,20"
                     VerticalContentAlignment="center" Background="Green" 

@@ -56,9 +56,22 @@ namespace DorsetOOP
             {
                 _searchStudentTextBox = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("SearchStudentTextBox"));
-                if(SearchStudentTextBox!="" && SearchStudentTextBox!="") Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudentsOfTutorThatMatchFullName(LoggedInTeacher, SearchStudentTextBox));
+                if (SearchStudentTextBox != "" && SearchStudentTextBox != "") Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudentsOfTutorThatMatchFullName(LoggedInTeacher, SearchStudentTextBox));
             }
         }
+
+        private Student _selectedStudent;
+        public Student SelectedStudent
+        {
+            get { return _selectedStudent; }
+
+            set
+            {
+                _selectedStudent = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedStudent"));
+            }
+        }
+
 
         #endregion
 
@@ -68,7 +81,11 @@ namespace DorsetOOP
             LoggedInTeacher = (Teacher)_inputUser;
             Students = new ObservableCollection<Student>(LoggedInTeacher.Tutoring);
         }
+        private void Students_Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new StudentDetailsView(SelectedStudent).ShowDialog();
+        }
 
-        
+
     }
 }
