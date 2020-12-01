@@ -268,7 +268,8 @@ namespace DorsetOOP.ViewModels
                 grades = GetAllGrades(courses.Find(c => c.CourseId == _courseToGetGradesOf.CourseId));
                 foreach (Grade grade in grades)
                 {
-                    if (grade.Student == _selectedStudent) gradesFromStudent.Add(grades.Find(g=>g.GradeId==grade.GradeId));
+                    if(grade.Student.UserId == students.Find(s=>s.UserId==_selectedStudent.UserId).UserId) 
+                        gradesFromStudent.Add(grades.Find(g=>g.GradeId==grade.GradeId));
                 }
             }
             return gradesFromStudent;
