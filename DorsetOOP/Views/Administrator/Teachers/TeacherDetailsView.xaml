@@ -47,7 +47,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label>Phone Number</Label>
-                <Label Content="A FAIRE" Background="Gray" FontWeight="Bold"/>
+                <Label Content="{Binding SelectedTeacher.PhoneNumber}" FontWeight="Bold"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label>Address</Label>
