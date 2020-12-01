@@ -468,6 +468,8 @@ namespace DorsetOOP.ViewModels
 
                 var payments = myDB.Payments.ToList();
 
+                if (_addressToAdd.AddressLine2 == "") _addressToAdd.AddressLine2 = null;
+
                 Address match = addresses.Find(a => a.ToString() == _addressToAdd.ToString());
 
                 if (students.FindAll(s => s.EmailAddress == _userToAdd.EmailAddress).Count() == 0)
@@ -508,6 +510,8 @@ namespace DorsetOOP.ViewModels
 
                 var payments = myDB.Payments.ToList();
 
+                if (_addressToAdd.AddressLine2 == "") _addressToAdd.AddressLine2 = null;
+
                 Address match = addresses.Find(a => a.ToString() == _addressToAdd.ToString());
 
                 if (users.FindAll(s => s.EmailAddress == _userToAdd.EmailAddress).Count() == 0)
@@ -547,6 +551,8 @@ namespace DorsetOOP.ViewModels
                 var grades = myDB.Grades.ToList();
 
                 var payments = myDB.Payments.ToList();
+
+                if (_addressToEdit.AddressLine2 == "") _addressToEdit.AddressLine2 = null;
 
                 Address match = addresses.Find(a => a.ToString() == _addressToEdit.ToString());
 
@@ -590,6 +596,8 @@ namespace DorsetOOP.ViewModels
                 var grades = myDB.Grades.ToList();
 
                 var payments = myDB.Payments.ToList();
+
+                if (_addressToEdit.AddressLine2 == "") _addressToEdit.AddressLine2 = null;
 
                 Address match = addresses.Find(a => a.ToString() == _addressToEdit.ToString());
 
