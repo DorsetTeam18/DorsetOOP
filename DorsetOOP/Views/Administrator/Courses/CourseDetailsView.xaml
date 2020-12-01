@@ -134,26 +134,42 @@
             </DataGrid>
         </Grid>
 
-        <Grid x:Name="gradesGrid" Grid.Column="3">
+        <Grid x:Name="gradesGrid" Grid.Column="3" Width="auto">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Content="{Binding SelectedCourse.Title}" ContentStringFormat="All grades for {0}"
-                   HorizontalAlignment="Left" Margin="5,0,5,-5" FontWeight="Bold"/>
-            
-            <Button x:Name="deleteGradeButton" Grid.Row="0" Margin="5,0,0,-3"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"
+                   Margin="5,0,5,-5" FontWeight="Bold"/>
+
+            <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Right" Margin="5,5,5,-3">
+                <Button x:Name="deleteGradeButton"
                 HorizontalAlignment="Right"
-                Content="Delete Grade" Padding="5,3"
+                Content="Delete Grade" Width="80" Height="20"
                 Background="#FF950000" Foreground="white"
-                    Click="deleteGradeButton_Click">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
+                    Click="deleteGradeButton_Click" >
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button x:Name="addGradeButton" HorizontalAlignment="Center"
+                        Content="Add Grade" Width="80" Height="20" Margin="0,5"
+                        Background="Green" Foreground="white"
+                        Click="deleteGradeButton_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+            </StackPanel>
+            
 
             <DataGrid x:Name="allGradesOfCourse" Grid.Row="1" Margin="5" AutoGenerateColumns="False" CanUserResizeColumns="False"
                       SelectedItem="{Binding SelectedGrade, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
