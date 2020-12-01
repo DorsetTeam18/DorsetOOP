@@ -268,8 +268,8 @@ namespace DorsetOOP.ViewModels
                 grades = GetAllGrades(courses.Find(c => c.CourseId == _courseToGetGradesOf.CourseId));
                 foreach (Grade grade in grades)
                 {
-                    if(grade.Student.UserId == students.Find(s=>s.UserId==_selectedStudent.UserId).UserId) 
-                        gradesFromStudent.Add(grades.Find(g=>g.GradeId==grade.GradeId));
+                    if (grade.Student.UserId == students.Find(s => s.UserId == _selectedStudent.UserId).UserId)
+                        gradesFromStudent.Add(grades.Find(g => g.GradeId == grade.GradeId));
                 }
             }
             return gradesFromStudent;
@@ -441,8 +441,50 @@ namespace DorsetOOP.ViewModels
         }
         #endregion
 
-        #region Add entitites
-        public static bool CreateUser(User _userToAdd, Address _addressToAdd) // Creates new User if doesn't already exist (checks email)
+        #region Add & update entitites
+        public static bool CreateStudent(Student _userToAdd, Address _addressToAdd) // Creates new User if doesn't already exist (checks email)
+        {
+            bool done = false;
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.Include("Courses").OfType<Teacher>().ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                Address match = addresses.Find(a => a.ToString() == _addressToAdd.ToString());
+
+                if (students.FindAll(s => s.EmailAddress == _userToAdd.EmailAddress).Count() == 0)
+                {
+                    if (match == null) _userToAdd.Address = _addressToAdd;
+                    else _userToAdd.Address = match;
+                    Student temp = _userToAdd;
+                    temp.Tutor = teachers.Find(t => t.UserId == temp.Tutor.UserId);
+                    myDB.Users.Add(temp);
+                    done = true;
+                }
+                myDB.SaveChanges();
+            }
+            return done;
+        }
+
+        public static bool CreateTeacher(Teacher _userToAdd, Address _addressToAdd) // Creates new User if doesn't already exist (checks email)
         {
             bool done = false;
             using (var myDB = new VirtualCollegeContext())
@@ -472,12 +514,84 @@ namespace DorsetOOP.ViewModels
                 {
                     if (match == null) _userToAdd.Address = _addressToAdd;
                     else _userToAdd.Address = match;
-                    Student temp = (Student)_userToAdd;
-                    var tutor = teachers.Find(t => t.UserId == temp.Tutor.UserId);
-                    temp.Tutor = tutor;
-                    myDB.Users.Add(temp);
+                    myDB.Users.Add(_userToAdd);
                     done = true;
                 }
+                myDB.SaveChanges();
+            }
+            return done;
+        }
+
+        public static bool UpdateStudent(Student _userToEdit, Address _addressToEdit)
+        {
+            bool done = false;
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.Include("Courses").OfType<Teacher>().ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                Address match = addresses.Find(a => a.ToString() == _addressToEdit.ToString());
+
+                var studentToModify = students.Find(s => s.UserId == _userToEdit.UserId);
+                if (match == null) studentToModify.Address = _addressToEdit;
+                else studentToModify.Address = match;
+                studentToModify.Tutor = teachers.Find(t => t.UserId == _userToEdit.Tutor.UserId);
+                done = true;
+                myDB.SaveChanges();
+            }
+            return done;
+        }
+
+        public static bool UpdateTeacher(Teacher _userToEdit, Address _addressToEdit)
+        {
+            bool done = false;
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.Include("Courses").OfType<Teacher>().ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                Address match = addresses.Find(a => a.ToString() == _addressToEdit.ToString());
+
+                var teacherToModify = teachers.Find(t => t.UserId == _userToEdit.UserId);
+                if (match == null) teacherToModify.Address = _addressToEdit;
+                else teacherToModify.Address = match;
+                done = true;
                 myDB.SaveChanges();
             }
             return done;
@@ -529,92 +643,6 @@ namespace DorsetOOP.ViewModels
             return done;
         }
 
-        public static bool CreateLesson(Lesson _lessonToAdd)
-        {
-            bool done = false;
-
-            using (var myDB = new VirtualCollegeContext())
-            {
-                var students = myDB.Users.
-                    Include("Lessons").
-                    OfType<Student>().
-                    ToList();
-
-                var teachers = myDB.Users.
-                    Include("Courses").
-                    OfType<Teacher>().
-                    ToList();
-
-                var courses = myDB.Courses.
-                    Include("Teachers")
-                    .ToList();
-
-                var addresses = myDB.Addresses.ToList();
-
-                var lessons = myDB.Lessons.
-                    Include("Students").
-                    ToList();
-
-                var grades = myDB.Grades.ToList();
-
-                var payments = myDB.Payments.ToList();
-
-                if (lessons.FindAll(l => l.ToString() == _lessonToAdd.ToString()).Count == 0)
-                {
-                    Lesson le = new Lesson()
-                    {
-                        Teacher = teachers.Find(t => t.UserId == _lessonToAdd.Teacher.UserId),
-                        Course = courses.Find(c => c.CourseId == _lessonToAdd.Course.CourseId),
-                        Day = _lessonToAdd.Day,
-                        Duration = _lessonToAdd.Duration,
-                        Hour = _lessonToAdd.Hour,
-                        RoomName = _lessonToAdd.RoomName
-                    };
-
-                    foreach(Student stu in _lessonToAdd.Students)
-                    {
-                        le.Students.Add(students.Find(s => s.UserId == stu.UserId));
-                    }
-                    myDB.Lessons.Add(le);
-                    done = true;
-                    
-                }
-                myDB.SaveChanges();
-            }
-            return done;
-        }
-
-        public static bool AddPayment(Payment paymentToAdd)
-        {
-            bool done = true;
-
-            using (var myDB = new VirtualCollegeContext())
-            {
-                var users = myDB.Users.
-                    ToList();
-
-                var addresses = myDB.Addresses.ToList();
-
-                var courses = myDB.Courses.
-                    Include("Teachers").
-                    ToList();
-
-                var lessons = myDB.Lessons.
-                    Include("Students").
-                    ToList();
-
-                var grades = myDB.Grades.ToList();
-
-                var payments = myDB.Payments.ToList();
-
-                Student userToAddPayment = (Student)users.Find(u => u.UserId == paymentToAdd.Student.UserId);
-                userToAddPayment.Payments.Add(new Payment() { Amount = paymentToAdd.Amount, Date = paymentToAdd.Date, Student = userToAddPayment });
-
-                myDB.SaveChanges();
-            }
-            return done;
-        }
-
         public static bool UpdateCourse(Course _courseToEdit)
         {
             using (var myDB = new VirtualCollegeContext())
@@ -657,8 +685,10 @@ namespace DorsetOOP.ViewModels
             return true;
         }
 
-        public static bool UpdateGrade(Grade _gradeToEdit)
+        public static bool CreateLesson(Lesson _lessonToAdd)
         {
+            bool done = false;
+
             using (var myDB = new VirtualCollegeContext())
             {
                 var students = myDB.Users.
@@ -671,6 +701,10 @@ namespace DorsetOOP.ViewModels
                     OfType<Teacher>().
                     ToList();
 
+                var courses = myDB.Courses.
+                    Include("Teachers")
+                    .ToList();
+
                 var addresses = myDB.Addresses.ToList();
 
                 var lessons = myDB.Lessons.
@@ -681,18 +715,29 @@ namespace DorsetOOP.ViewModels
 
                 var payments = myDB.Payments.ToList();
 
-                var courses = myDB.Courses.
-                    Include("Teachers").
-                    ToList();
+                if (lessons.FindAll(l => l.ToString() == _lessonToAdd.ToString()).Count == 0)
+                {
+                    Lesson le = new Lesson()
+                    {
+                        Teacher = teachers.Find(t => t.UserId == _lessonToAdd.Teacher.UserId),
+                        Course = courses.Find(c => c.CourseId == _lessonToAdd.Course.CourseId),
+                        Day = _lessonToAdd.Day,
+                        Duration = _lessonToAdd.Duration,
+                        Hour = _lessonToAdd.Hour,
+                        RoomName = _lessonToAdd.RoomName
+                    };
 
-                var gradeToChange = grades.Find(g => g.GradeId == _gradeToEdit.GradeId);
-                gradeToChange.Mark = _gradeToEdit.Mark;
-                gradeToChange.ExamName = _gradeToEdit.ExamName;
-                gradeToChange.Coefficient = _gradeToEdit.Coefficient;
+                    foreach (Student stu in _lessonToAdd.Students)
+                    {
+                        le.Students.Add(students.Find(s => s.UserId == stu.UserId));
+                    }
+                    myDB.Lessons.Add(le);
+                    done = true;
 
+                }
                 myDB.SaveChanges();
             }
-            return true;
+            return done;
         }
 
         public static bool UpdateLesson(Lesson _lessonToEdit)
@@ -734,7 +779,76 @@ namespace DorsetOOP.ViewModels
                 {
                     lessonToChange.Students.Add(students.Find(s => s.UserId == student.UserId));
                 }
-                
+
+                myDB.SaveChanges();
+            }
+            return true;
+        }
+
+        public static bool AddPayment(Payment paymentToAdd)
+        {
+            bool done = true;
+
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var users = myDB.Users.
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                Student userToAddPayment = (Student)users.Find(u => u.UserId == paymentToAdd.Student.UserId);
+                userToAddPayment.Payments.Add(new Payment() { Amount = paymentToAdd.Amount, Date = paymentToAdd.Date, Student = userToAddPayment });
+
+                myDB.SaveChanges();
+            }
+            return done;
+        }
+
+        public static bool UpdateGrade(Grade _gradeToEdit)
+        {
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                var gradeToChange = grades.Find(g => g.GradeId == _gradeToEdit.GradeId);
+                gradeToChange.Mark = _gradeToEdit.Mark;
+                gradeToChange.ExamName = _gradeToEdit.ExamName;
+                gradeToChange.Coefficient = _gradeToEdit.Coefficient;
+
                 myDB.SaveChanges();
             }
             return true;
@@ -793,5 +907,7 @@ namespace DorsetOOP.ViewModels
         #endregion
 
         #endregion
+
+
     }
 }
