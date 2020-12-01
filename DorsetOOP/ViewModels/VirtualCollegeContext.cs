@@ -865,7 +865,8 @@ namespace DorsetOOP.ViewModels
 
                 Student userToAddPayment = (Student)users.Find(u => u.UserId == paymentToAdd.Student.UserId);
                 userToAddPayment.Payments.Add(new Payment() { Amount = paymentToAdd.Amount, Date = paymentToAdd.Date, Student = userToAddPayment });
-
+                userToAddPayment.Fees -= paymentToAdd.Amount;
+                userToAddPayment.Paid += paymentToAdd.Amount;
                 myDB.SaveChanges();
             }
             return done;

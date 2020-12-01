@@ -202,7 +202,7 @@ namespace DorsetOOP
             InitializeComponent();
             LoggedInStudent = (Student)_student;
             StudentDue = LoggedInStudent.Fees;
-            GetPayments();
+            //GetPayments();
             GetAllCourses();
         }
 
@@ -212,18 +212,18 @@ namespace DorsetOOP
         {
             Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCourses(LoggedInStudent));
         }
-        private void GetPayments()
-        {
-            Payments = new ObservableCollection<Payment>(LoggedInStudent.Payments);
+        //private void GetPayments()
+        //{
+        //    Payments = new ObservableCollection<Payment>(LoggedInStudent.Payments);
 
-            decimal deposit = 0;
-            List<Payment> fees = LoggedInStudent.Payments.ToList();
-            for (int i = 0; i < fees.Count; i++)
-            {
-                deposit += LoggedInStudent.Payments.ElementAt(i).Amount;
-            }
-            StudentDeposit = deposit;
-        }
+        //    decimal deposit = 0;
+        //    List<Payment> fees = LoggedInStudent.Payments.ToList();
+        //    for (int i = 0; i < fees.Count; i++)
+        //    {
+        //        deposit += LoggedInStudent.Payments.ElementAt(i).Amount;
+        //    }
+        //    StudentDeposit = deposit;
+        //}
         #endregion
 
         #region Matching Search Boxes
@@ -247,7 +247,8 @@ namespace DorsetOOP
         private void addPaymentButton_Click(object sender, RoutedEventArgs e)
         {
             new AddPaymentView(LoggedInStudent).ShowDialog();
-            GetPayments();
+            GetStudentsThatMatch(LoggedInStudent.FullName);
+
         }
         #endregion
 
