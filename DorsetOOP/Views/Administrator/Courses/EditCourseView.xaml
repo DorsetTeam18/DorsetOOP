@@ -32,8 +32,8 @@
             <TextBox Margin="5,4" Text="{Binding CourseToEdit.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Margin="5,4" Text="{Binding CourseToEdit.Credits, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ComboBox Margin="5,2" x:Name="listOfTeachers" DisplayMemberPath="FullName" 
-                      SelectedValue="{Binding CourseToEdit.ReferentTeacher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      ItemsSource="{Binding Teachers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                      ItemsSource="{Binding Teachers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding CourseToEdit.ReferentTeacher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                       
             <Rectangle Margin="0,8" Width="auto" Height="1" Fill="Black"/>
         </StackPanel>

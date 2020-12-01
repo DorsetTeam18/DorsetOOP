@@ -64,17 +64,18 @@
         </StackPanel>
         <!--#endregion-->
 
-        <!--#region Student Fees-->
-        <Label Content="Payments" FontSize="18" FontWeight="Bold"
+        <!--#region Enrolled courses-->
+        <Label Content="Tutoring Students" FontSize="18" FontWeight="Bold"
                    HorizontalAlignment="Left" VerticalAlignment="Top"
                     Grid.Row="1"/>
         <DataGrid x:Name="viewPaymentsDataGrid" Grid.Column="0" Grid.Row="2" 
                   AutoGenerateColumns="False" IsReadOnly="True"
-                  ItemsSource="{Binding SelectedTeacher.Payments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding SelectedTeacher.Tutoring, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   GridLinesVisibility="All" Width="auto">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Date" Binding="{Binding Date }"/>
-                <DataGridTextColumn Width="100" Header="Amount" Binding="{Binding Amount, StringFormat='{}€ {0:C1}'}"/>
+                <DataGridTextColumn Width="auto" Header="ID" Binding="{Binding UserId }"/>
+                <DataGridTextColumn Width="*" Header="Last Name" Binding="{Binding LastName }"/>
+                <DataGridTextColumn Width="*" Header="First Name" Binding="{Binding FirstName }"/>
             </DataGrid.Columns>
         </DataGrid>
         <!--#endregion-->
@@ -97,11 +98,11 @@
             <DataGrid x:Name="viewLessonsDataGrid" Margin="5" 
                   AutoGenerateColumns="False" IsReadOnly="True"
                   ItemsSource="{Binding SelectedTeacher.Lessons, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedLesson, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                   GridLinesVisibility="All" Width="auto"
                       Grid.Row="1">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" Header="Course" Binding="{Binding Course.Title}"/>
-                    <DataGridTextColumn Width="*" Header="Teacher" Binding="{Binding Teacher.FullName}"/>
                     <DataGridTextColumn Width="auto" Header="Room" Binding="{Binding RoomName}"/>
                     <DataGridTextColumn Width="auto" Header="Date" Binding="{Binding DateAndTime}"/>
                     <DataGridTextColumn Width="auto" Header="Duration" Binding="{Binding Duration}"/>
@@ -111,19 +112,18 @@
             <!--#endregion-->
 
             <!--#region Student Grades-->
-            <Label Content="Grades" FontSize="18" FontWeight="Bold"
+            <Label Content="Students attending" FontSize="14" FontWeight="Medium"
                    HorizontalAlignment="Left"
                    Grid.Row="2"/>
 
-            <DataGrid x:Name="viewGradeDataGrid" Grid.Row="3" Margin="5,0" 
+            <DataGrid x:Name="viewStudentAttendingDataGrid" Grid.Row="3" Margin="5,0" 
                   AutoGenerateColumns="False" IsReadOnly="True"
-                  ItemsSource="{Binding SelectedTeacher.Grades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding SelectedLesson.Students, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   GridLinesVisibility="All" Width="auto">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="auto" Header="Course" Binding="{Binding Course.Title }"/>
-                    <DataGridTextColumn Width="*" Header="Exam Name" Binding="{Binding ExamName }"/>
-                    <DataGridTextColumn Width="auto" Header="Mark" Binding="{Binding Mark }"/>
-                    <DataGridTextColumn Width="auto" Header="Coefficient" Binding="{Binding Coefficient }"/>
+                    <DataGridTextColumn Width="auto" Header="ID" Binding="{Binding UserId }"/>
+                    <DataGridTextColumn Width="*" Header="Last Name" Binding="{Binding LastName }"/>
+                    <DataGridTextColumn Width="*" Header="First Name" Binding="{Binding FirstName }"/>
 
                 </DataGrid.Columns>
             </DataGrid>

@@ -38,6 +38,17 @@ namespace DorsetOOP
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedTeacher"));
             }
         }
+
+        private Lesson _selectedLesson;
+        public Lesson SelectedLesson
+        {
+            get { return _selectedLesson; }
+            set
+            {
+                _selectedLesson = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedLesson"));
+            }
+        }
         #endregion
 
         public TeacherDetailsView(Teacher _inputTeacher)
