@@ -268,7 +268,8 @@ namespace DorsetOOP.ViewModels
                 grades = GetAllGrades(courses.Find(c => c.CourseId == _courseToGetGradesOf.CourseId));
                 foreach (Grade grade in grades)
                 {
-                    if (grade.Student == _selectedStudent) gradesFromStudent.Add(grades.Find(g=>g.GradeId==grade.GradeId));
+                    if(grade.Student.UserId == students.Find(s=>s.UserId==_selectedStudent.UserId).UserId) 
+                        gradesFromStudent.Add(grades.Find(g=>g.GradeId==grade.GradeId));
                 }
             }
             return gradesFromStudent;
@@ -728,7 +729,12 @@ namespace DorsetOOP.ViewModels
                 lessonToChange.Hour = _lessonToEdit.Hour;
                 lessonToChange.Duration = _lessonToEdit.Duration;
                 lessonToChange.Teacher = teachers.Find(t => t.UserId == _lessonToEdit.Teacher.UserId);
-
+                lessonToChange.Students.Clear();
+                foreach (Student student in _lessonToEdit.Students)
+                {
+                    lessonToChange.Students.Add(students.Find(s => s.UserId == student.UserId));
+                }
+                
                 myDB.SaveChanges();
             }
             return true;

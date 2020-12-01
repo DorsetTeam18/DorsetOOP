@@ -338,6 +338,7 @@ namespace DorsetOOP
                 GetAllLessons();
                 GetAllUsers();
                 GetAllCourses();
+                
             }
             else MessageBox.Show("Please select a lesson", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }

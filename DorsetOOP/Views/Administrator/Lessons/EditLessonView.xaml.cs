@@ -39,6 +39,19 @@ namespace DorsetOOP
             }
         }
 
+        private ObservableCollection<Student> _students;
+
+        public ObservableCollection<Student> Students
+        {
+            get { return _students; }
+            set
+            {
+                _students = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Students"));
+            }
+        }
+
+
 
         #endregion
 
@@ -46,6 +59,8 @@ namespace DorsetOOP
         {
             InitializeComponent();
             LessonToEdit = _inputLesson;
+            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudents());
+
         }
 
         private void CloseLessonButton_Click(object sender, RoutedEventArgs e) { this.Close(); }
@@ -78,6 +93,32 @@ namespace DorsetOOP
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             SetCheckBoxesValues();
+        }
+
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+            LessonToEdit.Students = new ObservableCollection<Student>();
+            foreach (var row in GetDataGridRows(StudentsAbleToAttendDataGrid).ToList())
+            {
+                Student currentStudent = (Student)row.Item;
+                CheckBox cb = (CheckBox)StudentsAbleToAttendDataGrid.Columns.ToList()[0].GetCellContent(row);
+                if (cb.IsChecked == true)
+                {
+                    LessonToEdit.Students.Add(currentStudent);
+                }
+            }
+
+            if (VirtualCollegeContext.UpdateLesson(LessonToEdit))
+            {
+                MessageBox.Show("Lesson updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            else MessageBox.Show("Couldn't update lesson. Check if it doesn't already exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
