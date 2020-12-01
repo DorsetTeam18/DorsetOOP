@@ -536,9 +536,10 @@ namespace DorsetOOP.ViewModels
                     OfType<Student>().
                     ToList();
 
-                var teachers = myDB.Users.Include("Courses").OfType<Teacher>().ToList();
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().ToList();
 
-                var addresses = myDB.Addresses.ToList();
 
                 var courses = myDB.Courses.
                     Include("Teachers").
@@ -552,17 +553,35 @@ namespace DorsetOOP.ViewModels
 
                 var payments = myDB.Payments.ToList();
 
+                var addresses = myDB.Addresses.ToList();
+
                 if (_addressToEdit.AddressLine2 == "") _addressToEdit.AddressLine2 = null;
 
-                Address match = addresses.Find(a => a.ToString() == _addressToEdit.ToString());
+                var desc = _addressToEdit.ToString();
+                Address match = addresses.Find(a => a.ToString() == desc);
 
                 var studentToModify = students.Find(s => s.UserId == _userToEdit.UserId);
-                if (match == null) studentToModify.Address = _addressToEdit;
-                else studentToModify.Address = match;
+
+                if (match == null) {
+                    myDB.Addresses.Add(new Address()
+                    {
+                        AddressLine1 = _addressToEdit.AddressLine1,
+                        AddressLine2 = _addressToEdit.AddressLine2,
+                        Postcode = _addressToEdit.Postcode,
+                        City = _addressToEdit.City,
+                        State = _addressToEdit.State,
+                        Country = _addressToEdit.Country
+                    });
+                    myDB.SaveChanges();
+                    addresses = myDB.Addresses.ToList();
+                    studentToModify.Address = addresses[addresses.Count - 1];
+                }
+                else studentToModify.Address = addresses.Find(a => a.AddressId == match.AddressId);
+                
                 studentToModify.EmailAddress = _userToEdit.EmailAddress;
                 studentToModify.Password = _userToEdit.Password;
                 studentToModify.PhoneNumber = _userToEdit.PhoneNumber;
-                studentToModify.Tutor = teachers.Find(t => t.UserId == _userToEdit.Tutor.UserId);
+                if (_userToEdit.Tutor != null) studentToModify.Tutor = teachers.Find(t => t.UserId == _userToEdit.Tutor.UserId);
                 studentToModify.Fees = _userToEdit.Fees;
 
                 done = true;
