@@ -60,8 +60,8 @@
                 <Label>Address</Label>
                 <Label Content="{Binding SelectedStudent.Address}" FontWeight="Bold"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                <Button x:Name="editCourseButton" Content="Edit" Margin="10,0" 
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                <Button x:Name="editStudentButton" Content="Edit" Margin="10,0" 
                                     Background="Gray" Foreground="white"
                                     Click="editStudentButton_Click"  Width="80" Padding="3" FontSize="12">
                     <Button.Resources>
@@ -70,7 +70,7 @@
                         </Style>
                     </Button.Resources>
                 </Button>
-                <Button x:Name="deleteCourseButton" Content="Delete" Margin="10,0"  
+                <Button x:Name="deleteStudentButton" Content="Delete" Margin="10,0"  
                                     Background="#FF950000" Foreground="white"
                                     Click="deleteStudentButton_Click" Width="80" Padding="3" FontSize="12">
                     <Button.Resources>

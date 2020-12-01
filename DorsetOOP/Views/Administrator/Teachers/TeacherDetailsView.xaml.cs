@@ -57,6 +57,20 @@ namespace DorsetOOP
             SelectedTeacher = _inputTeacher;
         }
 
+        private void editTeacherButton_Click(object sender, RoutedEventArgs e)
+        {
+            new EditTeacherView(SelectedTeacher).ShowDialog();
+            this.Close();
+        }
 
+        private void deleteTeacherButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult msg = MessageBox.Show("Are you sure to delete this teacher?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+            if (msg == MessageBoxResult.Yes)
+            {
+                VirtualCollegeContext.RemoveUser(SelectedTeacher);
+                this.Close();
+            }
+        }
     }
 }

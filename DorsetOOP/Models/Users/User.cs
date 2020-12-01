@@ -21,6 +21,7 @@ namespace DorsetOOP.Models.Users
         public string Gender { get; set; }
         public string EmailAddress { get; set; }
         public string Password { get; set; }
+        public string PhoneNumber { get; set; }
         [Column(TypeName = "date")]
         public DateTime BirthDate { get; set; }
 

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DorsetOOP"
         mc:Ignorable="d" Background="#F2F2F2" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="EditStudentView" Height="488.095" Width="421.164" Icon="/img/loginIcon.ico">
+        Title="Edit Teacher" Height="490" Width="420" Icon="/img/loginIcon.ico">
     <Grid Margin="5,10,5,-1">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -27,7 +27,7 @@
             <Label >Birth Date</Label>
             <Label >Tutor</Label>
             <Label >Due Fees</Label>
-            <Rectangle Margin="0,8" Width="auto" Height="1" Fill="Black"/>
+            <Rectangle Margin="0,5" Width="auto" Height="1" Fill="Black"/>
             <Label >Address Line 1</Label>
             <Label >Address Line 2</Label>
             <Label >City</Label>
@@ -51,7 +51,7 @@
             <TextBox Margin="8,4" Text="{Binding StudentToEdit.Fees, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         
 
-            <Rectangle Margin="0,3.5,0,0" Width="auto" Height="1" Fill="Black"/>
+            <Rectangle Margin="0,5,0,0" Width="auto" Height="1" Fill="Black"/>
             <TextBox Margin="8,10,8,6" Text="{Binding AddressToEdit.AddressLine1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Margin="8,4" Text="{Binding AddressToEdit.AddressLine2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Margin="8,4" Text="{Binding AddressToEdit.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

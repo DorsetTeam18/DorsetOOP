@@ -88,7 +88,10 @@
     <Compile Include="AddGradeView.xaml.cs">
       <DependentUpon>AddGradeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EditStudentView.xaml.cs">
+    <Compile Include="Views\Administrator\Teachers\EditTeacherView.xaml.cs">
+      <DependentUpon>EditTeacherView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\Students\EditStudentView.xaml.cs">
       <DependentUpon>EditStudentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Administrator\Lessons\AddLessonView.xaml.cs">
@@ -156,7 +159,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EditStudentView.xaml">
+    <Page Include="Views\Administrator\Teachers\EditTeacherView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Administrator\Students\EditStudentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

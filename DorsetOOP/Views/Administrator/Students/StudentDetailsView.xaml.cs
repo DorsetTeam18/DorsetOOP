@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
 namespace DorsetOOP
 {
     /// <summary>
@@ -57,7 +58,6 @@ namespace DorsetOOP
                 VirtualCollegeContext.RemoveUser(SelectedStudent);
                 this.Close();
             }
-            
         }
     }
 }

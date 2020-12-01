@@ -540,7 +540,6 @@ namespace DorsetOOP.ViewModels
                     Include("Courses").
                     OfType<Teacher>().ToList();
 
-
                 var courses = myDB.Courses.
                     Include("Teachers").
                     ToList();
@@ -550,19 +549,17 @@ namespace DorsetOOP.ViewModels
                     ToList();
 
                 var grades = myDB.Grades.ToList();
-
                 var payments = myDB.Payments.ToList();
-
                 var addresses = myDB.Addresses.ToList();
+                var studentToModify = students.Find(s => s.UserId == _userToEdit.UserId);
 
                 if (_addressToEdit.AddressLine2 == "") _addressToEdit.AddressLine2 = null;
 
                 var desc = _addressToEdit.ToString();
                 Address match = addresses.Find(a => a.ToString() == desc);
 
-                var studentToModify = students.Find(s => s.UserId == _userToEdit.UserId);
-
-                if (match == null) {
+                if (match == null) 
+                {
                     myDB.Addresses.Add(new Address()
                     {
                         AddressLine1 = _addressToEdit.AddressLine1,
@@ -600,9 +597,9 @@ namespace DorsetOOP.ViewModels
                     OfType<Student>().
                     ToList();
 
-                var teachers = myDB.Users.Include("Courses").OfType<Teacher>().ToList();
-
-                var addresses = myDB.Addresses.ToList();
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().ToList();
 
                 var courses = myDB.Courses.
                     Include("Teachers").
@@ -613,16 +610,36 @@ namespace DorsetOOP.ViewModels
                     ToList();
 
                 var grades = myDB.Grades.ToList();
-
                 var payments = myDB.Payments.ToList();
+                var addresses = myDB.Addresses.ToList();
+                var teacherToModify = teachers.Find(s => s.UserId == _userToEdit.UserId);
 
                 if (_addressToEdit.AddressLine2 == "") _addressToEdit.AddressLine2 = null;
 
-                Address match = addresses.Find(a => a.ToString() == _addressToEdit.ToString());
+                var desc = _addressToEdit.ToString();
+                Address match = addresses.Find(a => a.ToString() == desc);
 
-                var teacherToModify = teachers.Find(t => t.UserId == _userToEdit.UserId);
-                if (match == null) teacherToModify.Address = _addressToEdit;
-                else teacherToModify.Address = match;
+                if (match == null)
+                {
+                    myDB.Addresses.Add(new Address()
+                    {
+                        AddressLine1 = _addressToEdit.AddressLine1,
+                        AddressLine2 = _addressToEdit.AddressLine2,
+                        Postcode = _addressToEdit.Postcode,
+                        City = _addressToEdit.City,
+                        State = _addressToEdit.State,
+                        Country = _addressToEdit.Country
+                    });
+                    myDB.SaveChanges();
+                    addresses = myDB.Addresses.ToList();
+                    teacherToModify.Address = addresses[addresses.Count - 1];
+                }
+                else teacherToModify.Address = addresses.Find(a => a.AddressId == match.AddressId);
+
+                teacherToModify.EmailAddress = _userToEdit.EmailAddress;
+                teacherToModify.Password = _userToEdit.Password;
+                //teacherToModify.PhoneNumber = _userToEdit.PhoneNumber;
+
                 done = true;
                 myDB.SaveChanges();
             }
@@ -912,7 +929,6 @@ namespace DorsetOOP.ViewModels
 
                 myDB.Users.Remove(temp);
                 
-
                 myDB.SaveChanges();
             }
            
@@ -961,7 +977,5 @@ namespace DorsetOOP.ViewModels
         #endregion
 
         #endregion
-
-
     }
 }

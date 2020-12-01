@@ -20,20 +20,24 @@ using System.Windows.Shapes;
 namespace DorsetOOP
 {
     /// <summary>
-    /// Logique d'interaction pour EditStudentView.xaml
+    /// Interaction logic for EditTeacherView.xaml
     /// </summary>
-    public partial class EditStudentView : Window, INotifyPropertyChanged
+    public partial class EditTeacherView : Window, INotifyPropertyChanged
     {
-        private Student _studentToEdit;
-        public Student StudentToEdit
+        #region View Models
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private Teacher _teacherToEdit;
+        public Teacher TeacherToEdit
         {
-            get { return _studentToEdit; }
+            get { return _teacherToEdit; }
             set
             {
-                _studentToEdit = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("StudentToEdit"));
+                _teacherToEdit = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("TeacherToEdit"));
             }
         }
+
         private Address _addressToEdit = new Address();
         public Address AddressToEdit
         {
@@ -44,6 +48,7 @@ namespace DorsetOOP
                 PropertyChanged(this, new PropertyChangedEventArgs("AddressToEdit"));
             }
         }
+
         private ObservableCollection<Teacher> _teachers;
         public ObservableCollection<Teacher> Teachers
         {
@@ -54,20 +59,18 @@ namespace DorsetOOP
                 PropertyChanged(this, new PropertyChangedEventArgs("Teachers"));
             }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
-        public EditStudentView(Student _inputStudent)
+        public EditTeacherView(Teacher _inputTeacher)
         {
-            
             InitializeComponent();
-            StudentToEdit = _inputStudent;
-            AddressToEdit = _inputStudent.Address;
-            Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachers());
+            TeacherToEdit = _inputTeacher;
+            AddressToEdit = _inputTeacher.Address;
         }
 
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
-            if (VirtualCollegeContext.UpdateStudent(StudentToEdit, AddressToEdit))
+            if (VirtualCollegeContext.UpdateTeacher(TeacherToEdit, AddressToEdit))
             {
                 MessageBox.Show("Student profile updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
@@ -75,9 +78,6 @@ namespace DorsetOOP
             else MessageBox.Show("Couldn't update Student profile.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void cancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        private void cancelButton_Click(object sender, RoutedEventArgs e) { this.Close(); }
     }
 }

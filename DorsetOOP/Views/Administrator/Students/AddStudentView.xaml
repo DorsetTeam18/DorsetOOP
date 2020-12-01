@@ -46,7 +46,7 @@
                 <ComboBoxItem Content="Male"/>
                 <ComboBoxItem Content="Female"/>
             </ComboBox>  
-            <TextBox Margin="8,4" Text="{Binding StudentToAdd.PhoneNumber, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center"/>
+            <TextBox Margin="8,4" Text="{Binding StudentToAdd.PhoneNumber, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
             
             <DatePicker Margin="8,4" SelectedDateFormat="Short" 
                         SelectedDate="{Binding StudentToAdd.BirthDate, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"

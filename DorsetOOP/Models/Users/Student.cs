@@ -21,7 +21,6 @@ namespace DorsetOOP.Models.Users
         
         public decimal Fees { get; set; }
         public decimal Paid { get; set; }
-        public string PhoneNumber { get; set; }
 
         // Many to one (one students has one tutor and one tutor has many students)
         public int? TutorId { get; set; }

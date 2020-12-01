@@ -33,7 +33,7 @@ namespace DorsetOOP
 
             using (var myDB = new VirtualCollegeContext())
             {
-                #region
+                #region Get Tables
                 var addresses = myDB.Addresses.ToList();
 
                 var studs = myDB.Users.
@@ -78,9 +78,9 @@ namespace DorsetOOP
                 //    Gender = "Male",
                 //    BirthDate = new DateTime(2000, 3, 6),
                 //    Address = addresses.Find(a => a.AddressId == 1),
-                //    EmailAddress = "maxime.dennery@edu.devinci.fr",
+                //    EmailAddress = "2",
                 //    Fees = 10800,
-                //    Password = "MaxPassword"
+                //    Password = "2"
                 //};
                 //studs.Add(premierEleve);
 
@@ -338,7 +338,7 @@ namespace DorsetOOP
                 #endregion
 
                 var t = studs.Find(s => s.FirstName == "Maxime");
-                t.AddPayment(DateTime.Now, (long)1000);
+                t.AddPayment(DateTime.Now, 1000);
 
                 myDB.SaveChanges();
             }
