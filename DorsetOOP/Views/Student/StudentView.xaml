@@ -134,9 +134,9 @@
                         </StackPanel>
                     </Grid>
                     <!--#endregion-->
-                    
+
                     <!--#region Row 3-->
-                <Grid Grid.Row="3" Margin="0,5">
+                    <Grid Grid.Row="3" Margin="0,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
@@ -147,8 +147,8 @@
                             <Label Content="A FAIRE" Background="Gray" FontWeight="Bold"/>
                         </StackPanel>
                     </Grid>
-                <!--#endregion-->
-                    
+                    <!--#endregion-->
+
                     <!--#region Row 4-->
                     <Grid Grid.Row="4" Margin="0,5">
                         <Grid.ColumnDefinitions>
@@ -192,8 +192,6 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <!--#region Column 0-->
-                    
                     <!--#region Row 0-->
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
                         <Image Source="/img/ProfilePicture.png" Height="70"/>
@@ -210,38 +208,78 @@
                         </StackPanel>
                     </StackPanel>
                     <!--#endregion-->
-                    
+
                     <!--#region Row 1-->
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.8*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Label Content="Courses" FontSize="18" FontWeight="Bold"
-                               HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0">
-                        </Label>
-                        <DataGrid x:Name="viewGradeDataGrid" Grid.Column="0" Grid.Row="1" Margin="5,0" 
+
+                        <!--#region Column 0-->
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Courses" FontSize="18" FontWeight="Bold"
+                               HorizontalAlignment="Left" Grid.Row="0">
+                            </Label>
+                            <DataGrid x:Name="viewCoursesDataGrid" Grid.Row="1" Margin="5,0" 
                                 AutoGenerateColumns="False" IsReadOnly="True"
                                 ItemsSource="{Binding Courses, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                 SelectedItem="{Binding SelectedCourse, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                                 GridLinesVisibility="All" Width="auto">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Width="*" Binding="{Binding Title }"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Width="*" Binding="{Binding Title }"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                        <!--#endregion-->
+
+                        <!--#region Column 1-->
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <!--#region Row 0-->
+                            <StackPanel Grid.Row="0" Margin="5,10,5,0" Orientation="Vertical" VerticalAlignment="Top">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Title"/>
+                                    <Label Content="{Binding SelectedCourse.Title}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Referent Teacher"/>
+                                    <Label Content="{Binding SelectedCourse.ReferentTeacher.FullName}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Credits"/>
+                                    <Label Content="{Binding SelectedCourse.Credits}" FontWeight="Bold"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <!--#endregion-->
+
+                            <!--#region Row 1-->
+                            <DataGrid x:Name="viewGradeDataGrid" Grid.Row="1" Margin="5,0" 
+                  AutoGenerateColumns="False" IsReadOnly="True"
+                  ItemsSource="{Binding SelectedGrades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  GridLinesVisibility="All" Width="auto">
+                                <DataGrid.Columns>
+                                    <!--<DataGridTextColumn Width="auto" Header="Course" Binding="{Binding Course.Title }"/>-->
+                                    <DataGridTextColumn Width="*" Header="Exam Name" Binding="{Binding ExamName }"/>
+                                    <DataGridTextColumn Width="auto" Header="Mark" Binding="{Binding Mark }"/>
+                                    <DataGridTextColumn Width="auto" Header="Coefficient" Binding="{Binding Coefficient }"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <!--#endregion-->
+                        </Grid>
+                        <!--#endregion-->
                     </Grid>
-                    <!--#endregion-->
-                    <!--#endregion-->
-                    <!--#region Column 1-->
-                    
                     <!--#endregion-->
                 </Grid>
             </TabItem>
-            
+
             <!--#endregion-->
 
 

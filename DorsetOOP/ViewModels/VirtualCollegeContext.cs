@@ -241,6 +241,38 @@ namespace DorsetOOP.ViewModels
             }
             return grades;
         }
+        public static List<Grade> GetAllGradesFromStudent(Course _courseToGetGradesOf, Student _selectedStudent)
+        {
+            var grades = new List<Grade>();
+            var gradesFromStudent = new List<Grade>();
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var payments = myDB.Payments.ToList();
+                var courses = myDB.Courses.Include("Teachers").ToList();
+                grades = GetAllGrades(courses.Find(c => c.CourseId == _courseToGetGradesOf.CourseId));
+                foreach (Grade grade in grades)
+                {
+                    if (grade.Student != students.Find(s=>s.UserId==_selectedStudent.UserId)) gradesFromStudent.Add(grades.Find(g=>g.GradeId==grade.GradeId));
+                }
+            }
+            return gradesFromStudent;
+        }
         #endregion
 
         #region Get all that match text
