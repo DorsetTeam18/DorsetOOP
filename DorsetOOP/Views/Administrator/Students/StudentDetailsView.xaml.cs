@@ -42,5 +42,22 @@ namespace DorsetOOP
             InitializeComponent();
             SelectedStudent = _inputStudent;
         }
+
+        private void editStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            new EditStudentView(SelectedStudent).ShowDialog();
+            this.Close();
+        }
+
+        private void deleteStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult msg = MessageBox.Show("Are you sure to delete this student?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+            if (msg == MessageBoxResult.Yes)
+            {
+                VirtualCollegeContext.RemoveUser(SelectedStudent);
+                this.Close();
+            }
+            
+        }
     }
 }

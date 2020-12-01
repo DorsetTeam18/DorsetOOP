@@ -71,7 +71,7 @@ namespace DorsetOOP
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            if (VirtualCollegeContext.CreateUser(StudentToAdd, AddressToAdd))
+            if (VirtualCollegeContext.CreateStudent(StudentToAdd, AddressToAdd))
             {
                 MessageBox.Show("Student created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();

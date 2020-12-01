@@ -268,6 +268,7 @@ namespace DorsetOOP
         private void Students_Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             new StudentDetailsView(SelectedStudent).ShowDialog();
+            GetAllUsers();
         }
         #endregion
 
