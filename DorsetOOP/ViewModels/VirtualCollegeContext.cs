@@ -553,7 +553,12 @@ namespace DorsetOOP.ViewModels
                 var studentToModify = students.Find(s => s.UserId == _userToEdit.UserId);
                 if (match == null) studentToModify.Address = _addressToEdit;
                 else studentToModify.Address = match;
+                studentToModify.EmailAddress = _userToEdit.EmailAddress;
+                studentToModify.Password = _userToEdit.Password;
+                studentToModify.PhoneNumber = _userToEdit.PhoneNumber;
                 studentToModify.Tutor = teachers.Find(t => t.UserId == _userToEdit.Tutor.UserId);
+                studentToModify.Fees = _userToEdit.Fees;
+
                 done = true;
                 myDB.SaveChanges();
             }
