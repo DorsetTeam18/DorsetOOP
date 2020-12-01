@@ -733,6 +733,18 @@ namespace DorsetOOP.ViewModels
                 myDB.SaveChanges();
             }
         }
+
+        public static void RemoveLesson(Lesson _lessonToRemove)
+        {
+            if (_lessonToRemove != null)
+            {
+                using (var myDB = new VirtualCollegeContext())
+                {
+                    myDB.Lessons.Remove(myDB.Lessons.Find(_lessonToRemove.LessonId));
+                    myDB.SaveChanges();
+                }
+            }
+        }
         #endregion
 
         #endregion

@@ -328,5 +328,32 @@ namespace DorsetOOP
             GetAllCourses();
             
         }
+
+        private void editLessonButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedLesson != null)
+            {
+                new EditLessonView(SelectedLesson).ShowDialog();
+                VirtualCollegeContext.UpdateLesson(SelectedLesson);
+                GetAllLessons();
+                GetAllUsers();
+                GetAllCourses();
+            }
+            else MessageBox.Show("Please select a lesson", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void deleteLessonButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedLesson !=null)
+            {
+                VirtualCollegeContext.RemoveLesson(SelectedLesson);
+                Lessons = new ObservableCollection<Lesson>(VirtualCollegeContext.GetAllLessons());
+                
+                GetAllUsers();
+                GetAllCourses();
+            }
+        }
+
+       
     }
 }

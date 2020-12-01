@@ -628,11 +628,12 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-
+                            
                             <StackPanel Grid.Row="0" Margin="5,10,5,0" Orientation="Vertical" VerticalAlignment="Top">
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="Course"/>
                                     <Label Content="{Binding SelectedLesson.Course.Title}" FontWeight="Bold"/>
+                                    
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="Teacher"/>
@@ -649,6 +650,26 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="Room Name"/>
                                     <Label Content="{Binding SelectedLesson.RoomName}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                                    <Button x:Name="editLessonButton" Content="Edit" Margin="10,0" HorizontalAlignment="Right"
+                                    Background="Gray" Foreground="white"
+                                      Width="100" Padding="3" FontSize="16" Click="editLessonButton_Click">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="10"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                    <Button x:Name="deleteLessonButton" Content="Delete" Margin="10,0"  
+                                    Background="#FF950000" Foreground="white"
+                                     Width="100" Padding="3" FontSize="16" Click="deleteLessonButton_Click">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="10"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
                                 </StackPanel>
                                 
                             </StackPanel>
