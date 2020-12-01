@@ -395,7 +395,7 @@
                     <!--#region Row 2-->
                     <DataGrid x:Name="viewPaymentsDataGrid" Grid.Column="0" Grid.Row="2" 
                         AutoGenerateColumns="False" IsReadOnly="True"
-                        ItemsSource="{Binding Payments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding LoggedInStudent.Payments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         GridLinesVisibility="All" Width="auto"
                         KeyDown="viewStudentsDataGrid_KeyDown">
                         <DataGrid.Resources>
