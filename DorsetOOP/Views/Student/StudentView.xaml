@@ -318,7 +318,7 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel>
-                        <Image Source="/img/fees.png" Height="82"/>
+                        <Image Source="/img/fees.png" Height="80"/>
                         <Label Content="my Fees" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
