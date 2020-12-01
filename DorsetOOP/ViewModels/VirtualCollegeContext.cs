@@ -728,7 +728,12 @@ namespace DorsetOOP.ViewModels
                 lessonToChange.Hour = _lessonToEdit.Hour;
                 lessonToChange.Duration = _lessonToEdit.Duration;
                 lessonToChange.Teacher = teachers.Find(t => t.UserId == _lessonToEdit.Teacher.UserId);
-
+                lessonToChange.Students.Clear();
+                foreach (Student student in _lessonToEdit.Students)
+                {
+                    lessonToChange.Students.Add(students.Find(s => s.UserId == student.UserId));
+                }
+                
                 myDB.SaveChanges();
             }
             return true;

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DorsetOOP"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" Background="#F2F2F2" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="Window_Loaded"
         Title="Edit lesson" Height="380" Width="390" Icon="/img/loginIcon.ico">
     <Grid Margin="5">
         <Grid.RowDefinitions>
@@ -47,17 +47,30 @@
             </DataGrid>
         </StackPanel>
 
-        <Button x:Name="CloseLessonButton" Grid.Column="1" Grid.Row="1" Margin="5"
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="cancelButton" Grid.Column="1" Grid.Row="1" Margin="5"
                 HorizontalAlignment="Right"
-                Content="Close" Padding="5,3"
-                Background="#FF950000" Foreground="white"
-                Click="CloseLessonButton_Click"  >
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
+                Content="Cancel"  Width="70"
+                Background="#FF950000" Foreground="white" Click="cancelButton_Click">
 
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button x:Name="editButton" Margin="5"
+                HorizontalAlignment="Right"
+                Content="Edit Lesson"  Padding="5,0"
+                Background="Green" Foreground="white" Click="editButton_Click">
+
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="8"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>
