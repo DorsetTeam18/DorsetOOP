@@ -552,6 +552,7 @@ namespace DorsetOOP.ViewModels
                 var payments = myDB.Payments.ToList();
                 var addresses = myDB.Addresses.ToList();
                 var studentToModify = students.Find(s => s.UserId == _userToEdit.UserId);
+                var oldAddress = addresses.Find(a => a.AddressId == studentToModify.Address.AddressId);
 
                 if (_addressToEdit.AddressLine2 == "") _addressToEdit.AddressLine2 = null;
 
@@ -580,6 +581,8 @@ namespace DorsetOOP.ViewModels
                 studentToModify.PhoneNumber = _userToEdit.PhoneNumber;
                 if (_userToEdit.Tutor != null) studentToModify.Tutor = teachers.Find(t => t.UserId == _userToEdit.Tutor.UserId);
                 studentToModify.Fees = _userToEdit.Fees;
+
+                if (oldAddress.Users.Count == 0) myDB.Addresses.Remove(oldAddress);
 
                 done = true;
                 myDB.SaveChanges();
@@ -613,6 +616,7 @@ namespace DorsetOOP.ViewModels
                 var payments = myDB.Payments.ToList();
                 var addresses = myDB.Addresses.ToList();
                 var teacherToModify = teachers.Find(s => s.UserId == _userToEdit.UserId);
+                var oldAddress = addresses.Find(a => a.AddressId == teacherToModify.Address.AddressId);
 
                 if (_addressToEdit.AddressLine2 == "") _addressToEdit.AddressLine2 = null;
 
@@ -638,7 +642,9 @@ namespace DorsetOOP.ViewModels
 
                 teacherToModify.EmailAddress = _userToEdit.EmailAddress;
                 teacherToModify.Password = _userToEdit.Password;
-                //teacherToModify.PhoneNumber = _userToEdit.PhoneNumber;
+                teacherToModify.PhoneNumber = _userToEdit.PhoneNumber;
+
+                if (oldAddress.Users.Count == 0) myDB.Addresses.Remove(oldAddress);
 
                 done = true;
                 myDB.SaveChanges();
