@@ -85,9 +85,22 @@
         <!--#endregion-->
 
         <!--#region Student Fees-->
-        <Label Content="Payments" FontSize="18" FontWeight="Bold"
-                   HorizontalAlignment="Left" VerticalAlignment="Top"
-                    Grid.Row="1"/>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Payments" FontSize="18" FontWeight="Bold"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0"/>
+            <Label Content="Due :" FontSize="18" FontWeight="Bold"
+                   HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1"/>
+            <Label Content="{Binding SelectedStudent.Fees, Mode=OneWay}" 
+                   FontSize="18" FontWeight="Medium" Grid.Column="2"/>
+        </Grid>
         <DataGrid x:Name="viewPaymentsDataGrid" Grid.Column="0" Grid.Row="2" 
                   AutoGenerateColumns="False" IsReadOnly="True"
                   ItemsSource="{Binding SelectedStudent.Payments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
