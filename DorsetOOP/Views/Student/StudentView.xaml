@@ -77,15 +77,15 @@
                     </StackPanel>
                 </TabItem.Header>
 
-                <Grid Margin="5">
+                <Grid  Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -115,8 +115,8 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-                            <Label>Date of Birth</Label>
-                            <Label Content="{Binding LoggedInStudent.BirthDate}" FontWeight="Bold"/>
+                            <Label Content ="Date of Birth "  FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <Label Content="{Binding LoggedInStudent.BirthDate}" FontWeight="Bold" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
                     <!--#endregion-->
@@ -129,8 +129,8 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal">
-                            <Label>E-mail Address</Label>
-                            <Label Content="{Binding LoggedInStudent.EmailAddress}" FontWeight="Bold"/>
+                            <Label Content ="E-mail Address "  FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <Label Content="{Binding LoggedInStudent.EmailAddress}" FontWeight="Bold" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
                     <!--#endregion-->
@@ -143,24 +143,18 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Phone Number</Label>
-                            <Label Content="A FAIRE" Background="Gray" FontWeight="Bold"/>
+                            <Label Content ="Phone Number"  FontSize="16" FontWeight="Bold" VerticalAlignment="Center" />
+                            <Label Content="A FAIRE" Background="Gray" FontWeight="Bold" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
                     <!--#endregion-->
 
-                    <!--#region Row 4-->
-                    <Grid Grid.Row="4" Margin="0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal">
-                            <Label>Address</Label>
+                    <!--#region Row 4-->                   
+                        <StackPanel Grid.Row ="4" Orientation="Horizontal">
+                            <Label Content ="Address"  FontSize="16" FontWeight="Bold"  Margin="0,0,0,0.2" VerticalAlignment="Top"/>
                             <Label Content="{Binding LoggedInStudent.Address}" FontWeight="Bold"/>
                         </StackPanel>
-                    </Grid>
+                
                     <!--#endregion-->
                 </Grid>
             </TabItem>
