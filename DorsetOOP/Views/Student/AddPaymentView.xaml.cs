@@ -40,6 +40,7 @@ namespace DorsetOOP
         #endregion
 
         private Student StudentConcerned { get; set; }
+
         public AddPaymentView(Student _stud)
         {
             InitializeComponent();
@@ -55,7 +56,7 @@ namespace DorsetOOP
             p.Student = StudentConcerned;
             PaymentToAdd = p;
 
-            if (VirtualCollegeContext.AddPayment(PaymentToAdd))
+            if (VirtualCollegeContext.AddPayment(PaymentToAdd)) // To edit
             {
                 MessageBox.Show("Payment added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();

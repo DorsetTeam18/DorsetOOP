@@ -29,7 +29,7 @@ namespace DorsetOOP
         public event PropertyChangedEventHandler PropertyChanged;
 
         Student _loggedInStudent = new Student();
-        public Student LoggedInStudent
+        public Student LoggedInStudent // The logged in student
         {
             get { return _loggedInStudent; }
             set
@@ -38,84 +38,6 @@ namespace DorsetOOP
                 PropertyChanged(this, new PropertyChangedEventArgs("LoggedInStudent"));
             }
         }
-
-        private decimal _studentDeposit;
-        public decimal StudentDeposit
-        {
-            get
-            {
-                return _studentDeposit;
-            }
-            set
-            {
-                _studentDeposit = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("StudentDeposit"));
-                StudentDue -= StudentDeposit;
-            }
-        }
-
-        private decimal _studentDue;
-        public decimal StudentDue
-        {
-            get
-            {
-                //return LoggedInStudent.Fees - studentDeposit;
-                return _studentDue;
-            }
-            set
-            {
-                _studentDue = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("StudentDue"));
-            }
-        }
-
-        private ObservableCollection<Payment> _payments;
-        public ObservableCollection<Payment> Payments
-        {
-            get { return _payments; }
-            set
-            {
-                _payments = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Payments"));
-            }
-        }
-
-
-        #region STUDENTS
-        private ObservableCollection<Student> _students;
-        public ObservableCollection<Student> Students
-        {
-            get { return _students; }
-            set
-            {
-                _students = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Students"));
-            }
-        }
-
-        private Student _selectedStudent = new Student();
-        public Student SelectedStudent // 
-        {
-            get { return _selectedStudent; }
-            set
-            {
-                _selectedStudent = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("DataStudent"));
-            }
-        }
-
-        private string _searchStudentsText;
-        public string SearchStudentsText
-        {
-            get { return _searchStudentsText; }
-            set
-            {
-                _searchStudentsText = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("SearchStudentsText"));
-                GetStudentsThatMatch(SearchStudentsText);
-            }
-        }
-        #endregion
 
         #region TEACHERS
         private ObservableCollection<Teacher> _teachers;
@@ -154,9 +76,8 @@ namespace DorsetOOP
         #endregion
 
         #region COURSES
-
         private ObservableCollection<Course> _courses;
-        public ObservableCollection<Course> Courses
+        public ObservableCollection<Course> Courses // Courses of a student
         {
             get { return _courses; }
             set
@@ -167,7 +88,7 @@ namespace DorsetOOP
         }
 
         private Course _selectedCourse = new Course();
-        public Course SelectedCourse
+        public Course SelectedCourse // Selected course (used to display grades, lessons etc.)
         {
             get { return _selectedCourse; }
             set
@@ -175,12 +96,13 @@ namespace DorsetOOP
                 _selectedCourse = value;
 
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedCourse"));
-                if(SelectedCourse!=null)
-                    GetAllGradesSelectedStudent();
+                if(SelectedCourse!=null) GetAllGradesSelectedStudent(); // Gets all of the grades in this course
+
             }
         }
+
         private ObservableCollection<Grade> _selectedGrades;
-        public ObservableCollection<Grade> SelectedGrades
+        public ObservableCollection<Grade> SelectedGrades 
         {
             get { return _selectedGrades; }
             set
@@ -188,10 +110,6 @@ namespace DorsetOOP
                 _selectedGrades = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedGrades"));
             }
-        }
-        private void GetAllGradesSelectedStudent()
-        {
-            SelectedGrades = new ObservableCollection<Grade>(VirtualCollegeContext.GetAllGradesFromStudent(SelectedCourse, LoggedInStudent));
         }
         #endregion
 
@@ -201,88 +119,44 @@ namespace DorsetOOP
         {
             InitializeComponent();
             LoggedInStudent = (Student)_student;
-            StudentDue = LoggedInStudent.Fees;
-            //GetPayments();
-            GetAllCourses();
+            GetAllCoursesOfStudent();
         }
 
         #region Get Lists
-
-        private void GetAllCourses()
+        private void GetAllCoursesOfStudent()
         {
             Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCourses(LoggedInStudent));
         }
-        //private void GetPayments()
-        //{
-        //    Payments = new ObservableCollection<Payment>(LoggedInStudent.Payments);
 
-        //    decimal deposit = 0;
-        //    List<Payment> fees = LoggedInStudent.Payments.ToList();
-        //    for (int i = 0; i < fees.Count; i++)
-        //    {
-        //        deposit += LoggedInStudent.Payments.ElementAt(i).Amount;
-        //    }
-        //    StudentDeposit = deposit;
-        //}
+        private void GetAllGradesSelectedStudent() // Sets the grades to display to the grades of this student in this course
+        {
+            SelectedGrades = new ObservableCollection<Grade>(VirtualCollegeContext.GetAllGradesFromStudent(SelectedCourse, LoggedInStudent));
+        }
         #endregion
 
         #region Matching Search Boxes
-        private void GetStudentsThatMatch(string _searchBoxValue)
+        private void GetStudentsThatMatch(string _searchBoxValue) // Needs optimization
         {
-            Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudentsThatMatchFullName(_searchBoxValue));
+            LoggedInStudent = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudentsThatMatchFullName(_searchBoxValue))[0];
         }
 
-        private void GetTeachersThatMatch(string _searchBoxValue)
+        private void GetTeachersThatMatch(string _searchBoxValue) // Not implemented yet
         {
             Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachersThatMatchFullName(_searchBoxValue));
         }
 
-        private void GetCoursesThatMatch(string _searchBoxValue)
+        private void GetCoursesThatMatch(string _searchBoxValue) // Not implemented yet
         {
             Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCoursesThatMatchTitle(_searchBoxValue));
         }
         #endregion
 
         #region Creating a new entity
-        private void addPaymentButton_Click(object sender, RoutedEventArgs e)
+        private void addPaymentButton_Click(object sender, RoutedEventArgs e) // Function to handle a new payment (need to add error handling)
         {
             new AddPaymentView(LoggedInStudent).ShowDialog();
-            GetStudentsThatMatch(LoggedInStudent.FullName);
-
+            GetStudentsThatMatch(LoggedInStudent.FullName); // To fix
         }
         #endregion
-
-        #region Key Down
-        //private void viewTeachersDataGrid_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.Key == Key.D)
-        //    {
-        //        VirtualCollegeContext.RemoveUser((Teacher)viewTeachersDataGrid.SelectedItem);
-        //        Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachers());
-        //    }
-        //}
-
-        private void viewStudentsDataGrid_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.D)
-            {
-                VirtualCollegeContext.RemoveUser(SelectedStudent);
-                Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudents());
-            }
-        }
-        #endregion
-
-        #region Double Clicking
-        private void Teachers_Row_DoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            new TeacherDetailsView(SelectedTeacher).ShowDialog();
-        }
-
-        private void Students_Row_DoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            new StudentDetailsView(SelectedStudent).ShowDialog();
-        }
-        #endregion
-
     }
 }

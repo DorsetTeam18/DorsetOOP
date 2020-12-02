@@ -346,36 +346,30 @@
 
                     <!--#region Row 1-->
                     <Grid Grid.Row="1" Margin="0,5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="9*"/>
-                            <RowDefinition Height="13*"/>
-                            <RowDefinition Height="0*"/>
-                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="129*"/>
-                            <ColumnDefinition Width="126*"/>
-                            <ColumnDefinition Width="52*"/>
-                            <ColumnDefinition Width="266*"/>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Margin="0,5,0.2,2.6" Content= "Deposit :"
-                               FontSize="15" FontWeight="Bold" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
-                        <Label Margin="80,5,28.2,2.6" Content=  "{Binding LoggedInStudent.Paid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                               FontSize="15" FontWeight="Bold" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <Label Content="Deposit:" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                            <Label Content= "{Binding LoggedInStudent.Paid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   VerticalContentAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <Label Content="Due:" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                            <Label Content="{Binding LoggedInStudent.Fees, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   VerticalContentAlignment="Center" FontSize="15" FontWeight="Bold" Foreground="Black"/>
+                        </StackPanel>
 
 
-                        <Label Margin="51.8,5,51.8,2.6" Content="Due :"
-                                 FontSize="15" FontWeight="Bold" Foreground="Black" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
-                        <Label Margin="79.8,5,79.8,2.6" Content="{Binding LoggedInStudent.Fees, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                 FontSize="15" FontWeight="Bold" Foreground="Black" Grid.Column="3" Grid.RowSpan="2"/>
 
 
-
-                        <Button x:Name="addPaymentButton" Content="Add Payment +" Grid.Column="4" Padding="5,0"
-                                Background="Green" 
-                                Foreground="White" Margin="0.2,10,9.8,5.6" Click="addPaymentButton_Click"  Grid.ColumnSpan="2" Grid.RowSpan="2">
+                        <Button x:Name="addPaymentButton"  Grid.Column="2" Padding="5,0"
+                                Content="Add Payment +" Background="Green"  Foreground="White" 
+                                Click="addPaymentButton_Click">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="10"/>
@@ -396,13 +390,12 @@
                     <DataGrid x:Name="viewPaymentsDataGrid" Grid.Column="0" Grid.Row="2" 
                         AutoGenerateColumns="False" IsReadOnly="True"
                         ItemsSource="{Binding LoggedInStudent.Payments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                        GridLinesVisibility="All" Width="auto"
-                        KeyDown="viewStudentsDataGrid_KeyDown">
-                        <DataGrid.Resources>
+                        GridLinesVisibility="All" Width="auto" >
+                        <!--<DataGrid.Resources>
                             <Style TargetType="DataGridRow">
                                 <EventSetter Event="MouseDoubleClick" Handler="Students_Row_DoubleClick"/>
                             </Style>
-                        </DataGrid.Resources>
+                        </DataGrid.Resources>-->
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Date" Binding="{Binding Date}"/>
                             <DataGridTextColumn Width="auto" Header="Sum" Binding="{Binding Amount}"/>
