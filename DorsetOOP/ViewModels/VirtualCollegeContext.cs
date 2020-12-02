@@ -79,6 +79,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
                 var grades = myDB.Grades.ToList();
 
@@ -90,6 +91,7 @@ namespace DorsetOOP.ViewModels
 
                 t = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
             }
@@ -108,6 +110,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
                 var grades = myDB.Grades.ToList();
 
@@ -115,6 +118,7 @@ namespace DorsetOOP.ViewModels
 
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -133,6 +137,7 @@ namespace DorsetOOP.ViewModels
             {
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -145,6 +150,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -157,6 +163,7 @@ namespace DorsetOOP.ViewModels
             }
             return t;
         }
+
         public static List<Lesson> GetAllLessons()
         {
             var t = new List<Lesson>();
@@ -164,6 +171,7 @@ namespace DorsetOOP.ViewModels
             {
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -176,6 +184,7 @@ namespace DorsetOOP.ViewModels
 
                 t = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -196,6 +205,7 @@ namespace DorsetOOP.ViewModels
             {
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -208,6 +218,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -226,13 +237,14 @@ namespace DorsetOOP.ViewModels
             return t;
         }
 
-        public static List<Lesson> GetLessonsFromCourse(Teacher _teacherToGetLessonsOf,Course _specificcourse)
+        public static List<Lesson> GetLessonsFromCourse(Teacher _teacherToGetLessonsOf, Course _specificcourse)
         {
             var t = new List<Lesson>();
             using (var myDB = new VirtualCollegeContext())
             {
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -245,6 +257,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -275,6 +288,7 @@ namespace DorsetOOP.ViewModels
             {
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -287,6 +301,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var payments = myDB.Payments.ToList();
@@ -295,6 +310,7 @@ namespace DorsetOOP.ViewModels
             }
             return grades;
         }
+
         public static List<Grade> GetAllGradesFromStudent(Course _courseToGetGradesOf, Student _selectedStudent)
         {
             var grades = new List<Grade>();
@@ -303,6 +319,7 @@ namespace DorsetOOP.ViewModels
             {
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -315,6 +332,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var payments = myDB.Payments.ToList();
@@ -327,6 +345,38 @@ namespace DorsetOOP.ViewModels
                 }
             }
             return gradesFromStudent;
+        }
+
+        public static bool StudentIsPresent(Student _inputStudent, Lesson _inputLesson)
+        {
+            bool isPresent = false;
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    Include("PresentLessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    Include("PresentStudents").
+                    ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                var courses = myDB.Courses.Include("Teachers").ToList();
+
+                if (lessons.Find(l => l.LessonId == _inputLesson.LessonId).PresentStudents.Contains(students.Find(s => s.UserId == _inputStudent.UserId))) isPresent = true;
+            }
+            return isPresent;
         }
         #endregion
 
@@ -357,6 +407,7 @@ namespace DorsetOOP.ViewModels
 
                 tempStuds = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList().
                     FindAll(s => s.FullName.ToLower().Contains(_fullName.ToLower()));
@@ -374,6 +425,7 @@ namespace DorsetOOP.ViewModels
 
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -407,6 +459,7 @@ namespace DorsetOOP.ViewModels
 
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -417,6 +470,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -439,6 +493,7 @@ namespace DorsetOOP.ViewModels
 
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -457,7 +512,8 @@ namespace DorsetOOP.ViewModels
 
                 }
                 lessons = myDB.Lessons.
-                    Include("Students").
+                    Include("Students")
+                    .Include("PresentStudents").
                     ToList().FindAll(l => l.Course.Title.ToLower().Contains(_lessonTitle.ToLower()));
             }
             return lessons;
@@ -487,7 +543,7 @@ namespace DorsetOOP.ViewModels
 
                 var payments = myDB.Payments.ToList();
 
-                var students = myDB.Users.Include("Lessons").OfType<Student>().ToList();
+                var students = myDB.Users.Include("Lessons").Include("PresentLessons").OfType<Student>().ToList();
 
                 tempStuds = teachers.Find(t => t.UserId == _tutor.UserId).Tutoring.ToList().FindAll(s => s.FullName.ToLower().Contains(_fullNameSearch.ToLower()));
             }
@@ -503,6 +559,7 @@ namespace DorsetOOP.ViewModels
             {
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -516,6 +573,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -558,6 +616,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -587,6 +646,7 @@ namespace DorsetOOP.ViewModels
             {
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -600,6 +660,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -651,6 +712,7 @@ namespace DorsetOOP.ViewModels
             {
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -664,6 +726,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -724,6 +787,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -758,6 +822,7 @@ namespace DorsetOOP.ViewModels
             {
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -770,6 +835,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -802,6 +868,7 @@ namespace DorsetOOP.ViewModels
             {
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -818,6 +885,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -855,6 +923,7 @@ namespace DorsetOOP.ViewModels
             {
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -867,6 +936,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -911,6 +981,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -932,6 +1003,7 @@ namespace DorsetOOP.ViewModels
             {
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -944,6 +1016,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -974,6 +1047,7 @@ namespace DorsetOOP.ViewModels
             {
                 var students = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -986,6 +1060,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -1000,6 +1075,44 @@ namespace DorsetOOP.ViewModels
                 gradeToChange.Mark = _gradeToEdit.Mark;
                 gradeToChange.ExamName = _gradeToEdit.ExamName;
                 gradeToChange.Coefficient = _gradeToEdit.Coefficient;
+
+                myDB.SaveChanges();
+            }
+            return true;
+        }
+
+        public static bool SetStudentAsPresent(Student _inputStudent, Lesson _inputLesson)
+        {
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    Include("PresentLessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    Include("PresentStudents").
+                    Include("PresentStudents").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                lessons.Find(l => l.LessonId == _inputLesson.LessonId).PresentStudents.Add(students.Find(s => s.UserId == _inputStudent.UserId));
 
                 myDB.SaveChanges();
             }
@@ -1020,6 +1133,7 @@ namespace DorsetOOP.ViewModels
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();

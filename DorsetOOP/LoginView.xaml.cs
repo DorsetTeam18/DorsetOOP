@@ -38,6 +38,7 @@ namespace DorsetOOP
 
                 var studs = myDB.Users.
                     Include("Lessons").
+                    Include("PresentLessons").
                     OfType<Student>().
                     ToList();
 
@@ -51,6 +52,7 @@ namespace DorsetOOP
 
                 var lessons = myDB.Lessons.
                     Include("Students").
+                    Include("PresentStudents").
                     ToList();
 
                 var grades = myDB.Grades.ToList();
@@ -337,6 +339,7 @@ namespace DorsetOOP
                 #endregion
                 #endregion
 
+                var foo = VirtualCollegeContext.StudentIsPresent(studs.Find(s => s.UserId == 1), lessons.Find(l => l.LessonId == 1));   
                 myDB.SaveChanges();
             }
         }
@@ -350,7 +353,7 @@ namespace DorsetOOP
 
                 var payments = myDb.Payments.ToList();
 
-                var lessons = myDb.Lessons.Include("Students").ToList();
+                var lessons = myDb.Lessons.Include("Students").Include("PresentStudents").ToList();
 
                 var courses = myDb.Courses.Include("Teachers").ToList();
 
