@@ -128,7 +128,7 @@
 
                             <StackPanel Grid.Row="2" Orientation="Horizontal">
                                 <Label Content ="Phone Number"  FontSize="16" FontWeight="Bold" VerticalAlignment="Center" />
-                                <Label Content="A FAIRE" Background="Gray" FontWeight="Bold" VerticalAlignment="Center"/>
+                                <Label Content="{Binding LoggedInStudent.PhoneNumber}" FontWeight="Bold" VerticalAlignment="Center"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row ="3" Orientation="Horizontal">
