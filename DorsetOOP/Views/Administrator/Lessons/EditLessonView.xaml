@@ -29,7 +29,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="1">
-            <TextBox Margin="5,4" Text="{Binding LessonToEdit.Course.Title, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+            <TextBox Margin="5,4" Text="{Binding LessonToEdit.Course.Title, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
             <ComboBox Margin="5,3,5,2" DisplayMemberPath="FullName"
                       ItemsSource="{Binding LessonToEdit.Course.Teachers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValue="{Binding LessonToEdit.Teacher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>

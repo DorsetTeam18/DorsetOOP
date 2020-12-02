@@ -81,7 +81,6 @@ namespace DorsetOOP
                         ToList().FindAll(
                             l => l.Course.CourseId == SelectedCourse.CourseId));
                 }
-                
             }
         }
 
@@ -144,6 +143,13 @@ namespace DorsetOOP
                 SelectedCourse = SelectedCourse;
             }
             else MessageBox.Show("Please select a grade", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void addGradeButton_Click(object sender, RoutedEventArgs e)
+        {
+            new AddGradeView(SelectedCourse).ShowDialog();
+            this.Close();
+            new CourseDetailsView(SelectedCourse).ShowDialog();
         }
     }
 }

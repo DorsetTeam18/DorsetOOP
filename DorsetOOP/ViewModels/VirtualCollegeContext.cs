@@ -442,7 +442,7 @@ namespace DorsetOOP.ViewModels
         #endregion
 
         #region Add & update entitites
-        public static bool CreateStudent(Student _userToAdd, Address _addressToAdd) // Creates new User if doesn't already exist (checks email)
+        public static bool CreateStudent(Student _userToAdd, Address _addressToAdd) // Creates new student if doesn't already exist (checks email)
         {
             bool done = false;
             using (var myDB = new VirtualCollegeContext())
@@ -486,7 +486,7 @@ namespace DorsetOOP.ViewModels
             return done;
         }
 
-        public static bool CreateTeacher(Teacher _userToAdd, Address _addressToAdd) // Creates new User if doesn't already exist (checks email)
+        public static bool CreateTeacher(Teacher _userToAdd, Address _addressToAdd) // Creates new teacher if doesn't already exist (checks email)
         {
             bool done = false;
             using (var myDB = new VirtualCollegeContext())
@@ -869,6 +869,48 @@ namespace DorsetOOP.ViewModels
                 myDB.SaveChanges();
             }
             return done;
+        }
+
+        public static bool AddGrade(Grade _inputGrade, Student _inputStudent)
+        {
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                myDB.Grades.Add(new Grade()
+                {
+                    ExamName = _inputGrade.ExamName,
+                    Course = courses.Find(c => c.CourseId == _inputGrade.Course.CourseId),
+                    Mark = _inputGrade.Mark,
+                    Coefficient = _inputGrade.Coefficient,
+                    Student = students.Find(s => s.UserId == _inputStudent.UserId)
+                });
+
+                myDB.SaveChanges();
+            }
+            return true;
         }
 
         public static bool UpdateGrade(Grade _gradeToEdit)

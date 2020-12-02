@@ -27,7 +27,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="1">
-            <TextBox Margin="5,4" Text="{Binding GradeToEdit.Student.FullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+            <TextBox Margin="5,4" Text="{Binding GradeToEdit.Student.FullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" />
             <TextBox Margin="5,4" Text="{Binding GradeToEdit.ExamName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Margin="5,4" Text="{Binding GradeToEdit.Mark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
             <TextBox Margin="5,4" Text="{Binding GradeToEdit.Coefficient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />

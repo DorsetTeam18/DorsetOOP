@@ -39,7 +39,7 @@
             <TextBox Margin="8,4" Text="{Binding TeacherToEdit.LastName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" />
             <TextBox Margin="8,4" Text="{Binding TeacherToEdit.EmailAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Margin="8,4" Text="{Binding TeacherToEdit.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBox Margin="8,4" Text="{Binding TeacherToEdit.Gender,Mode=OneWay}" IsReadOnly="True" IsEnabled="False"/>
+            <TextBox Margin="8,4" Text="{Binding TeacherToEdit.Gender,Mode=OneWay}" IsEnabled="False"/>
             <TextBox Margin="8,4" Text="{Binding TeacherToEdit.PhoneNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Margin="8,4" Text="{Binding TeacherToEdit.BirthDate, ConverterCulture='en-IE', StringFormat='MM/dd/yyyy', Mode=OneWay}" IsEnabled="False" IsReadOnly="True"/>
 

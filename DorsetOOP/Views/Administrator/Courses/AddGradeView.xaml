@@ -4,9 +4,62 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DorsetOOP"
-        mc:Ignorable="d"
-        Title="AddGradeView" Height="450" Width="800">
-    <Grid>
-        
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d" Background="#F2F2F2" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="Add grade" Height="175" Width="380" Icon="/img/loginIcon.ico">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <Label>Student</Label>
+            <Label>Exam Name</Label>
+            <Label>Mark</Label>
+            <Label>Coefficient</Label>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <ComboBox Margin="5,3,5,2" DisplayMemberPath="FullName"
+                      ItemsSource="{Binding CourseForGrade.ParticipatingStudents, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding StudentToAdd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Margin="5,4" Text="{Binding GradeToAdd.ExamName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Margin="5,4" Text="{Binding GradeToAdd.Mark, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
+            <TextBox Margin="5,4,5,0" Text="{Binding GradeToAdd.Coefficient, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="cancelButton" Grid.Column="1" Grid.Row="1" Margin="5"
+                HorizontalAlignment="Right"
+                Content="Cancel"  Width="70"
+                Background="#FF950000" Foreground="white"
+                    Click="cancelButton_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button x:Name="addButton" Margin="5"
+                HorizontalAlignment="Right"
+                Content="Add"  Width="70"
+                Background="Green" Foreground="white"
+                    Click="addButton_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="8"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+
     </Grid>
 </Window>

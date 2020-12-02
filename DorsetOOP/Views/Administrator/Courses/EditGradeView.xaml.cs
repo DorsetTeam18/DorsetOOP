@@ -39,6 +39,7 @@ namespace DorsetOOP
         }
 
         #endregion
+
         public EditGradeView(Grade _inputGrade)
         {
             InitializeComponent();

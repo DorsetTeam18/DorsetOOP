@@ -160,7 +160,7 @@
                 <Button x:Name="addGradeButton" HorizontalAlignment="Center"
                         Content="Add Grade" Width="80" Height="20" Margin="0,5"
                         Background="Green" Foreground="white"
-                        Click="deleteGradeButton_Click">
+                        Click="addGradeButton_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="10"/>

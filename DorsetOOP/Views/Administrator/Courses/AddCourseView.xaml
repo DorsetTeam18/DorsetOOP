@@ -75,7 +75,5 @@
                 </Button.Resources>
             </Button>
         </StackPanel>
-
-
     </Grid>
 </Window>

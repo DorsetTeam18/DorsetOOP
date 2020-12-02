@@ -205,7 +205,7 @@
                         <Label Content="my Courses" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
-                <Grid>
+                <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>

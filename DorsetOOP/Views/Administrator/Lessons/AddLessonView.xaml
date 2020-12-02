@@ -32,7 +32,6 @@
             <ComboBox Margin="5,3,5,2" DisplayMemberPath="Title"
                       ItemsSource="{Binding Courses, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValue="{Binding LessonToAdd.Course, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <!--<TextBox Margin="5,4" Text="{Binding LessonToAdd.Course.Title, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextChanged="TextBox_TextChanged"/>-->
             <ComboBox Margin="5,3,5,2" DisplayMemberPath="FullName"
                       ItemsSource="{Binding LessonToAdd.Course.Teachers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValue="{Binding LessonToAdd.Teacher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
