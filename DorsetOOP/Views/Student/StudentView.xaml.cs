@@ -100,6 +100,17 @@ namespace DorsetOOP
 
             }
         }
+        private Lesson _selectedLesson = new Lesson();
+        public Lesson SelectedLesson // Selected course (used to display grades, lessons etc.)
+        {
+            get { return _selectedLesson; }
+            set
+            {
+                _selectedLesson = value;
+
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedLesson"));
+            }
+        }
 
         private ObservableCollection<Grade> _selectedGrades;
         public ObservableCollection<Grade> SelectedGrades 
@@ -156,6 +167,10 @@ namespace DorsetOOP
         {
             new AddPaymentView(LoggedInStudent).ShowDialog();
             GetStudentsThatMatch(LoggedInStudent.FullName); // To fix
+        }
+        private void validateAttendance_Click(object sender, RoutedEventArgs e)
+        {
+            //change attendance-bool from a selected lesson from a selected student
         }
         #endregion
     }
