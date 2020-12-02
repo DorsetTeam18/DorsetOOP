@@ -109,9 +109,26 @@ namespace DorsetOOP
                 _selectedLesson = value;
 
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedLesson"));
+                changeAttendance();
             }
         }
-
+        private string _attendance;
+        public string Attendance
+        {
+            get { return _attendance; }
+            set
+            {
+                _attendance = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Attendance"));
+            }
+        }
+        public void changeAttendance()
+        {
+            if (VirtualCollegeContext.StudentIsPresent(LoggedInStudent, SelectedLesson))
+                _attendance = "Present";
+            else
+                _attendance = "Absent";
+        }
         private ObservableCollection<Grade> _selectedGrades;
         public ObservableCollection<Grade> SelectedGrades 
         {
@@ -171,6 +188,8 @@ namespace DorsetOOP
         private void validateAttendance_Click(object sender, RoutedEventArgs e)
         {
             //change attendance-bool from a selected lesson from a selected student
+            VirtualCollegeContext.SetStudentAsPresent(LoggedInStudent, SelectedLesson);
+            MessageBox.Show("Validate attendance", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         #endregion
     }
