@@ -81,15 +81,16 @@ namespace DorsetOOP
             {
                 _selectedCourse = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedCourse"));
-                if (LoggedInTeacher != null)
+                if (LoggedInTeacher != null && SelectedCourse != null)
                 {
                     TeacherLessons = new ObservableCollection<Lesson>(VirtualCollegeContext.GetLessonsFromCourse(LoggedInTeacher, SelectedCourse));
+                    Grades = new ObservableCollection<Grade>(VirtualCollegeContext.GetAllGrades(SelectedCourse));
                 }
             }
         }
 
 
-        private ObservableCollection<Lesson> _teacherLessons ;
+        private ObservableCollection<Lesson> _teacherLessons;
         public ObservableCollection<Lesson> TeacherLessons
         {
             get { return _teacherLessons; }
@@ -109,7 +110,27 @@ namespace DorsetOOP
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedLesson"));
             }
         }
+        private Grade _selectedGrade = new Grade();
+        public Grade SelectedGrade
+        {
+            get { return _selectedGrade; }
+            set
+            {
+                _selectedGrade = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedGrade"));
+            }
+        }
 
+        private ObservableCollection<Grade> _grades;
+        public ObservableCollection<Grade> Grades
+        {
+            get { return _grades; }
+            set
+            {
+                _grades = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Grades"));
+            }
+        }
 
         #endregion
 
@@ -118,13 +139,40 @@ namespace DorsetOOP
             InitializeComponent();
             LoggedInTeacher = (Teacher)_inputUser;
             Students = new ObservableCollection<Student>(LoggedInTeacher.Tutoring);
-            
+
         }
         private void Students_Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             new StudentDetailsView(SelectedStudent).ShowDialog();
         }
 
+        private void deleteGradeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedGrade != null)
+            {
+                VirtualCollegeContext.RemoveGrade(SelectedGrade);
+                MessageBox.Show("Grade deleted!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                SelectedCourse = SelectedCourse;
+                Grades = new ObservableCollection<Grade>(VirtualCollegeContext.GetAllGrades(SelectedCourse));
+            }
+            else MessageBox.Show("Please select a grade", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
 
+        private void addGradeButton_Click(object sender, RoutedEventArgs e)
+        {
+            new AddGradeView(SelectedCourse).ShowDialog();
+            Grades = new ObservableCollection<Grade>(VirtualCollegeContext.GetAllGrades(SelectedCourse));
+        }
+
+        private void allGradesOfCourse_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void allGradesOfCourse_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new EditGradeView(SelectedGrade).ShowDialog();
+            VirtualCollegeContext.UpdateGrade(SelectedGrade);
+        }
     }
 }

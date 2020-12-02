@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DorsetOOP.Converters"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="Teacher Window" Background="#F2F2F2" Height="450" Width="1000" Icon="/img/LoginIcon.ico" FontFamily="Helvetica">
+        Title="Teacher Window" Background="#F2F2F2" Height="600" Width="1300" Icon="/img/LoginIcon.ico" FontFamily="Helvetica">
 
     <Window.Resources>
-        <local:SizeConverter x:Key="sizeConverter"/>
+        <local:SizeConverterHalf x:Key="sizeConverter"/>
         <Style TargetType="{x:Type TabItem}">
             <Setter Property="Height" Value="{Binding ElementName=myTabControl, Path=ActualHeight, Converter={StaticResource sizeConverter}}" />
 
@@ -161,7 +161,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Full Name" Width="*" Binding="{Binding FullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Gender" Width="*" Binding="{Binding Gender, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Birthday" Width="*" Binding="{Binding BirthDate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Birthday" Width="*" Binding="{Binding BirthDate,StringFormat=dd/MM/yyyy ,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Email Address" Width="*" Binding="{Binding EmailAddress, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -216,7 +216,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
 
-                        
+
 
 
 
@@ -233,18 +233,25 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <!--1ST PANE-->
-                        <DataGrid x:Name="viewCoursesDataGrid" Grid.Column="0" Margin="5,0" IsReadOnly="True"
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label FontSize="16" FontWeight="Bold" Grid.Row="0" Margin="5,0">Courses</Label>
+                            <DataGrid x:Name="viewCoursesDataGrid" Grid.Row="1" Margin="5,0" IsReadOnly="True" 
                               ItemsSource="{Binding LoggedInTeacher.Courses, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                               SelectedItem="{Binding SelectedCourse, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                               AutoGenerateColumns="False" GridLinesVisibility="All" Width="auto">
 
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Width="*" Header="Course Title" Binding="{Binding Title}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Width="*" Header="Course Title" Binding="{Binding Title}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                        </Grid>
                         <!-- 2ND PANE-->
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
@@ -266,10 +273,10 @@
                                     <Label Content="Credits"/>
                                     <Label Content="{Binding SelectedCourse.Credits}" FontWeight="Bold"/>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-
-
-                                </StackPanel>
+                                <Label FontSize="16" FontWeight="Bold" 
+                                       Content="{Binding SelectedCourse.Title}" 
+                                       ContentStringFormat="Lessons for {0}" >
+                                </Label>
                             </StackPanel>
 
                             <DataGrid ItemsSource="{Binding TeacherLessons, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,0"
@@ -283,36 +290,85 @@
                             </DataGrid>
 
 
-                        </Grid> <!--END 2ND PANE-->
-                        
+                        </Grid>
+                        <!--END 2ND PANE-->
+
                         <!--3RD PANE-->
-                        <DataGrid ItemsSource="{Binding SelectedLesson.Students, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0" ToolTip="Attending students for this lesson"
-                                      AutoGenerateColumns="False" IsReadOnly="True" Grid.Column="2">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding UserId}"/>
-                                <DataGridTextColumn Header="Last Name" Width="auto" Binding="{Binding LastName}"/>
-                                <DataGridTextColumn Header="First Name" Width="*" Binding="{Binding FirstName}"/>
-                                <!--<DataGridTextColumn Header="Email Adress" Width="*" Binding="{Binding EmailAddress}"/>-->
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <Grid Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label FontSize="16" FontWeight="Bold" Grid.Column="0" Margin="5,0"
+                                       Content="Attending students" >
+                            </Label>
+                            <DataGrid ItemsSource="{Binding SelectedLesson.Students, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0" ToolTip="Attending students for this lesson"
+                                      AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding UserId}"/>
+                                    <DataGridTextColumn Header="Last Name" Width="auto" Binding="{Binding LastName}"/>
+                                    <DataGridTextColumn Header="First Name" Width="*" Binding="{Binding FirstName}"/>
+                                    <!--<DataGridTextColumn Header="Email Adress" Width="*" Binding="{Binding EmailAddress}"/>-->
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
 
                         <!--4TH PANE-->
-                        <DataGrid x:Name="allGradesOfCourse" Grid.Column="3" Margin="5,0" AutoGenerateColumns="False" CanUserResizeColumns="False"
+                        <Grid Grid.Column="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Content="{Binding SelectedCourse.Title}" ContentStringFormat="Marks in {0}"
+                                   FontSize="16" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
+                            <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Right" Margin="5,5,5,-3">
+                                <Button x:Name="deleteGradeButton"
+                HorizontalAlignment="Right"
+                Content="Delete Grade" Width="80" Height="20"
+                Background="#FF950000" Foreground="white" Click="deleteGradeButton_Click">
+
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+
+                                <Button x:Name="addGradeButton" HorizontalAlignment="Center"
+                        Content="Add Grade" Width="80" Height="20" Margin="0,5"
+                        Background="Green" Foreground="white" Click="addGradeButton_Click">
+
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+
+                            </StackPanel>
+                            <DataGrid x:Name="allGradesOfCourse" Grid.Row="1" Margin="5,0" AutoGenerateColumns="False" CanUserResizeColumns="False"
                       SelectedItem="{Binding SelectedGrade, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                      ItemsSource="{Binding SelectedCourse.AllCourseGrades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      IsReadOnly="True">
-                            
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Student" Binding="{Binding Student.FullName}" Width="*"/>
-                                <DataGridTextColumn Header="Title" Binding="{Binding ExamName}" Width="auto"/>
-                                <DataGridTextColumn Header="Mark" Binding="{Binding Mark}" Width="auto"/>
-                                <DataGridTextColumn Header="Coeff." Binding="{Binding Coefficient}" Width="auto"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                      ItemsSource="{Binding Grades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      IsReadOnly="True" SelectionChanged="allGradesOfCourse_SelectionChanged">
+                                <DataGrid.Resources>
+                                    <Style TargetType="DataGridRow">
+                                        <EventSetter Event="MouseDoubleClick" Handler="allGradesOfCourse_MouseDoubleClick"/>
+                                    </Style>
+                                </DataGrid.Resources>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Student" Binding="{Binding Student.FullName}" Width="*"/>
+                                    <DataGridTextColumn Header="Title" Binding="{Binding ExamName}" Width="auto"/>
+                                    <DataGridTextColumn Header="Mark" Binding="{Binding Mark}" Width="auto"/>
+                                    <DataGridTextColumn Header="Coeff." Binding="{Binding Coefficient}" Width="auto"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
 
                     </Grid>
 
-                    <!--#endregion--> <!--END ROW 2-->
+                    <!--#endregion-->
+                    <!--END ROW 2-->
 
                 </Grid>
             </TabItem>
