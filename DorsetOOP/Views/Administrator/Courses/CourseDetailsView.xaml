@@ -174,7 +174,7 @@
             <DataGrid x:Name="allGradesOfCourse" Grid.Row="1" Margin="5" AutoGenerateColumns="False" CanUserResizeColumns="False"
                       SelectedItem="{Binding SelectedGrade, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding SelectedCourse.AllCourseGrades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      IsReadOnly="True">
+                      IsReadOnly="True" SelectionChanged="allGradesOfCourse_SelectionChanged" >
                 <DataGrid.Resources>
                     <Style TargetType="DataGridRow">
                         <EventSetter Event="MouseDoubleClick" Handler="allGradesOfCourse_MouseDoubleClick"/>

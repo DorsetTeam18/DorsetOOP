@@ -151,5 +151,11 @@ namespace DorsetOOP
             this.Close();
             new CourseDetailsView(SelectedCourse).ShowDialog();
         }
+
+        
+        private void allGradesOfCourse_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
