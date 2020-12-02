@@ -32,37 +32,10 @@ namespace DorsetOOP.Models.Users
 
         // Many to many (each student has multiple lessons and each lessons have multiple students)
         public ICollection<Lesson> Lessons { get; set; }
+        public ICollection<Lesson> PresentLessons { get; set; }
 
         public ICollection<Payment> Payments { get; set; }
 
         #endregion
-
-        public void AddGrade(Course _course, decimal _mark, string _examName, decimal _coefficient)
-        {
-            using (var AppDB = new VirtualCollegeContext())
-            {
-                AppDB.Grades.Add(new Grade
-                {
-                    Course = _course,
-                    Mark = _mark,
-                    ExamName = _examName,
-                    Coefficient = _coefficient,
-                    Student = this
-                });
-            }
-        }
-
-        public void AddPayment(DateTime _datetime, long _amount)
-        {
-            using (var AppDB = new VirtualCollegeContext()) 
-            {
-                AppDB.Payments.Add(new Payment
-                {
-                    Date=_datetime,
-                    Amount=_amount,
-                    Student=this
-                });
-            }
-        }
     }
 }

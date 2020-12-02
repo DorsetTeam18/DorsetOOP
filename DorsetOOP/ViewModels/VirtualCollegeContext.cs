@@ -29,6 +29,18 @@ namespace DorsetOOP.ViewModels
                         m.ToTable("StudentLessons");
                     });
 
+
+            modelBuilder.Entity<Lesson>().
+                HasMany(c => c.PresentStudents).
+                WithMany(p => p.PresentLessons).
+                Map(
+                m =>
+                {
+                    m.MapLeftKey("LessonId");
+                    m.MapRightKey("UserId");
+                    m.ToTable("PresentStudentLessons");
+                });
+
             modelBuilder.Entity<Course>().
                 Ignore(x => x.ParticipatingStudents).
                 Ignore(x => x.AllCourseGrades).

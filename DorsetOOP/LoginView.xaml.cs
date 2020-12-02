@@ -337,9 +337,6 @@ namespace DorsetOOP
                 #endregion
                 #endregion
 
-                //var t = studs.Find(s => s.FirstName == "Maxime");
-                //t.AddPayment(DateTime.Now, 1000);
-
                 myDB.SaveChanges();
             }
         }

@@ -10,9 +10,9 @@ using DorsetOOP.ViewModels;
 
 namespace DorsetOOP.Models
 {
-    public class Lesson
+    public class StudentLesson
     {
-        public Lesson()
+        public StudentLesson()
         {
             this.Students = new HashSet<Student>();
         }
@@ -36,8 +36,6 @@ namespace DorsetOOP.Models
 
         // Many to many (each lesson has multiple students and each student has multiple lessons)
         public ICollection<Student> Students { get; set; }
-
-        public ICollection<Student> PresentStudents { get; set; }
         #endregion
 
         public string DateAndTime
@@ -46,6 +44,16 @@ namespace DorsetOOP.Models
             {
                 return $"{ Day } - { Hour }";
             }
+        }
+
+        public void EnrollStudent(Student studentToEnroll)
+        {
+            Students.Add(studentToEnroll);
+        }
+
+        public void EnrollStudent(List<Student> studentsToEnroll)
+        {
+            using (var myDb = new VirtualCollegeContext()) foreach (var stud in Students) EnrollStudent(stud);
         }
 
         public override string ToString()
