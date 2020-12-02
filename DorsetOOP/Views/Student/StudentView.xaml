@@ -73,7 +73,7 @@
                 <TabItem.Header>
                     <StackPanel>
                         <Image Source="/img/info.png" Height="80"/>
-                        <Label Content="my Info" FontStyle="Italic" HorizontalAlignment="Center" />
+                        <Label Content="my Info" Foreground="White" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -142,8 +142,8 @@
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
 
                             <Label Content ="{Binding LoggedInStudent.FirstName}" ContentStringFormat="Details of {0}'s tutor" Grid.Row ="0"  FontSize="16" 
@@ -171,7 +171,7 @@
                 <TabItem.Header>
                     <StackPanel>
                         <Image Source="/img/schedule.png"  Height="80"/>
-                        <Label Content="my Timetable" FontStyle="Italic" HorizontalAlignment="Center" />
+                        <Label Content="my Timetable" Foreground="White" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -280,7 +280,7 @@
                 <TabItem.Header>
                     <StackPanel>
                         <Image Source="/img/courses.png" Height="80" />
-                        <Label Content="my Courses" FontStyle="Italic" HorizontalAlignment="Center" />
+                        <Label Content="my Courses" Foreground="White" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
                 <Grid Margin="5">
@@ -390,7 +390,7 @@
                 <TabItem.Header>
                     <StackPanel>
                         <Image Source="/img/fees.png" Height="80"/>
-                        <Label Content="my Fees" FontStyle="Italic" HorizontalAlignment="Center" />
+                        <Label Content="my Fees" Foreground="White" FontStyle="Italic" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
                 <Grid Margin="5">
