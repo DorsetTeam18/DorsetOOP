@@ -146,7 +146,7 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <Label Content ="Details of 's tutor" Grid.Row ="0"  FontSize="16" 
+                            <Label Content ="{Binding LoggedInStudent.FirstName}" ContentStringFormat="Details of {0}'s tutor" Grid.Row ="0"  FontSize="16" 
                                    FontWeight="Bold"  Margin="0,0,0,20" VerticalAlignment="Center"/>
 
                             <StackPanel Grid.Row="1" VerticalAlignment="Center" Orientation="Horizontal">
