@@ -106,10 +106,11 @@ namespace DorsetOOP
             get { return _selectedLesson; }
             set
             {
+            
                 _selectedLesson = value;
 
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedLesson"));
-                changeAttendance();
+                if(SelectedLesson!=null) changeAttendance();
             }
         }
         private string _attendance;
@@ -125,9 +126,9 @@ namespace DorsetOOP
         public void changeAttendance()
         {
             if (VirtualCollegeContext.StudentIsPresent(LoggedInStudent, SelectedLesson))
-                _attendance = "Present";
+                Attendance = "Present";
             else
-                _attendance = "Absent";
+                Attendance = "Absent";
         }
         private ObservableCollection<Grade> _selectedGrades;
         public ObservableCollection<Grade> SelectedGrades 
