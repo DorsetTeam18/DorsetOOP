@@ -27,7 +27,7 @@ namespace DorsetOOP
         #region View Models
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Teacher _loggedInTeacher = new Teacher();
+        private Teacher _loggedInTeacher;
         public Teacher LoggedInTeacher
         {
             get { return _loggedInTeacher; }
@@ -81,12 +81,16 @@ namespace DorsetOOP
             {
                 _selectedCourse = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedCourse"));
+                if (LoggedInTeacher != null)
+                {
+                    TeacherLessons = new ObservableCollection<Lesson>(VirtualCollegeContext.GetLessonsFromCourse(LoggedInTeacher, SelectedCourse));
+                }
             }
         }
 
 
-        private IObservable<Lesson> _teacherLessons = _loggedInTeacher.Lessons.FindAll(l=> l.Tea;
-        public IObservable<Lesson> TeacherLessons
+        private ObservableCollection<Lesson> _teacherLessons ;
+        public ObservableCollection<Lesson> TeacherLessons
         {
             get { return _teacherLessons; }
             set
@@ -114,6 +118,7 @@ namespace DorsetOOP
             InitializeComponent();
             LoggedInTeacher = (Teacher)_inputUser;
             Students = new ObservableCollection<Student>(LoggedInTeacher.Tutoring);
+            
         }
         private void Students_Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {

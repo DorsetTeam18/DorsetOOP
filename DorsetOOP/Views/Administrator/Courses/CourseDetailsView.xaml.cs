@@ -112,14 +112,14 @@ namespace DorsetOOP
         {
             InitializeComponent();
             SelectedCourse = _inputCourse;
-            SetViews();
+            //SetViews();
         }
 
-        private void SetViews()
-        {
-            if (SelectedCourse.Lessons == null) lessonsGrid.Visibility = Visibility.Collapsed;
-            if (SelectedCourse.AllCourseGrades.Count == 0) gradesGrid.Visibility = Visibility.Collapsed;
-        }
+        //private void SetViews()
+        //{
+        //    if (SelectedCourse.Lessons == null) lessonsGrid.Visibility = Visibility.Collapsed;
+        //    if (SelectedCourse.AllCourseGrades.Count == 0) gradesGrid.Visibility = Visibility.Collapsed;
+        //}
 
         private void allLessonsOfCourse_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {

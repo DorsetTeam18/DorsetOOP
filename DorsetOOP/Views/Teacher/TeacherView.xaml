@@ -197,10 +197,10 @@
 
                         <StackPanel Orientation="Vertical" Margin="10,0">
 
-                            <Label Margin="0,3" Content="{Binding LoggedInAdmin.FullName, UpdateSourceTrigger=PropertyChanged}"
+                            <Label Margin="0,3" Content="{Binding LoggedInTeacher.FullName, UpdateSourceTrigger=PropertyChanged}"
                                FontSize="22" FontWeight="Bold"/>
 
-                            <Label Margin="0,-12" Content="{Binding LoggedInAdmin.UserId, UpdateSourceTrigger=PropertyChanged}"
+                            <Label Margin="0,-12" Content="{Binding LoggedInTeacher.UserId, UpdateSourceTrigger=PropertyChanged}"
                                    ContentStringFormat="#0000{0}"
                                    FontSize="16" FontWeight="Bold" Foreground="Gray"/>
 
@@ -272,7 +272,7 @@
                                 </StackPanel>
                             </StackPanel>
 
-                            <DataGrid ItemsSource="{Binding SelectedCourse.Lessons, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,0"
+                            <DataGrid ItemsSource="{Binding TeacherLessons, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,0"
                                       SelectedItem="{Binding SelectedLesson, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                                       AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1">
                                 <DataGrid.Columns>

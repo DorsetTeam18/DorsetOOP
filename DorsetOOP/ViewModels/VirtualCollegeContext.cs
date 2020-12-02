@@ -226,6 +226,48 @@ namespace DorsetOOP.ViewModels
             return t;
         }
 
+        public static List<Lesson> GetLessonsFromCourse(Teacher _teacherToGetLessonsOf,Course _specificcourse)
+        {
+            var t = new List<Lesson>();
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+                List<Lesson> az = new List<Lesson>();
+                var x = teachers.Find(te => te.UserId == _teacherToGetLessonsOf.UserId);
+                    az = x.Lessons.ToList();
+                if (az.Count!=0)
+                {
+                    foreach (Lesson lesson in az)
+                    {
+                        if (lesson.Course.CourseId == _specificcourse.CourseId) t.Add(lesson);
+                    }
+                }
+            }
+            return t;
+        }
+
         public static List<Grade> GetAllGrades(Course _courseToGetGradesOf)
         {
             var grades = new List<Grade>();
