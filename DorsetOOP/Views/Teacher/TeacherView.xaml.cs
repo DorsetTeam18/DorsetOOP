@@ -1,4 +1,5 @@
-﻿using DorsetOOP.Models.Users;
+﻿using DorsetOOP.Models;
+using DorsetOOP.Models.Users;
 using DorsetOOP.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace DorsetOOP
         #region View Models
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Teacher _loggedInTeacher;
+        private Teacher _loggedInTeacher = new Teacher();
         public Teacher LoggedInTeacher
         {
             get { return _loggedInTeacher; }
@@ -69,6 +70,39 @@ namespace DorsetOOP
             {
                 _selectedStudent = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedStudent"));
+            }
+        }
+
+        private Course _selectedCourse;
+        public Course SelectedCourse
+        {
+            get { return _selectedCourse; }
+            set
+            {
+                _selectedCourse = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedCourse"));
+            }
+        }
+
+
+        private IObservable<Lesson> _teacherLessons = _loggedInTeacher.Lessons.FindAll(l=> l.Tea;
+        public IObservable<Lesson> TeacherLessons
+        {
+            get { return _teacherLessons; }
+            set
+            {
+                _teacherLessons = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("TeacherLessons"));
+            }
+        }
+        private Lesson _selectedLesson;
+        public Lesson SelectedLesson
+        {
+            get { return _selectedLesson; }
+            set
+            {
+                _selectedLesson = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedLesson"));
             }
         }
 
