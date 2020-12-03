@@ -89,7 +89,7 @@ namespace DorsetOOP
 
             if (VirtualCollegeContext.UpdateCourse(CourseToEdit))
             {
-                MessageBox.Show("Course updates!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Course updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
             else MessageBox.Show("Couldn't create course. Check if it doesn't already exsit!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

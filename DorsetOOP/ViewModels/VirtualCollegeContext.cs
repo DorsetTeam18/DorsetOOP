@@ -269,8 +269,8 @@ namespace DorsetOOP.ViewModels
                     ToList();
                 List<Lesson> az = new List<Lesson>();
                 var x = teachers.Find(te => te.UserId == _teacherToGetLessonsOf.UserId);
-                    az = x.Lessons.ToList();
-                if (az.Count!=0)
+                az = x.Lessons.ToList();
+                if (az.Count != 0)
                 {
                     foreach (Lesson lesson in az)
                     {
@@ -674,7 +674,7 @@ namespace DorsetOOP.ViewModels
                 var desc = _addressToEdit.ToString();
                 Address match = addresses.Find(a => a.ToString() == desc);
 
-                if (match == null) 
+                if (match == null)
                 {
                     myDB.Addresses.Add(new Address()
                     {
@@ -690,12 +690,13 @@ namespace DorsetOOP.ViewModels
                     studentToModify.Address = addresses[addresses.Count - 1];
                 }
                 else studentToModify.Address = addresses.Find(a => a.AddressId == match.AddressId);
-                
+
                 studentToModify.EmailAddress = _userToEdit.EmailAddress;
                 studentToModify.Password = _userToEdit.Password;
                 studentToModify.PhoneNumber = _userToEdit.PhoneNumber;
                 if (_userToEdit.Tutor != null) studentToModify.Tutor = teachers.Find(t => t.UserId == _userToEdit.Tutor.UserId);
                 studentToModify.Fees = _userToEdit.Fees;
+                myDB.SaveChanges();
 
                 if (oldAddress.Users.Count == 0) myDB.Addresses.Remove(oldAddress);
 
@@ -760,6 +761,7 @@ namespace DorsetOOP.ViewModels
                 teacherToModify.EmailAddress = _userToEdit.EmailAddress;
                 teacherToModify.Password = _userToEdit.Password;
                 teacherToModify.PhoneNumber = _userToEdit.PhoneNumber;
+                myDB.SaveChanges();
 
                 if (oldAddress.Users.Count == 0) myDB.Addresses.Remove(oldAddress);
 
@@ -988,6 +990,7 @@ namespace DorsetOOP.ViewModels
 
                 var payments = myDB.Payments.ToList();
 
+                // Need to add error handling beforehand and return set done to false if not possible
                 Student userToAddPayment = (Student)users.Find(u => u.UserId == paymentToAdd.Student.UserId);
                 userToAddPayment.Payments.Add(new Payment() { Amount = paymentToAdd.Amount, Date = paymentToAdd.Date, Student = userToAddPayment });
                 userToAddPayment.Fees -= paymentToAdd.Amount;
@@ -1142,13 +1145,14 @@ namespace DorsetOOP.ViewModels
 
                 var addresses = myDB.Addresses.ToList();
 
-                var temp = users.Find(u => u.UserId == _userToRemove.UserId);
+                var userToRemove = users.Find(u => u.UserId == _userToRemove.UserId);
+                var addressToCheck = addresses.Find(a => a.AddressId == userToRemove.Address.AddressId);
 
-                myDB.Users.Remove(temp);
-                
+                myDB.Users.Remove(userToRemove);
+                if (addressToCheck.Users.Count == 0) myDB.Addresses.Remove(addressToCheck);
                 myDB.SaveChanges();
             }
-           
+
             return true;
         }
 
@@ -1165,6 +1169,32 @@ namespace DorsetOOP.ViewModels
             {
                 using (var myDB = new VirtualCollegeContext())
                 {
+                    var students = myDB.Users.
+                           Include("Lessons").
+                           Include("PresentLessons").
+                           OfType<Student>().
+                           ToList();
+
+                    var teachers = myDB.Users.
+                        Include("Courses").
+                        OfType<Teacher>().
+                        ToList();
+
+                    var addresses = myDB.Addresses.ToList();
+
+                    var lessons = myDB.Lessons.
+                        Include("Students").
+                        Include("PresentStudents").
+                        ToList();
+
+                    var payments = myDB.Payments.ToList();
+
+                    var courses = myDB.Courses.Include("Teachers").ToList();
+
+                    var lessonsToRemove = lessons.FindAll(l => l.Course.CourseId == _courseToRemove.CourseId);
+                    myDB.Lessons.RemoveRange(lessonsToRemove);
+                    myDB.SaveChanges();
+
                     myDB.Courses.Remove(myDB.Courses.Find(_courseToRemove.CourseId));
                     myDB.SaveChanges();
                 }

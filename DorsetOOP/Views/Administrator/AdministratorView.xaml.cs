@@ -249,7 +249,7 @@ namespace DorsetOOP
         private void addTeacherButton_Click(object sender, RoutedEventArgs e)
         {
             new AddTeacherView().ShowDialog();
-            Teachers = new ObservableCollection<Teacher>(VirtualCollegeContext.GetAllTeachers());
+            GetAllUsers();
         }
 
         private void addCourseButton_Click(object sender, RoutedEventArgs e)
@@ -263,6 +263,7 @@ namespace DorsetOOP
         private void Teachers_Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             new TeacherDetailsView(SelectedTeacher).ShowDialog();
+            GetAllUsers();
         }
 
         private void Students_Row_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -295,7 +296,7 @@ namespace DorsetOOP
         private void deleteCourseButton_Click(object sender, RoutedEventArgs e)
         {
             VirtualCollegeContext.RemoveCourse(SelectedCourse);
-            Courses = new ObservableCollection<Course>(VirtualCollegeContext.GetAllCourses());
+            GetAllLessons(); GetAllCourses();
         }
 
         private void editCourseButton_Click(object sender, RoutedEventArgs e)

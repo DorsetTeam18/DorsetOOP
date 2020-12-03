@@ -113,7 +113,8 @@ namespace DorsetOOP
                 if(SelectedLesson!=null) changeAttendance();
             }
         }
-        private string _attendance;
+
+        private string _attendance = "";
         public string Attendance
         {
             get { return _attendance; }
@@ -121,8 +122,11 @@ namespace DorsetOOP
             {
                 _attendance = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Attendance"));
+                if (Attendance == "Absent" || Attendance == "") validateAttendance.Visibility = Visibility.Visible;
+                else validateAttendance.Visibility = Visibility.Collapsed;
             }
         }
+
         public void changeAttendance()
         {
             if (VirtualCollegeContext.StudentIsPresent(LoggedInStudent, SelectedLesson))
@@ -130,6 +134,7 @@ namespace DorsetOOP
             else
                 Attendance = "Absent";
         }
+
         private ObservableCollection<Grade> _selectedGrades;
         public ObservableCollection<Grade> SelectedGrades 
         {
@@ -186,11 +191,13 @@ namespace DorsetOOP
             new AddPaymentView(LoggedInStudent).ShowDialog();
             GetStudentsThatMatch(LoggedInStudent.FullName); // To fix
         }
+
         private void validateAttendance_Click(object sender, RoutedEventArgs e)
         {
             //change attendance-bool from a selected lesson from a selected student
             VirtualCollegeContext.SetStudentAsPresent(LoggedInStudent, SelectedLesson);
             MessageBox.Show("Validate attendance", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            SelectedLesson = SelectedLesson;
         }
         #endregion
     }

@@ -339,7 +339,6 @@ namespace DorsetOOP
                 #endregion
                 #endregion
 
-                var foo = VirtualCollegeContext.StudentIsPresent(studs.Find(s => s.UserId == 1), lessons.Find(l => l.LessonId == 1));   
                 myDB.SaveChanges();
             }
         }

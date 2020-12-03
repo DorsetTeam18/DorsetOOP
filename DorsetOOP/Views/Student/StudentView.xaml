@@ -258,9 +258,9 @@
                                     <Label Content="{Binding Attendance}" FontWeight="Bold" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </StackPanel>
-                            <Button x:Name="validateAttendance" Content="Validate Attendance" Grid.Row="1" Padding="5,0" ToolTip="You will validate the attendance"
-                                Background="Green" 
-                                Foreground="White" Margin="50" Click="validateAttendance_Click">
+                            <Button x:Name="validateAttendance" Content="Validate Attendance" Grid.Row="1" Padding="5" ToolTip="You will validate the attendance"
+                                Background="Green" HorizontalAlignment="Center" Margin="50" Visibility="Collapsed"
+                                Foreground="White" Click="validateAttendance_Click">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="10"/>
