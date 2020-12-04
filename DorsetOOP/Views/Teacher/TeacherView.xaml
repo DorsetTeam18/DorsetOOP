@@ -303,7 +303,7 @@
                                        Content="Attending students" >
                             </Label>
                             <DataGrid x:Name="studentsInLessonDataGrid" ItemsSource="{Binding SelectedStudents, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0" 
-                                      ToolTip="Attending students for this lesson"
+                                      ToolTip="Attending students for this lesson" LostFocus="studentsInLessonDataGrid_LostFocus"
                                       AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="False" CanUserAddRows="False">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding UserId}" IsReadOnly="True"/>

@@ -86,6 +86,8 @@ namespace DorsetOOP
                 {
                     TeacherLessons = new ObservableCollection<Lesson>(VirtualCollegeContext.GetLessonsFromCourse(LoggedInTeacher, SelectedCourse));
                     Grades = new ObservableCollection<Grade>(VirtualCollegeContext.GetAllGrades(SelectedCourse));
+                    SelectedLesson = null;
+                    SelectedStudents = null;
                 }
             }
         }
@@ -202,6 +204,17 @@ namespace DorsetOOP
                 Student currentStudent = (Student)row.Item;
                 CheckBox cb = (CheckBox)studentsInLessonDataGrid.Columns.ToList()[1].GetCellContent(row);
                 if (VirtualCollegeContext.StudentIsPresent(currentStudent, SelectedLesson)) cb.IsChecked = true;
+            }
+        }
+
+        private void studentsInLessonDataGrid_LostFocus(object sender, RoutedEventArgs e)
+        {
+            foreach (var row in GetDataGridRows(studentsInLessonDataGrid).ToList())
+            {
+                Student currentStudent = (Student)row.Item;
+                CheckBox cb = (CheckBox)studentsInLessonDataGrid.Columns.ToList()[1].GetCellContent(row);
+                if (cb.IsChecked == true) { VirtualCollegeContext.SetStudentAsPresent(currentStudent, SelectedLesson); }
+                else VirtualCollegeContext.SetStudentAsNotPresent(currentStudent, SelectedLesson);
             }
         }
 
