@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DorsetOOP.Models.Address">
+    <Position X="9" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAACAAAAAAAAAMAAAAgAAAAAIAAAAAAAAABAAQAAA=</HashCode>
+      <FileName>Models\Address.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Users" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DorsetOOP.Models.Course">
+    <Position X="10.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAEAAAAAAAAAEAEIAAIAAAEAAAAAAAAAAAQAgEAAAA=</HashCode>
+      <FileName>Models\Course.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Teachers" />
+      <Property Name="Lessons" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DorsetOOP.Models.Grade">
+    <Position X="0.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAQAAAAAAAAIAAAAAAAEAAAAQAEACAAAACAAA=</HashCode>
+      <FileName>Models\Grade.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Student" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DorsetOOP.Models.Lesson">
+    <Position X="7" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMEAAAAIAACgEAEBIAACAAAAAAAAAIAAAAAABAAAAA=</HashCode>
+      <FileName>Models\Lesson.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Teacher" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Students" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DorsetOOP.Models.Payment">
+    <Position X="1" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAACAAAAAABABAAAAAAACAAA=</HashCode>
+      <FileName>Models\Payment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Student" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DorsetOOP.Models.StudentLesson">
+    <Position X="4" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMEAAAAIAACgEAEAIAACAAAAAAAAAIAAAAAAFAAAAA=</HashCode>
+      <FileName>Models\StudentLesson.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Teacher" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Students" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DorsetOOP.Models.Users.Administrator">
+    <Position X="8.25" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Users\Administrator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DorsetOOP.Models.Users.Student">
+    <Position X="3.75" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAABgAAAIAAAAAAAAAAEAAAAQAAAQAAEAAAA=</HashCode>
+      <FileName>Models\Users\Student.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DorsetOOP.Models.Users.Teacher">
+    <Position X="6" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAQABAAAAA=</HashCode>
+      <FileName>Models\Users\Teacher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DorsetOOP.Models.Users.User">
+    <Position X="6" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAAAEAAAAAAAICAAAAAQAwAAAAAAAACAAAAAgAAAAg=</HashCode>
+      <FileName>Models\Users\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DorsetOOP.ViewModels.VirtualCollegeContext">
+    <Position X="13.75" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ABFoBiCAAgBlAIMNAIAAAAmAEAgAAAhAAUAQSBEAAEA=</HashCode>
+      <FileName>ViewModels\VirtualCollegeContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
