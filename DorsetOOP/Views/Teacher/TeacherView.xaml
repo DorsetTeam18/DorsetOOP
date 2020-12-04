@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:DorsetOOP.Converters"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Teacher Window" Background="#F2F2F2" Height="600" Width="1300" Icon="/img/LoginIcon.ico" FontFamily="Helvetica">
-
+		<!--Name of the Students :
+		Wim Poignon 23408-->
+		
     <Window.Resources>
         <local:SizeConverterHalf x:Key="sizeConverter"/>
         <Style TargetType="{x:Type TabItem}">

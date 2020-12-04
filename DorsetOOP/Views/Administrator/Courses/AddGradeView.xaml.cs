@@ -21,7 +21,9 @@ namespace DorsetOOP
 {
     /// <summary>
     /// Interaction logic for AddGradeView.xaml
-    /// </summary>
+	/// Name of the Students :
+    /// Wim Poignon 23408
+	/// </summary>
     public partial class AddGradeView : Window, INotifyPropertyChanged
     {
         #region View Models

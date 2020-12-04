@@ -8,6 +8,9 @@
         mc:Ignorable="d" Background="#F2F2F2" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Add lesson" Height="420" Width="380" Icon="/img/loginIcon.ico">
+		<!--Name of the Students :
+		Wim Poignon 23408-->
+		
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

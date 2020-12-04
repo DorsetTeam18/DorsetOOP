@@ -9,6 +9,10 @@ using System.Windows.Markup;
 
 namespace DorsetOOP.Converters
 {
+	/// <summary>
+	/// Name of the Students :
+	/// Wim Poignon 23408
+    /// </summary>
     public class SizeConverterHalf : IValueConverter
     {
         #region IValueConverter Members

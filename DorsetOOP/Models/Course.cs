@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace DorsetOOP.Models
 {
+	/// <summary>
+	/// Name of the Students :
+	/// Wim Poignon 23408
+    /// </summary>
     public class Course
     {
         public Course()

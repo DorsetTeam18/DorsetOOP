@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace DorsetOOP.Models
 {
+	/// <summary>
+    /// Class of the fees from a student
+	/// Name of the Students :
+	/// Wim Poignon 23408
+    /// </summary>
     public class Payment
     {
         public int PaymentId { get; set; }

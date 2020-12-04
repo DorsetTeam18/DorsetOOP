@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:DorsetOOP.Converters"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" FontFamily="Helvetica" DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Teacher Details" Height="450" Width="800" Background="#F2F2F2" Icon="/img/LoginIcon.ico" >
-
+		<!--Name of the Students :
+		Wim Poignon 23408-->
+		
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

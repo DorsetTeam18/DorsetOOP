@@ -21,6 +21,8 @@ namespace DorsetOOP
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
+	/// Name of the Students :
+	/// Wim Poignon 23408
     /// </summary>
     public partial class MainWindow : Window
     {

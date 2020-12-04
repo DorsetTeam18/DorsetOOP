@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:DorsetOOP"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" FontSize="18" FontFamily="./resources/#Helvetica Light" 
         Title="Login" Height="300" Width="350" Background="#F2F2F2" ResizeMode="NoResize" Icon="/img/LoginIcon.ico" >
-
+		<!--Name of the Students :
+		Wim Poignon 23408-->
     <Grid Margin="10">
 
         <Grid.ColumnDefinitions>

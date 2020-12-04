@@ -10,6 +10,10 @@ using DorsetOOP.ViewModels;
 
 namespace DorsetOOP.Models
 {
+	/// <summary>
+	/// Name of the Students :
+	/// Wim Poignon 23408
+    /// </summary>
     public class Lesson
     {
         public Lesson()

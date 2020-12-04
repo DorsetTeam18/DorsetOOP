@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace DorsetOOP.Models.Users
 {
+	/// <summary>
+	/// Name of the Students :
+	/// Wim Poignon 23408
+    /// </summary>
     public abstract class User
     //This class regroups all the information for a person to log in
     {

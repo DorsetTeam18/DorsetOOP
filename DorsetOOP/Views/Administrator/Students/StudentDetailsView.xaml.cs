@@ -21,6 +21,8 @@ namespace DorsetOOP
 {
     /// <summary>
     /// Interaction logic for StudentDetailsView.xaml
+	/// Name of the Students :
+	/// Wim Poignon 23408
     /// </summary>
     public partial class StudentDetailsView : Window, INotifyPropertyChanged
     {

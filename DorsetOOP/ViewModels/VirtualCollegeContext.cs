@@ -10,6 +10,11 @@ using System.Threading.Tasks;
 
 namespace DorsetOOP.ViewModels
 {
+	/// <summary>
+    /// Interaction with the Database named VirtualCollege
+	/// Name of the Students :
+	/// Wim Poignon 23408
+    /// </summary>
     public class VirtualCollegeContext : DbContext
     {
         public VirtualCollegeContext() : base("name=VirtualCollege") { }

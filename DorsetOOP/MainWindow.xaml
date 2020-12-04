@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:DorsetOOP"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+		<!--Name of the Students :
+		Wim Poignon 23408-->
+		
     <Grid>
         <!--<Button Content="Basis..." Name="button_1" HorizontalAlignment="Left" Margin="365,209,0,0" VerticalAlignment="Top" Width="75" Click="button_1_Click"/>-->
         <TextBlock x:Name="displayGrades" Margin="50"/>
