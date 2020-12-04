@@ -1115,7 +1115,49 @@ namespace DorsetOOP.ViewModels
                     Include("Teachers").
                     ToList();
 
-                lessons.Find(l => l.LessonId == _inputLesson.LessonId).PresentStudents.Add(students.Find(s => s.UserId == _inputStudent.UserId));
+                var realStudent = students.Find(s => s.UserId == _inputStudent.UserId);
+                var realLesson = lessons.Find(l => l.LessonId == _inputLesson.LessonId);
+                if (!realLesson.PresentStudents.Contains(realStudent)) realLesson.PresentStudents.Add(realStudent);
+
+                myDB.SaveChanges();
+            }
+            return true;
+        }
+
+        public static bool SetStudentAsNotPresent(Student _inputStudent, Lesson _inputLesson)
+        {
+            using (var myDB = new VirtualCollegeContext())
+            {
+                var students = myDB.Users.
+                    Include("Lessons").
+                    Include("PresentLessons").
+                    OfType<Student>().
+                    ToList();
+
+                var teachers = myDB.Users.
+                    Include("Courses").
+                    OfType<Teacher>().
+                    ToList();
+
+                var addresses = myDB.Addresses.ToList();
+
+                var lessons = myDB.Lessons.
+                    Include("Students").
+                    Include("PresentStudents").
+                    Include("PresentStudents").
+                    ToList();
+
+                var grades = myDB.Grades.ToList();
+
+                var payments = myDB.Payments.ToList();
+
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
+
+                var realStudent = students.Find(s => s.UserId == _inputStudent.UserId);
+                var realLesson = lessons.Find(l => l.LessonId == _inputLesson.LessonId);
+                if (realLesson.PresentStudents.Contains(realStudent)) realLesson.PresentStudents.Remove(realStudent);
 
                 myDB.SaveChanges();
             }

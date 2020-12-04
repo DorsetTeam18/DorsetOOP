@@ -2,6 +2,7 @@
 using DorsetOOP.Models.Users;
 using DorsetOOP.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -89,6 +90,14 @@ namespace DorsetOOP
             }
         }
 
+        private Student test;
+
+        public Student Test
+        {
+            get { return test; }
+            set { test = value; }
+        }
+
 
         private ObservableCollection<Lesson> _teacherLessons;
         public ObservableCollection<Lesson> TeacherLessons
@@ -108,8 +117,22 @@ namespace DorsetOOP
             {
                 _selectedLesson = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedLesson"));
+                if (SelectedLesson != null) SelectedStudents = new ObservableCollection<Student>(SelectedLesson.Students);
             }
         }
+
+        private ObservableCollection<Student> _selectedStudents;
+        public ObservableCollection<Student> SelectedStudents
+        {
+            get { return _selectedStudents; }
+            set
+            {
+                _selectedStudents = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedStudents"));
+                if (SelectedLesson != null && SelectedStudents != null) SetCheckBoxesValues();
+            }
+        }
+
         private Grade _selectedGrade = new Grade();
         public Grade SelectedGrade
         {
@@ -164,15 +187,33 @@ namespace DorsetOOP
             Grades = new ObservableCollection<Grade>(VirtualCollegeContext.GetAllGrades(SelectedCourse));
         }
 
-        private void allGradesOfCourse_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void allGradesOfCourse_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             new EditGradeView(SelectedGrade).ShowDialog();
             VirtualCollegeContext.UpdateGrade(SelectedGrade);
+        }
+
+        private void SetCheckBoxesValues()
+        {
+            studentsInLessonDataGrid.UpdateLayout();
+            var rows = GetDataGridRows(studentsInLessonDataGrid).ToList();
+            foreach (var row in rows)
+            {
+                Student currentStudent = (Student)row.Item;
+                CheckBox cb = (CheckBox)studentsInLessonDataGrid.Columns.ToList()[1].GetCellContent(row);
+                if (VirtualCollegeContext.StudentIsPresent(currentStudent, SelectedLesson)) cb.IsChecked = true;
+            }
+        }
+
+        public IEnumerable<DataGridRow> GetDataGridRows(DataGrid grid)
+        {
+            var itemsSource = grid.ItemsSource as IEnumerable;
+            if (null == itemsSource) yield return null;
+            foreach (var item in itemsSource)
+            {
+                var row = grid.ItemContainerGenerator.ContainerFromItem(item) as DataGridRow;
+                if (null != row) yield return row;
+            }
         }
     }
 }

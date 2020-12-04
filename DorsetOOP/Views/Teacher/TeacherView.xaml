@@ -302,13 +302,14 @@
                             <Label FontSize="16" FontWeight="Bold" Grid.Column="0" Margin="5,0"
                                        Content="Attending students" >
                             </Label>
-                            <DataGrid ItemsSource="{Binding SelectedLesson.Students, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0" ToolTip="Attending students for this lesson"
-                                      AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="True">
+                            <DataGrid x:Name="studentsInLessonDataGrid" ItemsSource="{Binding SelectedStudents, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0" 
+                                      ToolTip="Attending students for this lesson"
+                                      AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="False" CanUserAddRows="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding UserId}"/>
-                                    <DataGridTextColumn Header="Last Name" Width="auto" Binding="{Binding LastName}"/>
-                                    <DataGridTextColumn Header="First Name" Width="*" Binding="{Binding FirstName}"/>
-                                    <!--<DataGridTextColumn Header="Email Adress" Width="*" Binding="{Binding EmailAddress}"/>-->
+                                    <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding UserId}" IsReadOnly="True"/>
+                                    <DataGridCheckBoxColumn Header="Is Present" Width="auto" IsReadOnly="False"/>
+                                    <DataGridTextColumn Header="Last Name" Width="auto" Binding="{Binding LastName}" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="First Name" Width="*" Binding="{Binding FirstName}" IsReadOnly="True"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -348,9 +349,9 @@
 
                             </StackPanel>
                             <DataGrid x:Name="allGradesOfCourse" Grid.Row="1" Margin="5,0" AutoGenerateColumns="False" CanUserResizeColumns="False"
-                      SelectedItem="{Binding SelectedGrade, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                      ItemsSource="{Binding Grades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      IsReadOnly="True" SelectionChanged="allGradesOfCourse_SelectionChanged">
+                              SelectedItem="{Binding SelectedGrade, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding Grades, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                              IsReadOnly="True" >
                                 <DataGrid.Resources>
                                     <Style TargetType="DataGridRow">
                                         <EventSetter Event="MouseDoubleClick" Handler="allGradesOfCourse_MouseDoubleClick"/>
