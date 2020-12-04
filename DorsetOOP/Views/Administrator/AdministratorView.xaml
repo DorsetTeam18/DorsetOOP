@@ -674,13 +674,15 @@
                                 
                             </StackPanel>
 
-                            <DataGrid ItemsSource="{Binding SelectedLesson.Students, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0" ToolTip="Attending students for this lesson"
-                                      AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1">
+                            <DataGrid x:Name="studentsInSelectedLessonDataGrid" ItemsSource="{Binding StudentsInSelectedLesson, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0" ToolTip="Attending students for this lesson"
+                                      AutoGenerateColumns="False" IsReadOnly="False" Grid.Row="1" CanUserAddRows="False"
+                                      LostFocus="studentsInSelectedLessonDataGrid_LostFocus">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding UserId}"/>
-                                    <DataGridTextColumn Header="Last Name" Width="auto" Binding="{Binding LastName}"/>
-                                    <DataGridTextColumn Header="First Name" Width="*" Binding="{Binding FirstName}"/>
-                                    <DataGridTextColumn Header="Email Adress" Width="*" Binding="{Binding EmailAddress}"/>
+                                    <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding UserId}" IsReadOnly="True"/>
+                                    <DataGridCheckBoxColumn Header="IsPresent" Width="auto" IsReadOnly="False"/>
+                                    <DataGridTextColumn Header="Last Name" Width="auto" Binding="{Binding LastName}" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="First Name" Width="*" Binding="{Binding FirstName}" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Email Adress" Width="*" Binding="{Binding EmailAddress}" IsReadOnly="True"/>
                                 </DataGrid.Columns>
                             </DataGrid>
 

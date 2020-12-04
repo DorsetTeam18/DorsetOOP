@@ -2,6 +2,7 @@
 using DorsetOOP.Models.Users;
 using DorsetOOP.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -160,6 +161,7 @@ namespace DorsetOOP
                 PropertyChanged(this, new PropertyChangedEventArgs("Lessons"));
             }
         }
+
         private string _searchLessonsText;
         public string SearchLessonsText
         {
@@ -175,6 +177,7 @@ namespace DorsetOOP
                 GetLessonsThatMatch(SearchLessonsText);
             }
         }
+
         private Lesson _selectedLesson = new Lesson();
         public Lesson SelectedLesson
         {
@@ -182,8 +185,20 @@ namespace DorsetOOP
             set
             {
                 _selectedLesson = value;
-
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedLesson"));
+                if(SelectedLesson != null) StudentsInSelectedLesson = new ObservableCollection<Student>(SelectedLesson.Students);
+            }
+        }
+
+        public ObservableCollection<Student> _studentsInSelectedLesson;
+        public ObservableCollection<Student> StudentsInSelectedLesson
+        {
+            get { return _studentsInSelectedLesson; }
+            set
+            {
+                _studentsInSelectedLesson = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("StudentsInSelectedLesson"));
+                if (StudentsInSelectedLesson != null) SetCheckBoxesValues();
             }
         }
         #endregion
@@ -357,6 +372,38 @@ namespace DorsetOOP
             }
         }
 
-       
+        private void SetCheckBoxesValues()
+        {
+            studentsInSelectedLessonDataGrid.UpdateLayout();
+            var rows = GetDataGridRows(studentsInSelectedLessonDataGrid).ToList();
+            foreach (var row in rows)
+            {
+                Student currentStudent = (Student)row.Item;
+                CheckBox cb = (CheckBox)studentsInSelectedLessonDataGrid.Columns.ToList()[1].GetCellContent(row);
+                if (VirtualCollegeContext.StudentIsPresent(currentStudent, SelectedLesson)) cb.IsChecked = true;
+            }
+        }
+
+        public IEnumerable<DataGridRow> GetDataGridRows(DataGrid grid)
+        {
+            var itemsSource = grid.ItemsSource as IEnumerable;
+            if (null == itemsSource) yield return null;
+            foreach (var item in itemsSource)
+            {
+                var row = grid.ItemContainerGenerator.ContainerFromItem(item) as DataGridRow;
+                if (null != row) yield return row;
+            }
+        }
+
+        private void studentsInSelectedLessonDataGrid_LostFocus(object sender, RoutedEventArgs e)
+        {
+            foreach (var row in GetDataGridRows(studentsInSelectedLessonDataGrid).ToList())
+            {
+                Student currentStudent = (Student)row.Item;
+                CheckBox cb = (CheckBox)studentsInSelectedLessonDataGrid.Columns.ToList()[1].GetCellContent(row);
+                if (cb.IsChecked == true) { VirtualCollegeContext.SetStudentAsPresent(currentStudent, SelectedLesson); }
+                else VirtualCollegeContext.SetStudentAsNotPresent(currentStudent, SelectedLesson);
+            }
+        }
     }
 }

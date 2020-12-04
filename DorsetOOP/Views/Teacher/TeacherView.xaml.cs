@@ -92,15 +92,6 @@ namespace DorsetOOP
             }
         }
 
-        private Student test;
-
-        public Student Test
-        {
-            get { return test; }
-            set { test = value; }
-        }
-
-
         private ObservableCollection<Lesson> _teacherLessons;
         public ObservableCollection<Lesson> TeacherLessons
         {
@@ -166,6 +157,7 @@ namespace DorsetOOP
             Students = new ObservableCollection<Student>(LoggedInTeacher.Tutoring);
 
         }
+
         private void Students_Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             new StudentDetailsView(SelectedStudent).ShowDialog();
