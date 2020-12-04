@@ -8,9 +8,17 @@
         mc:Ignorable="d" Background="#F2F2F2" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="Window_Loaded"
         Title="Edit course" Height="275" Width="380" Icon="/img/loginIcon.ico">
-		<!--Name of the Students :
-		Wim Poignon 23408-->
-		
+    <!--Team 18
+        Name of the Students :
+        Team 18
+	    Wim POIGNON 23408
+        Maélis YONES 23217
+        Rémi LOMBARD 23210
+        Christophe NGUYEN 23219
+        Gwendoline MAREK 23397
+        Maxime DENNERY 23203
+        Victor TACHOIRES 22844-->
+
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
