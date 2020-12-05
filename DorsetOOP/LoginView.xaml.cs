@@ -31,6 +31,7 @@ namespace DorsetOOP
     /// Maxime DENNERY 23203
     /// Victor TACHOIRES 22844
     /// </summary>
+    
     public partial class LoginView : Window
     {
         public User LoggedUser { get; set; }
@@ -45,11 +46,11 @@ namespace DorsetOOP
                 #region Get Tables
                 var addresses = myDB.Addresses.ToList();
 
-                var studs = myDB.Users.
-                    Include("Lessons").
-                    Include("PresentLessons").
-                    OfType<Student>().
-                    ToList();
+               var studs = myDB.Users.
+                   Include("Lessons").
+                   Include("PresentLessons").
+                   OfType<Student>().
+                   ToList();
 
                 var teachers = myDB.Users.
                     Include("Courses").
