@@ -38,6 +38,8 @@ namespace DorsetOOP
 
         public LoginView()
         {
+            var loading = new StartingUpWindow();
+            loading.Show();
             InitializeComponent();
             userLoginInput.Focus();
 
@@ -351,6 +353,8 @@ namespace DorsetOOP
 
                 myDB.SaveChanges();
             }
+
+            loading.Close();
         }
 
         private void UserLoginButton_Click(object sender, RoutedEventArgs e)
