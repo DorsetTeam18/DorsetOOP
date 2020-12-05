@@ -1,6 +1,11 @@
 # Virtual College Context
 
 VirtualCollegeContext is a school management system. This application can register and manage courses, students and faculty members across the branches. All the data are stored in a SQL Database.
+
+## UML Diagram
+Here you can find the UML Diagram to this application :
+![](DorsetOOP/UML%20Diagram%20VirtualCollegeContext.jpeg)
+
 ## SQL Connection
 
 To connect to the SQL Database, you must change the connection string from the ~/App.config file.
