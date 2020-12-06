@@ -334,7 +334,7 @@ namespace DorsetOOP.ViewModels
                     Include("Teachers").
                     ToList();
 
-                toReturn = myDB.Grades.ToList().FindAll(g => g.Course.CourseId == _courseToGetGradesOf.CourseId);
+                if (_courseToGetGradesOf != null) toReturn = myDB.Grades.ToList().FindAll(g => g.Course.CourseId == _courseToGetGradesOf.CourseId);
             }
             return toReturn;
         }

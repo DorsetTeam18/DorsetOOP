@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DorsetOOP"
         mc:Ignorable="d" Background="#F2F2F2" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="Edit Teacher" Height="490" Width="420" Icon="/img/loginIcon.ico">
+        Title="Edit Student" Height="490" Width="420" Icon="/img/loginIcon.ico">
     <!--Team 18
         Name of the Students :
         Team 18
