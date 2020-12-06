@@ -318,6 +318,9 @@
   <ItemGroup>
     <Resource Include="progIcon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="DBSchemaAndData.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
