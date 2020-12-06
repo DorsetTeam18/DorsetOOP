@@ -330,7 +330,9 @@ namespace DorsetOOP.ViewModels
 
                 var payments = myDB.Payments.ToList();
 
-                var courses = myDB.Courses.ToList();
+                var courses = myDB.Courses.
+                    Include("Teachers").
+                    ToList();
 
                 toReturn = myDB.Grades.ToList().FindAll(g => g.Course.CourseId == _courseToGetGradesOf.CourseId);
             }
