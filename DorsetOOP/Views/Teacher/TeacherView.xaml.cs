@@ -172,18 +172,9 @@ namespace DorsetOOP
 
         }
 
-        private void Students_Row_DoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            new StudentDetailsView(SelectedStudent).ShowDialog();
-        }
-
         
 
-        private void allGradesOfCourse_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            new EditGradeView(SelectedGrade).ShowDialog();
-            VirtualCollegeContext.UpdateGrade(SelectedGrade);
-        }
+        
 
 
         #region Datagrid (double click & focus lost)
@@ -191,11 +182,22 @@ namespace DorsetOOP
         {
             foreach (var row in GetDataGridRows(studentsInLessonDataGrid).ToList())
             {
-                Student currentStudent = (Student)row.Item;
+                Student currentStudent = (Student)row.Item; 
                 CheckBox cb = (CheckBox)studentsInLessonDataGrid.Columns.ToList()[1].GetCellContent(row);
                 if (cb.IsChecked == true) { VirtualCollegeContext.SetStudentAsPresent(currentStudent, SelectedLesson); }
                 else VirtualCollegeContext.SetStudentAsNotPresent(currentStudent, SelectedLesson);
             }
+        }
+
+        private void Students_Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new StudentDetailsView(SelectedStudent).ShowDialog(); // Display the 
+        }
+
+        private void allGradesOfCourse_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new EditGradeView(SelectedGrade).ShowDialog(); // Display the edit grade window
+            VirtualCollegeContext.UpdateGrade(SelectedGrade);
         }
         #endregion
 
