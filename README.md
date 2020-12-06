@@ -1,6 +1,6 @@
 # Virtual College Context
 
-VirtualCollegeContext is a school management system. This application can register and manage courses, students and faculty members across the branches. All the data are stored in a SQL Database.
+VirtualCollegeContext is a school management system. This application can register and manage courses, students and faculty members across the branches. All the data is stored in a SQL Database (Cf. SQL Connection below)
 
 ## UML Diagram
 Here you can find the UML Diagram to this application :
