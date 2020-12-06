@@ -77,14 +77,25 @@ namespace DorsetOOP
 
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
-            if (VirtualCollegeContext.UpdateTeacher(TeacherToEdit, AddressToEdit))
+            if (TeacherToEdit.FirstName == null || TeacherToEdit.LastName == "" ||
+                TeacherToEdit.LastName == null || TeacherToEdit.LastName == "" ||
+                TeacherToEdit.EmailAddress == null || TeacherToEdit.EmailAddress == "" ||
+                TeacherToEdit.Password == null || TeacherToEdit.Password == "" ||
+                TeacherToEdit.Gender == null ||
+                AddressToEdit.AddressLine1 == null || AddressToEdit.AddressLine1 == "" ||
+                AddressToEdit.City == null || AddressToEdit.City == "" ||
+                AddressToEdit.Postcode == null || AddressToEdit.Postcode == "" ||
+                AddressToEdit.Country == null || AddressToEdit.Country == "") MessageBox.Show("Please check your inputs!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
             {
-                MessageBox.Show("Student profile updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+                if (VirtualCollegeContext.UpdateTeacher(TeacherToEdit, AddressToEdit))
+                {
+                    MessageBox.Show("Student profile updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                else MessageBox.Show("Couldn't update Student profile.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else MessageBox.Show("Couldn't update Student profile.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-
         private void cancelButton_Click(object sender, RoutedEventArgs e) { this.Close(); }
     }
 }

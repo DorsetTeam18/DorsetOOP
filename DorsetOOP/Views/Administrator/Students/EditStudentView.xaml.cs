@@ -79,6 +79,17 @@ namespace DorsetOOP
 
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
+
+            if (StudentToEdit.FirstName == null || StudentToEdit.LastName == "" ||
+                StudentToEdit.LastName == null || StudentToEdit.LastName == "" ||
+                StudentToEdit.EmailAddress == null || StudentToEdit.EmailAddress == "" ||
+                StudentToEdit.Password == null || StudentToEdit.Password == "" ||
+                StudentToEdit.Gender == null || StudentToEdit.Tutor == null ||
+                AddressToEdit.AddressLine1 == null || AddressToEdit.AddressLine1 == "" ||
+                AddressToEdit.City == null || AddressToEdit.City == "" ||
+                AddressToEdit.Postcode == null || AddressToEdit.Postcode == "" ||
+                AddressToEdit.Country == null || AddressToEdit.Country == "") MessageBox.Show("Please check your inputs!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
             if (VirtualCollegeContext.UpdateStudent(StudentToEdit, AddressToEdit))
             {
                 MessageBox.Show("Student profile updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);

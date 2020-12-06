@@ -15,7 +15,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DorsetOOP"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" FontSize="18" FontFamily="./resources/#Helvetica Light" 
-        Title="Login" Height="300" Width="350" Background="#F2F2F2" ResizeMode="NoResize" Icon="/img/LoginIcon.ico" >
+        Title="Login" Height="310" Width="350" Background="#F2F2F2" ResizeMode="NoResize" Icon="/img/LoginIcon.ico" >
 
     <Grid Margin="10">
 

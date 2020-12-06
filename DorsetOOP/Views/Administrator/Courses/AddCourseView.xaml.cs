@@ -75,26 +75,31 @@ namespace DorsetOOP
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var row in GetDataGridRows(teachersAbleToTeachDataGrid).ToList())
-            {
-                Teacher currentTeacher = (Teacher)row.Item;
-                CheckBox cb = (CheckBox)teachersAbleToTeachDataGrid.Columns.ToList()[0].GetCellContent(row);
-                if (cb.IsChecked==true)
-                {
-                    CourseToAdd.Teachers.Add(currentTeacher);
-                }
-            }
-
-            if (CourseToAdd.ReferentTeacher == null) MessageBox.Show("Make sure you've selected a referent teacher", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (CourseToAdd.Title == null || CourseToAdd.Title == "" ||
+                CourseToAdd.ReferentTeacher == null) MessageBox.Show("Please check your inputs!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
-                if (VirtualCollegeContext.CreateCourse(CourseToAdd))
+                foreach (var row in GetDataGridRows(teachersAbleToTeachDataGrid).ToList())
                 {
-                    MessageBox.Show("Course created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();
+                    Teacher currentTeacher = (Teacher)row.Item;
+                    CheckBox cb = (CheckBox)teachersAbleToTeachDataGrid.Columns.ToList()[0].GetCellContent(row);
+                    if (cb.IsChecked == true)
+                    {
+                        CourseToAdd.Teachers.Add(currentTeacher);
+                    }
                 }
-                else MessageBox.Show("Couldn't create course. Check if it doesn't already exsit!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+
+                if (CourseToAdd.ReferentTeacher == null) MessageBox.Show("Make sure you've selected a referent teacher", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
+                {
+                    if (VirtualCollegeContext.CreateCourse(CourseToAdd))
+                    {
+                        MessageBox.Show("Course created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        this.Close();
+                    }
+                    else MessageBox.Show("Couldn't create course. Check if it doesn't already exsit!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }            
         }
 
         public IEnumerable<DataGridRow> GetDataGridRows(DataGrid grid)

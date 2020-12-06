@@ -65,12 +65,24 @@ namespace DorsetOOP
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            if (VirtualCollegeContext.CreateTeacher(TeacherToAdd, AddressToAdd))
+            if (TeacherToAdd.FirstName == null || TeacherToAdd.LastName == "" ||
+                TeacherToAdd.LastName == null || TeacherToAdd.LastName == "" ||
+                TeacherToAdd.EmailAddress == null || TeacherToAdd.EmailAddress == "" ||
+                TeacherToAdd.Password == null || TeacherToAdd.Password == "" ||
+                TeacherToAdd.Gender == null ||
+                AddressToAdd.AddressLine1 == null || AddressToAdd.AddressLine1 == "" ||
+                AddressToAdd.City == null || AddressToAdd.City == "" ||
+                AddressToAdd.Postcode == null || AddressToAdd.Postcode == "" ||
+                AddressToAdd.Country == null || AddressToAdd.Country == "") MessageBox.Show("Please check your inputs!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
             {
-                MessageBox.Show("Teacher created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+                if (VirtualCollegeContext.CreateTeacher(TeacherToAdd, AddressToAdd))
+                {
+                    MessageBox.Show("Teacher created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                else MessageBox.Show("Couldn't create user", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else MessageBox.Show("Couldn't create user", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

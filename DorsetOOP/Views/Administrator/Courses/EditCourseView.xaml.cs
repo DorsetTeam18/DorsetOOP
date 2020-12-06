@@ -83,24 +83,24 @@ namespace DorsetOOP
 
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
-
-            CourseToEdit.Teachers = new ObservableCollection<Teacher>();
-            foreach (var row in GetDataGridRows(teachersAbleToTeachDataGrid).ToList())
+            if (CourseToEdit.Title == null || CourseToEdit.Title == "") MessageBox.Show("Please check your inputs!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
             {
-                Teacher currentTeacher = (Teacher)row.Item;
-                CheckBox cb = (CheckBox)teachersAbleToTeachDataGrid.Columns.ToList()[0].GetCellContent(row);
-                if (cb.IsChecked == true)
+                CourseToEdit.Teachers = new ObservableCollection<Teacher>();
+                foreach (var row in GetDataGridRows(teachersAbleToTeachDataGrid).ToList())
                 {
-                    CourseToEdit.Teachers.Add(currentTeacher);
+                    Teacher currentTeacher = (Teacher)row.Item;
+                    CheckBox cb = (CheckBox)teachersAbleToTeachDataGrid.Columns.ToList()[0].GetCellContent(row);
+                    if (cb.IsChecked == true) CourseToEdit.Teachers.Add(currentTeacher);
                 }
-            }
 
-            if (VirtualCollegeContext.UpdateCourse(CourseToEdit))
-            {
-                MessageBox.Show("Course updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+                if (VirtualCollegeContext.UpdateCourse(CourseToEdit))
+                {
+                    MessageBox.Show("Course updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                else MessageBox.Show("Couldn't create course. Check if it doesn't already exsit!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else MessageBox.Show("Couldn't create course. Check if it doesn't already exsit!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         public IEnumerable<DataGridRow> GetDataGridRows(DataGrid grid)

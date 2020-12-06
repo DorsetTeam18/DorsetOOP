@@ -20,7 +20,6 @@ using System.Threading.Tasks;
 
 namespace DorsetOOP.ViewModels
 {
-    /// Interaction with the Database named VirtualCollege
     public class VirtualCollegeContext : DbContext // Inheritance from DbContext (included in EF)
     {
         public VirtualCollegeContext() : base("name=VirtualCollege") { } // Connection string
@@ -29,8 +28,7 @@ namespace DorsetOOP.ViewModels
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); // Remove the basic ManyToMany definitions
 
-
-            // Set up ManyToMany manually
+            // Set up Many To Many manually
 
             // Students - Lessons
             modelBuilder.Entity<Lesson>().

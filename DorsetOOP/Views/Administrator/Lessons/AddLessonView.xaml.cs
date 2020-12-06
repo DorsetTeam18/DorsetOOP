@@ -98,7 +98,11 @@ namespace DorsetOOP
 
         private void AddLessonButton_Click(object sender, RoutedEventArgs e)
         {
-            if (LessonToAdd.Course == null || LessonToAdd.Teacher == null) MessageBox.Show("Please check your inputs", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (LessonToAdd.Course == null || LessonToAdd.Teacher == null ||
+                LessonToAdd.RoomName == null || LessonToAdd.RoomName == "" ||
+                LessonToAdd.Day == null || LessonToAdd.Day == "" ||
+                LessonToAdd.Hour == null || LessonToAdd.Hour == "" ||
+                LessonToAdd.Duration == null || LessonToAdd.Duration == "") MessageBox.Show("Please check your inputs", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
                 foreach (var row in GetDataGridRows(StudentsAbleToAttendDataGrid).ToList())

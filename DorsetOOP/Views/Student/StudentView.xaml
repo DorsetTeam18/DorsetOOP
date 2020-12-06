@@ -1,13 +1,5 @@
-﻿<Window x:Class="DorsetOOP.StudentView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DorsetOOP.Converters"
-        mc:Ignorable="d" WindowStartupLocation="CenterScreen" DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="Student Window" Background="#F2F2F2" Height="450" Width="800" Icon="/img/LoginIcon.ico" FontFamily="Helvetica">
-    <!--Team 18
-        Name of the Students :
+﻿<!--Team 18
+        Student name | ID:
         Team 18
 	    Wim POIGNON 23408
         Maélis YONES 23217
@@ -16,6 +8,15 @@
         Gwendoline MAREK 23397
         Maxime DENNERY 23203
         Victor TACHOIRES 22844-->
+
+<Window x:Class="DorsetOOP.StudentView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DorsetOOP.Converters"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="Student Window" Background="#F2F2F2" Height="450" Width="800" Icon="/img/LoginIcon.ico" FontFamily="Helvetica">
 
     <Window.Resources>
         <local:SizeConverter x:Key="sizeConverter"/>
@@ -133,7 +134,7 @@
                                 <RowDefinition Height="2*"/>
                             </Grid.RowDefinitions>
 
-                            
+
 
                             <StackPanel Grid.Row="0" Orientation="Horizontal">
                                 <Label Content ="E-mail Address "  FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
@@ -151,7 +152,7 @@
                             </StackPanel>
                         </Grid>
                         <!--#endregion-->
-                        
+
                         <!--#region Column 1-->
                         <Label Content ="{Binding LoggedInStudent.FirstName}" ContentStringFormat="Details of {0}'s tutor" Grid.Column="1" Grid.Row ="0"  FontSize="16" 
                                    FontWeight="Bold"  Margin="0,10,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center"/>

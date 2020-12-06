@@ -104,23 +104,31 @@ namespace DorsetOOP
 
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
-            LessonToEdit.Students = new ObservableCollection<Student>();
-            foreach (var row in GetDataGridRows(StudentsAbleToAttendDataGrid).ToList())
+            if (LessonToEdit.Course == null || LessonToEdit.Teacher == null ||
+                LessonToEdit.RoomName == null || LessonToEdit.RoomName == "" ||
+                LessonToEdit.Day == null || LessonToEdit.Day == "" ||
+                LessonToEdit.Hour == null || LessonToEdit.Hour == "" ||
+                LessonToEdit.Duration == null || LessonToEdit.Duration == "") MessageBox.Show("Please check your inputs", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
             {
-                Student currentStudent = (Student)row.Item;
-                CheckBox cb = (CheckBox)StudentsAbleToAttendDataGrid.Columns.ToList()[0].GetCellContent(row);
-                if (cb.IsChecked == true)
+                LessonToEdit.Students = new ObservableCollection<Student>();
+                foreach (var row in GetDataGridRows(StudentsAbleToAttendDataGrid).ToList())
                 {
-                    LessonToEdit.Students.Add(currentStudent);
+                    Student currentStudent = (Student)row.Item;
+                    CheckBox cb = (CheckBox)StudentsAbleToAttendDataGrid.Columns.ToList()[0].GetCellContent(row);
+                    if (cb.IsChecked == true)
+                    {
+                        LessonToEdit.Students.Add(currentStudent);
+                    }
                 }
-            }
 
-            if (VirtualCollegeContext.UpdateLesson(LessonToEdit))
-            {
-                MessageBox.Show("Lesson updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+                if (VirtualCollegeContext.UpdateLesson(LessonToEdit))
+                {
+                    MessageBox.Show("Lesson updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                else MessageBox.Show("Couldn't update lesson. Check if it doesn't already exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else MessageBox.Show("Couldn't update lesson. Check if it doesn't already exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)

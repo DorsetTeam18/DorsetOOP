@@ -79,7 +79,8 @@ namespace DorsetOOP
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            if (StudentToAdd == null) MessageBox.Show("Please select a student", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (StudentToAdd.FullName == " " ||
+                GradeToAdd.ExamName == null || GradeToAdd.ExamName == "") MessageBox.Show("Please check your inputs!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
                 if (VirtualCollegeContext.AddGrade(GradeToAdd, StudentToAdd))
