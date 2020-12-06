@@ -1,4 +1,14 @@
-﻿<Window x:Class="DorsetOOP.TeacherView"
+﻿<!--Team 18
+Student names | ID:
+Wim POIGNON 23408
+Maélis YONES 23217
+Rémi LOMBARD 23210
+Christophe NGUYEN 23219
+Gwendoline MAREK 23397
+Maxime DENNERY 23203
+Victor TACHOIRES 22844-->
+
+<Window x:Class="DorsetOOP.TeacherView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,16 +16,6 @@
         xmlns:local="clr-namespace:DorsetOOP.Converters"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Teacher Window" Background="#F2F2F2" Height="600" Width="1300" Icon="/img/LoginIcon.ico" FontFamily="Helvetica">
-    <!--Team 18
-        Name of the Students :
-        Team 18
-	    Wim POIGNON 23408
-        Maélis YONES 23217
-        Rémi LOMBARD 23210
-        Christophe NGUYEN 23219
-        Gwendoline MAREK 23397
-        Maxime DENNERY 23203
-        Victor TACHOIRES 22844-->
 
     <Window.Resources>
         <local:SizeConverterHalf x:Key="sizeConverter"/>
@@ -180,7 +180,6 @@
                 </Grid>
             </TabItem>
             <!--#endregion-->
-
 
             <!--#region COURSES -->
             <TabItem>
@@ -379,14 +378,10 @@
                     </Grid>
 
                     <!--#endregion-->
-                    <!--END ROW 2-->
 
                 </Grid>
             </TabItem>
             <!--#endregion-->
-
-
-
 
         </TabControl>
     </Grid>

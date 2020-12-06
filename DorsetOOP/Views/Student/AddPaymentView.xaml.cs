@@ -1,4 +1,14 @@
-﻿using DorsetOOP.Models;
+﻿/// Team 18
+/// Student names | ID:
+/// Wim POIGNON 23408
+/// Maélis YONES 23217
+/// Rémi LOMBARD 23210
+/// Christophe NGUYEN 23219
+/// Gwendoline MAREK 23397
+/// Maxime DENNERY 23203
+/// Victor TACHOIRES 22844
+
+using DorsetOOP.Models;
 using DorsetOOP.Models.Users;
 using DorsetOOP.ViewModels;
 using System;
@@ -19,18 +29,6 @@ using System.Windows.Shapes;
 
 namespace DorsetOOP
 {
-    /// <summary>
-    /// Interaction logic for AddPaymentView.xaml
-	/// Team 18
-    /// Name of the Students :
-    /// Wim POIGNON 23408
-    /// Maélis YONES 23217
-    /// Rémi LOMBARD 23210
-    /// Christophe NGUYEN 23219
-    /// Gwendoline MAREK 23397
-    /// Maxime DENNERY 23203
-    /// Victor TACHOIRES 22844
-    /// </summary>
     public partial class AddPaymentView : Window, INotifyPropertyChanged
     {
         #region View Models
@@ -60,19 +58,23 @@ namespace DorsetOOP
 
         private void addPaymentButton_Click(object sender, RoutedEventArgs e)
         {
-            var p = PaymentToAdd;
-            p.Date = DateTime.Now;
-            p.Student = StudentConcerned;
-            PaymentToAdd = p;
-
-            if (VirtualCollegeContext.AddPayment(PaymentToAdd)) // To edit
-            {
-                MessageBox.Show("Payment added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
-            }
+            if (PaymentToAdd.Amount > StudentConcerned.Fees || PaymentToAdd.Amount < 0) MessageBox.Show("Check the amount!", "Amount error", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
-                MessageBox.Show("Too much!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                var p = PaymentToAdd;
+                p.Date = DateTime.Now;
+                p.Student = StudentConcerned;
+                PaymentToAdd = p;
+
+                if (VirtualCollegeContext.AddPayment(PaymentToAdd))
+                {
+                    MessageBox.Show("Payment added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Unknown Error", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }

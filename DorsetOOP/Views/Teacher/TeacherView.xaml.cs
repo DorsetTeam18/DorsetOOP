@@ -172,13 +172,8 @@ namespace DorsetOOP
 
         }
 
-        
-
-        
-
-
         #region Datagrid (double click & focus lost)
-        private void studentsInLessonDataGrid_LostFocus(object sender, RoutedEventArgs e)
+        private void studentsInLessonDataGrid_LostFocus(object sender, RoutedEventArgs e) // When focus is lost, update the presence of the studens according to the checkboxes
         {
             foreach (var row in GetDataGridRows(studentsInLessonDataGrid).ToList())
             {
@@ -191,7 +186,7 @@ namespace DorsetOOP
 
         private void Students_Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new StudentDetailsView(SelectedStudent).ShowDialog(); // Display the 
+            new StudentDetailsView(SelectedStudent).ShowDialog(); // Display the selected students details in the apropriate window
         }
 
         private void allGradesOfCourse_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -1,4 +1,14 @@
-﻿using DorsetOOP.Models;
+﻿/// Team 18
+/// Student names | ID:
+/// Wim POIGNON 23408
+/// Maélis YONES 23217
+/// Rémi LOMBARD 23210
+/// Christophe NGUYEN 23219
+/// Gwendoline MAREK 23397
+/// Maxime DENNERY 23203
+/// Victor TACHOIRES 22844
+
+using DorsetOOP.Models;
 using DorsetOOP.Models.Users;
 using DorsetOOP.ViewModels;
 using System;
@@ -20,18 +30,6 @@ using System.Windows.Shapes;
 
 namespace DorsetOOP
 {
-    /// <summary>
-    /// Interaction logic for AddCourseView.xaml
-	/// Team 18
-    /// Name of the Students :
-    /// Wim POIGNON 23408
-    /// Maélis YONES 23217
-    /// Rémi LOMBARD 23210
-    /// Christophe NGUYEN 23219
-    /// Gwendoline MAREK 23397
-    /// Maxime DENNERY 23203
-    /// Victor TACHOIRES 22844
-    /// </summary>
     public partial class EditCourseView : Window, INotifyPropertyChanged
     {
         #region ViewModel
@@ -85,6 +83,7 @@ namespace DorsetOOP
 
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
+
             CourseToEdit.Teachers = new ObservableCollection<Teacher>();
             foreach (var row in GetDataGridRows(teachersAbleToTeachDataGrid).ToList())
             {

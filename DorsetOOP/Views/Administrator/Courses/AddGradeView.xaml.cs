@@ -1,4 +1,14 @@
-﻿using DorsetOOP.Models;
+﻿/// Team 18
+/// Student names | ID:
+/// Wim POIGNON 23408
+/// Maélis YONES 23217
+/// Rémi LOMBARD 23210
+/// Christophe NGUYEN 23219
+/// Gwendoline MAREK 23397
+/// Maxime DENNERY 23203
+/// Victor TACHOIRES 22844
+
+using DorsetOOP.Models;
 using DorsetOOP.Models.Users;
 using DorsetOOP.ViewModels;
 using System;
@@ -19,18 +29,6 @@ using System.Windows.Shapes;
 
 namespace DorsetOOP
 {
-    /// <summary>
-    /// Interaction logic for AddGradeView.xaml
-	/// Team 18
-    /// Name of the Students :
-    /// Wim POIGNON 23408
-    /// Maélis YONES 23217
-    /// Rémi LOMBARD 23210
-    /// Christophe NGUYEN 23219
-    /// Gwendoline MAREK 23397
-    /// Maxime DENNERY 23203
-    /// Victor TACHOIRES 22844
-	/// </summary>
     public partial class AddGradeView : Window, INotifyPropertyChanged
     {
         #region View Models
@@ -81,12 +79,16 @@ namespace DorsetOOP
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            if (VirtualCollegeContext.AddGrade(GradeToAdd, StudentToAdd))
+            if (StudentToAdd == null) MessageBox.Show("Please select a student", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
             {
-                MessageBox.Show("Grade added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+                if (VirtualCollegeContext.AddGrade(GradeToAdd, StudentToAdd))
+                {
+                    MessageBox.Show("Grade added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                else MessageBox.Show("Couldn't add grade!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else MessageBox.Show("Couldn't add grade!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

@@ -1,12 +1,4 @@
-﻿<Window x:Class="DorsetOOP.TeacherDetailsView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DorsetOOP.Converters"
-        mc:Ignorable="d" WindowStartupLocation="CenterScreen" FontFamily="Helvetica" DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="Teacher Details" Height="450" Width="800" Background="#F2F2F2" Icon="/img/LoginIcon.ico" >
-    <!--Team 18
+﻿<!--Team 18
         Name of the Students :
         Team 18
 	    Wim POIGNON 23408
@@ -16,6 +8,15 @@
         Gwendoline MAREK 23397
         Maxime DENNERY 23203
         Victor TACHOIRES 22844-->
+
+<Window x:Class="DorsetOOP.TeacherDetailsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DorsetOOP.Converters"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" FontFamily="Helvetica" DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="Teacher Details" Height="450" Width="800" Background="#F2F2F2" Icon="/img/LoginIcon.ico" >
 
     <Grid Margin="5">
         <Grid.ColumnDefinitions>

@@ -1,4 +1,14 @@
-﻿using DorsetOOP.Models;
+﻿/// Team 18
+/// Student names | ID:
+/// Wim POIGNON 23408
+/// Maélis YONES 23217
+/// Rémi LOMBARD 23210
+/// Christophe NGUYEN 23219
+/// Gwendoline MAREK 23397
+/// Maxime DENNERY 23203
+/// Victor TACHOIRES 22844
+
+using DorsetOOP.Models;
 using DorsetOOP.Models.Users;
 using DorsetOOP.ViewModels;
 using System;
@@ -20,18 +30,6 @@ using System.Windows.Shapes;
 
 namespace DorsetOOP
 {
-    /// <summary>
-    /// Interaction logic for AddCourseView.xaml
-	/// Team 18
-    /// Name of the Students :
-    /// Wim POIGNON 23408
-    /// Maélis YONES 23217
-    /// Rémi LOMBARD 23210
-    /// Christophe NGUYEN 23219
-    /// Gwendoline MAREK 23397
-    /// Maxime DENNERY 23203
-    /// Victor TACHOIRES 22844
-    /// </summary>
     public partial class AddCourseView : Window, INotifyPropertyChanged
     {
         #region ViewModel
@@ -87,12 +85,16 @@ namespace DorsetOOP
                 }
             }
 
-            if (VirtualCollegeContext.CreateCourse(CourseToAdd))
+            if (CourseToAdd.ReferentTeacher == null) MessageBox.Show("Make sure you've selected a referent teacher", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
             {
-                MessageBox.Show("Course created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+                if (VirtualCollegeContext.CreateCourse(CourseToAdd))
+                {
+                    MessageBox.Show("Course created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                else MessageBox.Show("Couldn't create course. Check if it doesn't already exsit!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else MessageBox.Show("Couldn't create course. Check if it doesn't already exsit!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         public IEnumerable<DataGridRow> GetDataGridRows(DataGrid grid)

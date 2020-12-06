@@ -41,14 +41,14 @@ namespace DorsetOOP
             var loading = new StartingUpWindow(); // Create instance of the StartingWindow
             loading.Show(); // Display it
             InitializeComponent();
-            userLoginInput.Focus(); // FOcus the email textbox
+            userLoginInput.Focus(); // Focus the email textbox
 
             using (var myDB = new VirtualCollegeContext()) // First get of the program, initializes connectionString
             {
                 #region Get Tables Content
                 var addresses = myDB.Addresses.ToList();
 
-               var studs = myDB.Users.
+                var studs = myDB.Users.
                    Include("Lessons").
                    Include("PresentLessons").
                    OfType<Student>().
