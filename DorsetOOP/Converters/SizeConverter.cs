@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// Team 18
+/// Student names | ID:
+/// Wim POIGNON | 23408
+/// Maélis YONES | 23217
+/// Rémi LOMBARD | 23210
+/// Christophe NGUYEN | 23219
+/// Gwendoline MAREK | 23397
+/// Maxime DENNERY | 23203
+/// Victor TACHOIRES | 22844
+
+using System;
 using System.Windows.Data;
-using System.Windows.Markup;
 
 namespace DorsetOOP.Converters
 {
-    /// <summary>
-    /// Team 18
-    /// Name of the Students :
-    /// Wim POIGNON 23408
-    /// Maélis YONES 23217
-    /// Rémi LOMBARD 23210
-    /// Christophe NGUYEN 23219
-    /// Gwendoline MAREK 23397
-    /// Maxime DENNERY 23203
-    /// Victor TACHOIRES 22844
-    /// </summary>
-    public class SizeConverter : IValueConverter
+    public class SizeConverter : IValueConverter // Typical converter, inherits from IValueConverter
     {
         #region IValueConverter Members
 
@@ -29,7 +22,7 @@ namespace DorsetOOP.Converters
         {
             double width = Double.Parse(value.ToString());
             //Subtract 1, otherwise we could overflow to two rows.
-            return .25 * width - 1;
+            return .25 * width - 1; // Returns a quarter
         }
 
         public object ConvertBack(object value, Type targetType, object parameter,
