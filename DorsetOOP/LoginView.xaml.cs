@@ -1,4 +1,14 @@
-﻿using DorsetOOP.Models;
+﻿/// Team 18
+/// Student names | ID:
+/// Wim POIGNON 23408
+/// Maélis YONES 23217
+/// Rémi LOMBARD 23210
+/// Christophe NGUYEN 23219
+/// Gwendoline MAREK 23397
+/// Maxime DENNERY 23203
+/// Victor TACHOIRES 22844
+
+using DorsetOOP.Models;
 using DorsetOOP.Models.Users;
 using DorsetOOP.ViewModels;
 using System;
@@ -20,32 +30,22 @@ using System.Windows.Shapes;
 namespace DorsetOOP
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
-	/// Team 18
-    /// Name of the Students :
-    /// Wim POIGNON 23408
-    /// Maélis YONES 23217
-    /// Rémi LOMBARD 23210
-    /// Christophe NGUYEN 23219
-    /// Gwendoline MAREK 23397
-    /// Maxime DENNERY 23203
-    /// Victor TACHOIRES 22844
+    /// Interaction / logic code behind LoginView Window
     /// </summary>
-    
     public partial class LoginView : Window
     {
         public User LoggedUser { get; set; }
 
         public LoginView()
         {
-            var loading = new StartingUpWindow();
-            loading.Show();
+            var loading = new StartingUpWindow(); // Create instance of the StartingWindow
+            loading.Show(); // Display it
             InitializeComponent();
-            userLoginInput.Focus();
+            userLoginInput.Focus(); // FOcus the email textbox
 
-            using (var myDB = new VirtualCollegeContext())
+            using (var myDB = new VirtualCollegeContext()) // First get of the program, initializes connectionString
             {
-                #region Get Tables
+                #region Get Tables Content
                 var addresses = myDB.Addresses.ToList();
 
                var studs = myDB.Users.
@@ -72,7 +72,7 @@ namespace DorsetOOP
                 var payments = myDB.Payments.ToList();
                 #endregion
 
-                #region Initial inputs
+                #region Initial inputs - Population of the DB when first run (not to uncomment)
                 #region Students
                 //myDB.Addresses.Add(new Address()
                 //{
@@ -354,12 +354,12 @@ namespace DorsetOOP
                 myDB.SaveChanges();
             }
 
-            loading.Close();
+            loading.Close(); // Closes waiting window once everything is loaded for the first time
         }
 
-        private void UserLoginButton_Click(object sender, RoutedEventArgs e)
+        private void UserLoginButton_Click(object sender, RoutedEventArgs e) // When click on the Login button
         {
-            User a = new Administrator();
+            User a = new Administrator(); // Create a User (set as Administrator because we cannot instanciate a User (abstract). Could be teacher, student...)
             using(var myDb = new VirtualCollegeContext())
             {
                 var addresses = myDb.Addresses.ToList();
@@ -372,19 +372,19 @@ namespace DorsetOOP
 
                 var grades = myDb.Grades.ToList();
 
-                a = myDb.Users.ToList().Find(u => u.EmailAddress == userLoginInput.Text && u.Password == userPasswordinput.Password.ToString());
+                a = myDb.Users.ToList().Find(u => u.EmailAddress == userLoginInput.Text && u.Password == userPasswordinput.Password.ToString()); // Find the user that has the matching Email-Address/Password
             }
 
-            if (a != null)
+            if (a != null) // If we found a user that has the correct combination
             {
-                var t = a.GetType().Name.Split('_')[0];
+                var t = a.GetType().Name.Split('_')[0]; // Gets the type ("Administrator", "Student", "Teacher")
                 switch (t)
                 {
                     case "Student":
-                        StudentView studentViewWindow = new StudentView(a);
-                        studentViewWindow.Closing += new CancelEventHandler(AnyViewWindow_Closing);
-                        studentViewWindow.Show();
-                        this.Visibility = Visibility.Hidden;
+                        StudentView studentViewWindow = new StudentView(a); // Instanciate the corresponding window
+                        studentViewWindow.Closing += new CancelEventHandler(AnyViewWindow_Closing); // Add an argument when the window closes (Cf. Line 410)
+                        studentViewWindow.Show(); // Display the window
+                        this.Visibility = Visibility.Hidden; // Hide login window as soon as the correct window is displayed
                         break;
 
                     case "Teacher":
@@ -404,11 +404,11 @@ namespace DorsetOOP
                         break;
                 }
             }
-            else MessageBox.Show($"Wrong login and/or password!", "Wrong login", MessageBoxButton.OK, MessageBoxImage.Error);
+            else MessageBox.Show($"Wrong login and/or password!", "Wrong login", MessageBoxButton.OK, MessageBoxImage.Error); // If no user was matching, display this error
         }
 
-        private void AnyViewWindow_Closing(object sender, CancelEventArgs e) { this.Visibility = Visibility.Visible; }
+        private void AnyViewWindow_Closing(object sender, CancelEventArgs e) { this.Visibility = Visibility.Visible; } // Once the view is closed, display the login window
 
-        private void Input_KeyDown(object sender, KeyEventArgs e) { if (e.Key == Key.Enter) UserLoginButton_Click(new object(), new RoutedEventArgs()); }
+        private void Input_KeyDown(object sender, KeyEventArgs e) { if (e.Key == Key.Enter) UserLoginButton_Click(new object(), new RoutedEventArgs()); } // When we press enter in one of the textboxes
     }
 }

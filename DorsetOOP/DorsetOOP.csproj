@@ -8,7 +8,7 @@
     <ProjectGuid>{8C60D15E-9658-47F3-80C1-0B05702A79FE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>DorsetOOP</RootNamespace>
-    <AssemblyName>Virtual College Manager</AssemblyName>
+    <AssemblyName>DorsetOOP</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -19,7 +19,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>D:\Desktop\App Installer\</PublishUrl>
+    <PublishUrl>publish/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -104,7 +104,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\SizeConverterHalf.cs" />
-    <Compile Include="Models\StudentLesson.cs" />
     <Compile Include="StartingUpWindow.xaml.cs">
       <DependentUpon>StartingUpWindow.xaml</DependentUpon>
     </Compile>
@@ -272,14 +271,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="DorsetOOP_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="VirtualCollegeContext.cd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

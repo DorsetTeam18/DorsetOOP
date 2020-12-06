@@ -1,4 +1,14 @@
-﻿using DorsetOOP.Models.Users;
+﻿/// Team 18
+/// Student names | ID:
+/// Wim POIGNON 23408
+/// Maélis YONES 23217
+/// Rémi LOMBARD 23210
+/// Christophe NGUYEN 23219
+/// Gwendoline MAREK 23397
+/// Maxime DENNERY 23203
+/// Victor TACHOIRES 22844
+
+using DorsetOOP.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,39 +19,40 @@ using System.Threading.Tasks;
 
 namespace DorsetOOP.Models
 {
-    /// <summary>
-    /// Team 18
-    /// Name of the Students :
-    /// Wim POIGNON 23408
-    /// Maélis YONES 23217
-    /// Rémi LOMBARD 23210
-    /// Christophe NGUYEN 23219
-    /// Gwendoline MAREK 23397
-    /// Maxime DENNERY 23203
-    /// Victor TACHOIRES 22844
-    /// </summary>
     public class Address
     {
+
+        #region Properties / columns
         public int AddressId { get; set; }
 
+        [Required]
         public string AddressLine1 { get; set; }
 
         public string AddressLine2 { get; set; }
 
+        [Required]
         public string Postcode { get; set; }
 
+        [Required]
         public string City { get; set; }
 
         public string State { get; set; }
 
+        [Required]
         public string Country { get; set; }
 
-        // One to many (each adress can have multiple users)
+        // Many to one (each address has many users living at it, each user lives at only one address
         public ICollection<User> Users { get; set; }
+        #endregion
 
-        public override string ToString()
+        public override string ToString() // Custom ToString
         {
-            return $"{ AddressLine1 }\n{ AddressLine2 }\n{ Postcode }, { City }\n{ State }, { Country }";
+            string str = $"{ AddressLine1 }";
+            if (AddressLine2 != null && AddressLine2 != "") str += $", { AddressLine2 }";
+            str += $"\n{ Postcode }, { City }\n";
+            if (State != null && State != "") str += $"{ State }, ";
+            str += $"{ Country }";
+            return str;
         }
     }
 }

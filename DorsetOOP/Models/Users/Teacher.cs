@@ -1,4 +1,14 @@
-﻿using DorsetOOP.Models.Users;
+﻿/// Team 18
+/// Student names | ID:
+/// Wim POIGNON 23408
+/// Maélis YONES 23217
+/// Rémi LOMBARD 23210
+/// Christophe NGUYEN 23219
+/// Gwendoline MAREK 23397
+/// Maxime DENNERY 23203
+/// Victor TACHOIRES 22844
+
+using DorsetOOP.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,18 +17,7 @@ using System.Threading.Tasks;
 
 namespace DorsetOOP.Models.Users
 {
-    /// <summary>
-    /// Team 18
-    /// Name of the Students :
-    /// Wim POIGNON 23408
-    /// Maélis YONES 23217
-    /// Rémi LOMBARD 23210
-    /// Christophe NGUYEN 23219
-    /// Gwendoline MAREK 23397
-    /// Maxime DENNERY 23203
-    /// Victor TACHOIRES 22844
-    /// </summary>
-    public class Teacher : User
+    public class Teacher : User // Teacher class inherits from the User class. Therefore, it has all the properties the User class has
     {
         public Teacher()
         {
@@ -27,13 +26,15 @@ namespace DorsetOOP.Models.Users
             this.Lessons = new HashSet<Lesson>();
         }
 
-        // One to many (one teacher has multiple lessons and each Lesson has only one Teacher)
+        #region Properties / columns
+        // Many to one (one teacher has multiple lessons and each esson has only one teacher teaching it)
         public ICollection<Lesson> Lessons { get; set; }
 
-        // One to many
+        // Many to one (one teacher has multiple students that he's tutoring, each student has one tutor)
         public ICollection<Student> Tutoring { get; set; }
 
-        // Many to many (one teacher has multiple courses and each course has multiple teachers)
+        // Many to many (one teacher has multiple courses and each course has multiple teachers that can teach in it)
         public ICollection<Course> Courses { get; set; }
+        #endregion
     }
 }

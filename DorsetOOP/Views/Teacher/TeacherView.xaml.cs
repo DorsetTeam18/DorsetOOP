@@ -1,4 +1,14 @@
-﻿using DorsetOOP.Models;
+﻿/// Team 18
+/// Student names | ID:
+/// Wim POIGNON 23408
+/// Maélis YONES 23217
+/// Rémi LOMBARD 23210
+/// Christophe NGUYEN 23219
+/// Gwendoline MAREK 23397
+/// Maxime DENNERY 23203
+/// Victor TACHOIRES 22844
+
+using DorsetOOP.Models;
 using DorsetOOP.Models.Users;
 using DorsetOOP.ViewModels;
 using System;
@@ -21,23 +31,17 @@ using System.Windows.Shapes;
 namespace DorsetOOP
 {
     /// <summary>
-    /// Interaction logic for TeacherView.xaml
-	/// Team 18
-    /// Name of the Students :
-    /// Wim POIGNON 23408
-    /// Maélis YONES 23217
-    /// Rémi LOMBARD 23210
-    /// Christophe NGUYEN 23219
-    /// Gwendoline MAREK 23397
-    /// Maxime DENNERY 23203
-    /// Victor TACHOIRES 22844
+    /// Logic behind the Teacher Window.
+    /// Auto-implemented MVVM is used. Therefore, we inherit from INotifyPropertyChanged. 
+    /// The goal is to bind our View to our Models.
+    /// When a property corresponding to a model (our ViewModel) is changed, we notify everything using it to change.
     /// </summary>
-    public partial class TeacherView : Window, INotifyPropertyChanged
+    public partial class TeacherView : Window, INotifyPropertyChanged 
     {
         #region View Models
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged; // Implementation of INotifyPropertyChanged
 
-        private Teacher _loggedInTeacher;
+        private Teacher _loggedInTeacher; // Get the logged in teacher
         public Teacher LoggedInTeacher
         {
             get { return _loggedInTeacher; }
@@ -48,7 +52,7 @@ namespace DorsetOOP
             }
         }
 
-        private ObservableCollection<Student> _students = new ObservableCollection<Student>();
+        private ObservableCollection<Student> _students = new ObservableCollection<Student>(); // Collection of students. Will be used for binding and will vary in function of the selected lesson
         public ObservableCollection<Student> Students
         {
             get { return _students; }
@@ -59,7 +63,7 @@ namespace DorsetOOP
             }
         }
 
-        private string _searchStudentTextBox;
+        private string _searchStudentTextBox; // Corresponds to the output of the search textbox
         public string SearchStudentTextBox
         {
             get { return _searchStudentTextBox; }
@@ -67,11 +71,12 @@ namespace DorsetOOP
             {
                 _searchStudentTextBox = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("SearchStudentTextBox"));
+                // When the search text changes, we refresh the Students property
                 if (SearchStudentTextBox != "" && SearchStudentTextBox != "") Students = new ObservableCollection<Student>(VirtualCollegeContext.GetAllStudentsOfTutorThatMatchFullName(LoggedInTeacher, SearchStudentTextBox));
             }
         }
 
-        private Student _selectedStudent;
+        private Student _selectedStudent; // Contains the selected student in a datagrid
         public Student SelectedStudent
         {
             get { return _selectedStudent; }
@@ -83,7 +88,7 @@ namespace DorsetOOP
             }
         }
 
-        private Course _selectedCourse;
+        private Course _selectedCourse; // Contains the selected course in a datagrid
         public Course SelectedCourse
         {
             get { return _selectedCourse; }
@@ -101,7 +106,7 @@ namespace DorsetOOP
             }
         }
 
-        private ObservableCollection<Lesson> _teacherLessons;
+        private ObservableCollection<Lesson> _teacherLessons; // Collection of lessons of the logged in teacher. Used for the datagrid
         public ObservableCollection<Lesson> TeacherLessons
         {
             get { return _teacherLessons; }
@@ -111,7 +116,8 @@ namespace DorsetOOP
                 PropertyChanged(this, new PropertyChangedEventArgs("TeacherLessons"));
             }
         }
-        private Lesson _selectedLesson;
+
+        private Lesson _selectedLesson; // The selected lesson
         public Lesson SelectedLesson
         {
             get { return _selectedLesson; }
@@ -123,7 +129,7 @@ namespace DorsetOOP
             }
         }
 
-        private ObservableCollection<Student> _selectedStudents;
+        private ObservableCollection<Student> _selectedStudents; // Used to handle the checkboxes values for the presence
         public ObservableCollection<Student> SelectedStudents
         {
             get { return _selectedStudents; }
@@ -135,7 +141,7 @@ namespace DorsetOOP
             }
         }
 
-        private Grade _selectedGrade = new Grade();
+        private Grade _selectedGrade = new Grade(); // Selected grade
         public Grade SelectedGrade
         {
             get { return _selectedGrade; }
@@ -146,7 +152,7 @@ namespace DorsetOOP
             }
         }
 
-        private ObservableCollection<Grade> _grades;
+        private ObservableCollection<Grade> _grades; // All grades
         public ObservableCollection<Grade> Grades
         {
             get { return _grades; }
@@ -156,14 +162,13 @@ namespace DorsetOOP
                 PropertyChanged(this, new PropertyChangedEventArgs("Grades"));
             }
         }
-
         #endregion
 
         public TeacherView(User _inputUser)
         {
             InitializeComponent();
-            LoggedInTeacher = (Teacher)_inputUser;
-            Students = new ObservableCollection<Student>(LoggedInTeacher.Tutoring);
+            LoggedInTeacher = (Teacher)_inputUser; // Cast and set the input user
+            Students = new ObservableCollection<Student>(LoggedInTeacher.Tutoring); // Set the students in function of the logged in teacher
 
         }
 
@@ -172,6 +177,29 @@ namespace DorsetOOP
             new StudentDetailsView(SelectedStudent).ShowDialog();
         }
 
+        
+
+        private void allGradesOfCourse_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new EditGradeView(SelectedGrade).ShowDialog();
+            VirtualCollegeContext.UpdateGrade(SelectedGrade);
+        }
+
+
+        #region Datagrid (double click & focus lost)
+        private void studentsInLessonDataGrid_LostFocus(object sender, RoutedEventArgs e)
+        {
+            foreach (var row in GetDataGridRows(studentsInLessonDataGrid).ToList())
+            {
+                Student currentStudent = (Student)row.Item;
+                CheckBox cb = (CheckBox)studentsInLessonDataGrid.Columns.ToList()[1].GetCellContent(row);
+                if (cb.IsChecked == true) { VirtualCollegeContext.SetStudentAsPresent(currentStudent, SelectedLesson); }
+                else VirtualCollegeContext.SetStudentAsNotPresent(currentStudent, SelectedLesson);
+            }
+        }
+        #endregion
+
+        #region Click Handlers
         private void deleteGradeButton_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedGrade != null)
@@ -189,13 +217,9 @@ namespace DorsetOOP
             new AddGradeView(SelectedCourse).ShowDialog();
             Grades = new ObservableCollection<Grade>(VirtualCollegeContext.GetAllGrades(SelectedCourse));
         }
+        #endregion
 
-        private void allGradesOfCourse_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            new EditGradeView(SelectedGrade).ShowDialog();
-            VirtualCollegeContext.UpdateGrade(SelectedGrade);
-        }
-
+        #region Backend
         private void SetCheckBoxesValues()
         {
             studentsInLessonDataGrid.UpdateLayout();
@@ -205,17 +229,6 @@ namespace DorsetOOP
                 Student currentStudent = (Student)row.Item;
                 CheckBox cb = (CheckBox)studentsInLessonDataGrid.Columns.ToList()[1].GetCellContent(row);
                 if (VirtualCollegeContext.StudentIsPresent(currentStudent, SelectedLesson)) cb.IsChecked = true;
-            }
-        }
-
-        private void studentsInLessonDataGrid_LostFocus(object sender, RoutedEventArgs e)
-        {
-            foreach (var row in GetDataGridRows(studentsInLessonDataGrid).ToList())
-            {
-                Student currentStudent = (Student)row.Item;
-                CheckBox cb = (CheckBox)studentsInLessonDataGrid.Columns.ToList()[1].GetCellContent(row);
-                if (cb.IsChecked == true) { VirtualCollegeContext.SetStudentAsPresent(currentStudent, SelectedLesson); }
-                else VirtualCollegeContext.SetStudentAsNotPresent(currentStudent, SelectedLesson);
             }
         }
 
@@ -229,5 +242,6 @@ namespace DorsetOOP
                 if (null != row) yield return row;
             }
         }
+        #endregion
     }
 }

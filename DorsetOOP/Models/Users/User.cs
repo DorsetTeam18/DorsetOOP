@@ -1,4 +1,14 @@
-﻿using System;
+﻿/// Team 18
+/// Student names | ID:
+/// Wim POIGNON 23408
+/// Maélis YONES 23217
+/// Rémi LOMBARD 23210
+/// Christophe NGUYEN 23219
+/// Gwendoline MAREK 23397
+/// Maxime DENNERY 23203
+/// Victor TACHOIRES 22844
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,71 +20,40 @@ using System.Threading.Tasks;
 
 namespace DorsetOOP.Models.Users
 {
-    /// <summary>
-    /// Team 18
-    /// Name of the Students :
-    /// Wim POIGNON 23408
-    /// Maélis YONES 23217
-    /// Rémi LOMBARD 23210
-    /// Christophe NGUYEN 23219
-    /// Gwendoline MAREK 23397
-    /// Maxime DENNERY 23203
-    /// Victor TACHOIRES 22844
-    /// </summary>
-    public abstract class User
-    //This class regroups all the information for a person to log in
+    public abstract class User // Set as abstract because nobody can only be a user. They are necessarely a student, teacher or admin. This class regroups the common caracteristics
     {
-        #region Properties
+        #region Properties / columns
         public int UserId { get; set; }
 
+        [Required]
         public string FirstName { get; set; }
+
+        [Required]
         public string LastName { get; set; }
+
+        [Required]
         public string Gender { get; set; }
+
+        [Required]
         public string EmailAddress { get; set; }
+
+        [Required]
         public string Password { get; set; }
+
         public string PhoneNumber { get; set; }
+
         [Column(TypeName = "date")]
         public DateTime BirthDate { get; set; }
 
-        // One to many
+        // One to many (each user lives at only one address, each address can have multiple users live at it)
         public int? AddressId { get; set; }
         [ForeignKey("AddressId")]
         public Address Address { get; set; }
-
         #endregion
 
-        public string FullName
+        public string FullName // Returns the full name of a user
         {
             get { return $"{ FirstName } { LastName }"; }
         }
-           
-        /*public override string ToString()
-        {
-            if (loginStatus == "online")
-            {
-                return $"{UserId} is connected";
-            }
-            else
-            {
-                return $"{UserId} is not connected for the moment";
-            }
-        }*/
-
-        /*public bool VerifyPassword()
-        {
-            Console.WriteLine("Verify your password");
-            Console.WriteLine("Enter you password : ");
-            string triedPassword = Convert.ToString(Console.ReadLine());
-            if (triedPassword == Password && triedPassword != null)
-            {
-                Console.Write("Correct password");
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("Incorrect password");
-                return false;
-            }
-        }*/
     }
 }

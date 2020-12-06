@@ -1,4 +1,14 @@
-﻿using DorsetOOP.Models.Users;
+﻿/// Team 18
+/// Student names | ID:
+/// Wim POIGNON | 23408
+/// Maélis YONES | 23217
+/// Rémi LOMBARD | 23210
+/// Christophe NGUYEN | 23219
+/// Gwendoline MAREK | 23397
+/// Maxime DENNERY | 23203
+/// Victor TACHOIRES | 22844
+
+using DorsetOOP.Models.Users;
 using DorsetOOP.Models;
 using System;
 using System.Collections.Generic;
@@ -7,20 +17,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using DorsetOOP.ViewModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace DorsetOOP.Models
 {
-	/// <summary>
-	/// Team 18
-    /// Name of the Students :
-	/// Wim POIGNON 23408
-    /// Maélis YONES 23217
-    /// Rémi LOMBARD 23210
-    /// Christophe NGUYEN 23219
-    /// Gwendoline MAREK 23397
-    /// Maxime DENNERY 23203
-    /// Victor TACHOIRES 22844
-    /// </summary>
     public class Lesson
     {
         public Lesson()
@@ -28,11 +28,19 @@ namespace DorsetOOP.Models
             this.Students = new HashSet<Student>();
         }
 
-        #region Props
+        #region Properties / columns
         public int LessonId { get; set; }
+
+        [Required]
         public string RoomName { get; set; }
+
+        [Required]
         public string Day { get; set; }
-        public string Hour { get; set; } // Format is 00:15 / 10:00 / 10:30 / 12:15 / 16:00 / 17:20
+
+        [Required]
+        public string Hour { get; set; } // Prefered format is 00:15 / 10:00 / 10:30 / 12:15 / 16:00 / 17:20
+
+        [Required]
         public string Duration { get; set; } // Format is 01:30 / 01:00
 
         // One to many (each lesson corresponds to one course, each course has multiple lessons)
@@ -40,7 +48,7 @@ namespace DorsetOOP.Models
         [ForeignKey("CourseId")]
         public Course Course { get; set; }
 
-        // Many to one (each teacher has many lessons, each lesson has one teacher)
+        // One to many (each lesson has one teacher, each teacher has many lessons)
         public int? TeacherId { get; set; }
         [ForeignKey("TeacherId")]
         public Teacher Teacher { get; set; }
@@ -48,10 +56,11 @@ namespace DorsetOOP.Models
         // Many to many (each lesson has multiple students and each student has multiple lessons)
         public ICollection<Student> Students { get; set; }
 
+        // Many to manyj
         public ICollection<Student> PresentStudents { get; set; }
         #endregion
 
-        public string DateAndTime
+        public string DateAndTime // Returns things in a nice way
         {
             get
             {
@@ -59,7 +68,7 @@ namespace DorsetOOP.Models
             }
         }
 
-        public override string ToString()
+        public override string ToString() // Custom ToString
         {
             return $"{Course} : {RoomName} - {DateAndTime} - {Duration} - {Teacher.FullName}";
         }
